@@ -4,6 +4,9 @@ WFColorCode
 
 __WFColorCode__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
 
+* __Requirements__: OS X 10.7 or later
+* __ARC__: ARC enabled
+
 
 
 Usage
@@ -21,7 +24,23 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
     WFColorCodeCSSHSL,    // hsl(0,0%,100%)
     WFColorCodeCSSHSLa    // hsla(0,0%,100%,1)
 };
-``` 
+```
+
+### Example
+```objc
+// create NSColor instance from HSLa color code
+WFColorCodeType colorCodeType;
+NSColor *whiteColor = [NSColor colorWithColorCode:@"hsla(0,0%,100%,0.5)" codeType:&colorCodeType];
+NSString *hex = [whiteColor colorCodeWithType:WFColorCodeHex];  // => #ffffff
+
+
+// create NSColor instance from HSLa values
+NSColor *color = [NSColor colorWithDeviceHue:0.1 saturation:0.2 lightness:0.3 alpha:1.0];
+
+// get HSL values from NSColor instance
+CGFloat hue, saturation, lightness, alpha;
+[color getHue:&hue saturation:&saturation lightness:&lightness alpha:&alpha];
+```
 
 See NSColor+WFColorCode.h file to learn available methods.
 
