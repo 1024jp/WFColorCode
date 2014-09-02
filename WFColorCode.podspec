@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
   s.authors      = { "1024jp" => '1024jp@wolfrosch.com' }
 
   s.platform     = :osx, '10.7'
-  s.source       = { :git => "https://github.com/1024jp/WFColorCode.git"
+  s.source       = { :git => "https://github.com/1024jp/WFColorCode.git",
                      :tag => s.version }
 
-  s.source_files = 'NSColor+WFColorCode.{h,m}'
+  s.source_files = 'Classes/NSColor+WFColorCode.{h,m}'
   s.requires_arc = true
   s.compiler_flags = '-fmodules'
 end
