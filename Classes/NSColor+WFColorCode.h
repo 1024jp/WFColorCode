@@ -1,5 +1,5 @@
 //
-//  NSColor+WFColorCodeAddition.h
+//  NSColor+WFColorCode.h
 //
 //  Created by 1024jp on 2014-04-22.
 
@@ -30,7 +30,7 @@
 @import Cocoa;
 
 
-@interface NSColor (WFColorCodeAddition)
+@interface NSColor (WFColorCode)
 
 /// color code type
 typedef NS_ENUM(NSUInteger, WFColorCodeType) {
@@ -57,7 +57,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 
 #pragma mark -
 
-@interface NSColor (WFHSLAddition)
+@interface NSColor (WFHSL)
 
 /// Creates and returns an NSColor object using the given opacity and HSL components.
 /// Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.

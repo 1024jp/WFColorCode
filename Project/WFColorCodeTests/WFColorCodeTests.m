@@ -1,6 +1,6 @@
 //
-//  WFColorCodeAdditionTests.m
-//  WFColorCodeAddition
+//  WFColorCodeTests.m
+//  WFColorCode
 //
 //  Created by 1024jp on 2014-09-02.
 
@@ -30,14 +30,14 @@
 
 @import Cocoa;
 @import XCTest;
-#import "NSColor+WFColorCodeAddition.h"
+#import "NSColor+WFColorCode.h"
 
-@interface WFColorCodeAdditionTests : XCTestCase
+@interface WFColorCodeTests : XCTestCase
 
 @end
 
 
-@implementation WFColorCodeAdditionTests
+@implementation WFColorCodeTests
 
 - (void)testHSLaColorCode
 {

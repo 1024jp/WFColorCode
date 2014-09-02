@@ -1,5 +1,5 @@
 //
-//  NSColor+WFColorCodeAddition.h
+//  NSColor+WFColorCode.h
 //
 //  Created by 1024jp on 2014-04-22.
 
@@ -27,10 +27,10 @@
  THE SOFTWARE.
  */
 
-#import "NSColor+WFColorCodeAddition.h"
+#import "NSColor+WFColorCode.h"
 
 
-@implementation NSColor (WFColorCodeAddition)
+@implementation NSColor (WFColorCode)
 
 /// Creates and returns an NSColor object using the given color code or nil.
 + (NSColor *)colorWithColorCode:(NSString *)colorCode
@@ -188,7 +188,7 @@
 
 #pragma mark -
 
-@implementation NSColor (WFHSLAddition)
+@implementation NSColor (WFHSL)
 
 /// Creates and returns an NSColor object using the given opacity and HSL components.
 + (NSColor *)colorWithDeviceHue:(CGFloat)hue

@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A07503219B563500020EA75 /* WFColorCodeAdditionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07503119B563500020EA75 /* WFColorCodeAdditionTests.m */; };
-		2A07503E19B564470020EA75 /* NSColor+WFColorCodeAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07503C19B5637E0020EA75 /* NSColor+WFColorCodeAddition.m */; };
+		2A07503219B563500020EA75 /* WFColorCodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07503119B563500020EA75 /* WFColorCodeTests.m */; };
+		2A07503E19B564470020EA75 /* NSColor+WFColorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2A07502B19B563500020EA75 /* WFColorCodeAdditionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WFColorCodeAdditionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WFColorCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A07503019B563500020EA75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A07503119B563500020EA75 /* WFColorCodeAdditionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFColorCodeAdditionTests.m; sourceTree = "<group>"; };
-		2A07503B19B5637E0020EA75 /* NSColor+WFColorCodeAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+WFColorCodeAddition.h"; sourceTree = "<group>"; };
-		2A07503C19B5637E0020EA75 /* NSColor+WFColorCodeAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+WFColorCodeAddition.m"; sourceTree = "<group>"; };
+		2A07503119B563500020EA75 /* WFColorCodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFColorCodeTests.m; sourceTree = "<group>"; };
+		2A07503B19B5637E0020EA75 /* NSColor+WFColorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+WFColorCode.h"; sourceTree = "<group>"; };
+		2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+WFColorCode.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,8 +33,8 @@
 		2A07500F19B563500020EA75 = {
 			isa = PBXGroup;
 			children = (
-				2A07501A19B563500020EA75 /* WFColorCodeAddition */,
-				2A07502E19B563500020EA75 /* WFColorCodeAdditionTests */,
+				2A07501A19B563500020EA75 /* WFColorCode */,
+				2A07502E19B563500020EA75 /* WFColorCodeTests */,
 				2A07501919B563500020EA75 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -42,28 +42,28 @@
 		2A07501919B563500020EA75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2A07502B19B563500020EA75 /* WFColorCodeAdditionTests.xctest */,
+				2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2A07501A19B563500020EA75 /* WFColorCodeAddition */ = {
+		2A07501A19B563500020EA75 /* WFColorCode */ = {
 			isa = PBXGroup;
 			children = (
-				2A07503B19B5637E0020EA75 /* NSColor+WFColorCodeAddition.h */,
-				2A07503C19B5637E0020EA75 /* NSColor+WFColorCodeAddition.m */,
+				2A07503B19B5637E0020EA75 /* NSColor+WFColorCode.h */,
+				2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */,
 			);
-			name = WFColorCodeAddition;
-			path = ../../Classes;
+			name = WFColorCode;
+			path = ../Classes;
 			sourceTree = "<group>";
 		};
-		2A07502E19B563500020EA75 /* WFColorCodeAdditionTests */ = {
+		2A07502E19B563500020EA75 /* WFColorCodeTests */ = {
 			isa = PBXGroup;
 			children = (
-				2A07503119B563500020EA75 /* WFColorCodeAdditionTests.m */,
+				2A07503119B563500020EA75 /* WFColorCodeTests.m */,
 				2A07502F19B563500020EA75 /* Supporting Files */,
 			);
-			path = WFColorCodeAdditionTests;
+			path = WFColorCodeTests;
 			sourceTree = "<group>";
 		};
 		2A07502F19B563500020EA75 /* Supporting Files */ = {
@@ -77,9 +77,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2A07502A19B563500020EA75 /* WFColorCodeAdditionTests */ = {
+		2A07502A19B563500020EA75 /* WFColorCodeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "WFColorCodeAdditionTests" */;
+			buildConfigurationList = 2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "WFColorCodeTests" */;
 			buildPhases = (
 				2A07502719B563500020EA75 /* Sources */,
 				2A07502819B563500020EA75 /* Frameworks */,
@@ -89,9 +89,9 @@
 			);
 			dependencies = (
 			);
-			name = WFColorCodeAdditionTests;
-			productName = WFColorCodeAdditionTests;
-			productReference = 2A07502B19B563500020EA75 /* WFColorCodeAdditionTests.xctest */;
+			name = WFColorCodeTests;
+			productName = WFColorCodeTests;
+			productReference = 2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -100,6 +100,7 @@
 		2A07501019B563500020EA75 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = WF;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = 1024jp;
 				TargetAttributes = {
@@ -109,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2A07501319B563500020EA75 /* Build configuration list for PBXProject "WFColorCodeAddition" */;
+			buildConfigurationList = 2A07501319B563500020EA75 /* Build configuration list for PBXProject "WFColorCode" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -121,7 +122,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2A07502A19B563500020EA75 /* WFColorCodeAdditionTests */,
+				2A07502A19B563500020EA75 /* WFColorCodeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -141,8 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A07503E19B564470020EA75 /* NSColor+WFColorCodeAddition.m in Sources */,
-				2A07503219B563500020EA75 /* WFColorCodeAdditionTests.m in Sources */,
+				2A07503E19B564470020EA75 /* NSColor+WFColorCode.m in Sources */,
+				2A07503219B563500020EA75 /* WFColorCodeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +239,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = WFColorCodeAdditionTests/Info.plist;
+				INFOPLIST_FILE = WFColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -253,7 +254,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = WFColorCodeAdditionTests/Info.plist;
+				INFOPLIST_FILE = WFColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -262,7 +263,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2A07501319B563500020EA75 /* Build configuration list for PBXProject "WFColorCodeAddition" */ = {
+		2A07501319B563500020EA75 /* Build configuration list for PBXProject "WFColorCode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2A07503319B563500020EA75 /* Debug */,
@@ -271,7 +272,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "WFColorCodeAdditionTests" */ = {
+		2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "WFColorCodeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2A07503919B563500020EA75 /* Debug */,

@@ -1,14 +1,14 @@
 
-WFColorCodeAddition
+WFColorCode
 =============================
 
-__WFColorCodeAddition__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
+__WFColorCode__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
 
 
 
 Usage
 -----------------------------
-WFColorCodeAddition support following color code styles.
+WFColorCode supports following color code styles.
 
 ```objc
 /// color code type
@@ -23,19 +23,19 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 };
 ``` 
 
-See WFColorCodeAddition.h file to learn available methods.
+See NSColor+WFColorCode.h file to learn available methods.
 
 
 
 Installation
 -----------------------------
-WFColorCodeAddition is available via [CocoaPods](http://cocoapods.org). You can easily insatll it adding the following line to your Podfile:
+WFColorCode is available via [CocoaPods](http://cocoapods.org). You can easily insatll it adding the following line to your Podfile:
 
 ```ruby
-pod "WFColorCodeAddition"
+pod "WFColorCode"
 ```
 
-If you're not using CocoaPods, place WFColorCodeAddition.h and WFColorCodeAddition.m somewhare in your project.
+If you're not using CocoaPods, place NSColor+WFColorCode.h and NSColor+WFColorCode.m somewhare in your project.
 
 
 
