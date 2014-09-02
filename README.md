@@ -2,6 +2,8 @@
 WFColorCode
 =============================
 
+[![Build Status](https://travis-ci.org/1024jp/WFColorCode.png)](https://travis-ci.org/1024jp/WFColorCode)
+
 __WFColorCode__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
 
 * __Requirements__: OS X 10.7 or later
