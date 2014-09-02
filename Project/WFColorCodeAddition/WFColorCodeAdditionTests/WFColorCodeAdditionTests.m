@@ -39,26 +39,50 @@
 
 @implementation WFColorCodeAdditionTests
 
-- (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+- (void)testHSLaColorCode
+{
+    NSString *colorCode = @"hsla(203,10%,20%,0.3)";
+    WFColorCodeType colorCodeType;
+    NSColor *color = [NSColor colorWithColorCode:colorCode codeType:&colorCodeType];
+    
+    XCTAssertEqual(colorCodeType, WFColorCodeCSSHSLa);
+    XCTAssertEqualObjects([color colorCodeWithType:colorCodeType], colorCode);
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+
+- (void)testHexColorCode
+{
+    WFColorCodeType colorCodeType;
+    NSColor *color = [NSColor colorWithColorCode:@"#0066aa" codeType:&colorCodeType];
+    
+    XCTAssertEqual(colorCodeType, WFColorCodeHex);
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeShortHex], @"#06a");
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+
+- (void)testHSL
+{
+    CGFloat hue, saturation, lightness, alpha;
+    NSColor *color = [NSColor colorWithDeviceHue:0.1 saturation:0.2 lightness:0.3 alpha:0.4];
+    
+    [color getHue:&hue saturation:&saturation lightness:&lightness alpha:&alpha];
+    
+    XCTAssertEqual(roundAt(hue, 3), 0.1);
+    XCTAssertEqual(roundAt(saturation, 3), 0.2);
+    XCTAssertEqual(roundAt(lightness, 3), 0.3);
+    XCTAssertEqual(alpha, 0.4);
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+
+- (void)testRoundAt
+{
+    XCTAssertEqual(roundAt(12.000023, 5), 12.00002);
+}
+
+
+double roundAt(double value, unsigned long digit)
+{
+    return floor(value * pow(10, digit) + 0.5) / pow(10, digit);
 }
 
 @end
