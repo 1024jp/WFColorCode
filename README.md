@@ -29,6 +29,12 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 ```
 
 ### Example
+Import NSColor+WFColorCode.h to use.
+
+```objc
+#import "NSColor+WFColorCode.h"
+```
+
 ```objc
 // create NSColor instance from HSLa color code
 WFColorCodeType colorCodeType;
