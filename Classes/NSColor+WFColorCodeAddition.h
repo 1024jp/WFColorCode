@@ -63,6 +63,10 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 /// Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
 + (NSColor *)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
+/// Creates and returns an NSColor object using the given opacity and HSL components.
+/// Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
++ (NSColor *)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
+
 /// Returns the receiver’s HSL component and opacity values in the respective arguments.
 /// This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
 - (void)getHue:(CGFloat *)hue saturation:(CGFloat *)saturation lightness:(CGFloat *)lightness alpha:(CGFloat *)alpha;

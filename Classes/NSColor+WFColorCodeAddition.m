@@ -196,12 +196,22 @@
                       lightness:(CGFloat)lightness
                           alpha:(CGFloat)alpha
 {
-    saturation *= (lightness < 0.5) ? lightness : 1 - lightness;
-    
     return [NSColor colorWithDeviceHue:hue
-                            saturation:(2 * saturation / (lightness + saturation))
-                            brightness:(lightness + saturation)
+                            saturation:hsbSaturation(saturation, lightness)
+                            brightness:hsbBrightness(saturation, lightness)
                                  alpha:alpha];
+}
+
+/// Creates and returns an NSColor object using the given opacity and HSL components.
++ (NSColor *)colorWithCalibratedHue:(CGFloat)hue
+                         saturation:(CGFloat)saturation
+                          lightness:(CGFloat)lightness
+                              alpha:(CGFloat)alpha
+{
+    return [NSColor colorWithCalibratedHue:hue
+                                saturation:hsbSaturation(saturation, lightness)
+                                brightness:hsbBrightness(saturation, lightness)
+                                     alpha:alpha];
 }
 
 
@@ -226,6 +236,22 @@
     if (saturation) { *saturation = s; }
     if (lightness)  { *lightness  = l; }
     if (alpha)      { *alpha      = [self alphaComponent]; }
+}
+
+
+CGFloat hsbSaturation(CGFloat hslSaturation, CGFloat hslLightness)
+{
+    hslSaturation *= (hslLightness < 0.5) ? hslLightness : 1 - hslLightness;
+    
+    return (2 * hslSaturation / (hslLightness + hslSaturation));
+}
+
+
+CGFloat hsbBrightness(CGFloat hslSaturation, CGFloat hslLightness)
+{
+    hslSaturation *= (hslLightness < 0.5) ? hslLightness : 1 - hslLightness;
+    
+    return (hslLightness + hslSaturation);
 }
 
 @end
