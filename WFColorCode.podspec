@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/1024jp/WFColorCode"
   s.license      = { :type => "MIT",
                      :file => "LICENSE" }
-  s.authors      = { "1024jp" => '1024jp@wolfrosch.com' }
+  s.author       = { "1024jp" => "1024jp@wolfrosch.com" }
 
   s.platform     = :osx, '10.7'
   s.source       = { :git => "https://github.com/1024jp/WFColorCode.git",
