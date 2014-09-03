@@ -2,7 +2,7 @@
 WFColorCode
 =============================
 
-[![Build Status](https://travis-ci.org/1024jp/WFColorCode.png)](https://travis-ci.org/1024jp/WFColorCode)
+[![Build Status](http://img.shields.io/travis/1024jp/WFColorCode.svg)](https://travis-ci.org/1024jp/WFColorCode)
 [![CocoaPods version](http://img.shields.io/cocoapods/v/WFColorCode.svg)](http://cocoadocs.org/docsets/WFColorCode)
 [![CocoaPods platform](http://img.shields.io/cocoapods/p/WFColorCode.svg)](http://cocoadocs.org/docsets/WFColorCode)
 
