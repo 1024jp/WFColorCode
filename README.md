@@ -58,7 +58,7 @@ See NSColor+WFColorCode.h file to learn available methods.
 
 Installation
 -----------------------------
-WFColorCode is available via [CocoaPods](http://cocoapods.org). You can easily insatll it adding the following line to your Podfile:
+WFColorCode is available via [CocoaPods](http://cocoapods.org). You can easily install it adding the following line to your Podfile:
 
 ```ruby
 pod "WFColorCode"
