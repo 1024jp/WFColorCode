@@ -3,6 +3,8 @@ WFColorCode
 =============================
 
 [![Build Status](https://travis-ci.org/1024jp/WFColorCode.png)](https://travis-ci.org/1024jp/WFColorCode)
+[![CocoaPods version](http://img.shields.io/cocoapods/v/WFColorCode.svg)](http://cocoadocs.org/docsets/WFColorCode)
+[![CocoaPods platform](http://img.shields.io/cocoapods/p/WFColorCode.svg)](http://cocoadocs.org/docsets/WFColorCode)
 
 __WFColorCode__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
 
