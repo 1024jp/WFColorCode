@@ -1,5 +1,5 @@
 //
-//  NSColor+WFColorCode.h
+//  NSColor+WFColorCode.m
 //
 //  Created by 1024jp on 2014-04-22.
 
@@ -156,7 +156,7 @@
             CGFloat hue, saturation, lightness, alpha;
             [self getHue:&hue saturation:&saturation lightness:&lightness alpha:&alpha];
             
-            int h = (int)roundf(360 * hue);
+            int h = (saturation == 0) ? 0 : (int)roundf(360 * hue);
             int s = (int)roundf(100 * saturation);
             int l = (int)roundf(100 * lightness);
             
@@ -214,18 +214,29 @@
      lightness:(CGFloat *)lightness
          alpha:(CGFloat *)alpha
 {
-    CGFloat max = MAX(MAX([self redComponent], [self greenComponent]), [self blueComponent]);
-    CGFloat min = MIN(MIN([self redComponent], [self greenComponent]), [self blueComponent]);
-    
-    CGFloat s = ([self lightnessComponent] > 0.5) ? (max - min) / (2 - max - min) : (max - min) / (max + min);
-    if (isnan(s) || ([self saturationComponent] < 0.00001 && [self brightnessComponent] < 9.9999)) {
-        s = 0;
-    }
-    
-    if (hue)        { *hue        = (s == 0) ? 0 : [self hueComponent]; }
-    if (saturation) { *saturation = s; }
+    if (hue)        { *hue        = [self hueComponent]; }
+    if (saturation) { *saturation = [self hslSaturationComponent]; }
     if (lightness)  { *lightness  = [self lightnessComponent]; }
     if (alpha)      { *alpha      = [self alphaComponent]; }
+}
+
+
+/// Returns the saturation component of HSL color equivalent to the receiver.
+- (CGFloat)hslSaturationComponent
+{
+    CGFloat max = MAX(MAX([self redComponent], [self greenComponent]), [self blueComponent]);
+    CGFloat min = MIN(MIN([self redComponent], [self greenComponent]), [self blueComponent]);
+    CGFloat diff = max - min;
+    
+    CGFloat saturation = ([self lightnessComponent] > 0.5) ? diff / (2 - max - min) : diff / (max + min);
+    
+    if (isnan(saturation) ||
+        ([self saturationComponent] < 0.00001 && [self brightnessComponent] < 9.9999))
+    {
+        saturation = 0;
+    }
+    
+    return saturation;
 }
 
 

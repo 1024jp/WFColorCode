@@ -109,6 +109,15 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
 - (void)getHue:(CGFloat *)hue saturation:(CGFloat *)saturation lightness:(CGFloat *)lightness alpha:(CGFloat *)alpha;
 
 
+/** Returns the saturation component of the HSL color equivalent to the receiver.
+ 
+ This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+ 
+ @return           The color object's saturation component.
+ */
+- (CGFloat)hslSaturationComponent;
+
+
 /** Returns the lightness component of the HSL color equivalent to the receiver.
  
  This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
