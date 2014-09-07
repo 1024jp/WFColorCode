@@ -64,7 +64,7 @@ WFColorCode is available via [CocoaPods](http://cocoapods.org). You can easily i
 pod "WFColorCode"
 ```
 
-If you're not using CocoaPods, place NSColor+WFColorCode.h and NSColor+WFColorCode.m somewhare in your project.
+If you're not using CocoaPods, place NSColor+WFColorCode.h and NSColor+WFColorCode.m somewhere in your project.
 
 
 
