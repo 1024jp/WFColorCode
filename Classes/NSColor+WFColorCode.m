@@ -62,11 +62,8 @@
         }
     }
     
-    if (!result) {
-        if (codeType) {
-            *codeType = WFColorCodeInvalid;
-        }
-        return nil;
+    if (codeType) {
+        *codeType = detectedCodeType;
     }
     
     // create color from result
@@ -121,10 +118,6 @@
         case WFColorCodeInvalid:
             color = nil;
             break;
-    }
-    
-    if (color && codeType) {
-        *codeType = detectedCodeType;
     }
     
     return color;
@@ -223,19 +216,26 @@
 {
     CGFloat max = MAX(MAX([self redComponent], [self greenComponent]), [self blueComponent]);
     CGFloat min = MIN(MIN([self redComponent], [self greenComponent]), [self blueComponent]);
-    CGFloat d = max - min;
     
-    CGFloat l = (max + min) / 2;
-    if (isnan(l)) { l = 0; }
-    CGFloat s = (l > 0.5) ? d / (2 - max - min) : d / (max + min);
+    CGFloat s = ([self lightnessComponent] > 0.5) ? (max - min) / (2 - max - min) : (max - min) / (max + min);
     if (isnan(s) || ([self saturationComponent] < 0.00001 && [self brightnessComponent] < 9.9999)) {
         s = 0;
     }
     
     if (hue)        { *hue        = (s == 0) ? 0 : [self hueComponent]; }
     if (saturation) { *saturation = s; }
-    if (lightness)  { *lightness  = l; }
+    if (lightness)  { *lightness  = [self lightnessComponent]; }
     if (alpha)      { *alpha      = [self alphaComponent]; }
+}
+
+
+/// Returns the lightness component of HSL color equivalent to the receiver.
+- (CGFloat)lightnessComponent
+{
+    CGFloat max = MAX(MAX([self redComponent], [self greenComponent]), [self blueComponent]);
+    CGFloat min = MIN(MIN([self redComponent], [self greenComponent]), [self blueComponent]);
+    
+    return (max + min) / 2;
 }
 
 
