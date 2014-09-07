@@ -43,11 +43,23 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
     WFColorCodeCSSHSLa    // hsla(0,0%,100%,1)
 };
 
-/// Creates and returns an NSColor object using the given color code. Or returns nil if color code is invalid.
+
+/** Creates and returns an NSColor object using the given color code. Or returns nil if color code is invalid.
+ 
+ @param colorCode  The CSS3 style color code string.
+ @param codeType   Upon return, contains the detected color code type.
+ @return           The color object.
+ */
 + (NSColor *)colorWithColorCode:(NSString *)colorCode codeType:(WFColorCodeType *)codeType;
 
-/// Returns the receiver’s color code in desired type.
-/// This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+
+/** Returns the receiver’s color code in desired type.
+ 
+This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+ 
+ @param codeType   The type of color code to format the returned string. You may use one of the types listed in WFColorCodeType.
+ @return           The color code string formatted in the input type.
+ */
 - (NSString *)colorCodeWithType:(WFColorCodeType)codeType;
 
 @end
@@ -59,16 +71,41 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 
 @interface NSColor (WFHSL)
 
-/// Creates and returns an NSColor object using the given opacity and HSL components.
-/// Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+/** Creates and returns an NSColor object using the given opacity and HSL components.
+ 
+ Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+ 
+ @param hue        The hue component of the color object in the HSL color space.
+ @param saturation The saturation component of the color object in the HSL color space.
+ @param lightness  The lightness component of the color object in the HSL color space.
+ @param alpha      The opacity value of the color object.
+ @return           The color object.
+ */
 + (NSColor *)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
-/// Creates and returns an NSColor object using the given opacity and HSL components.
-/// Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+
+/** Creates and returns an NSColor object using the given opacity and HSL components.
+ 
+ Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+ 
+ @param hue        The hue component of the color object in the HSL color space.
+ @param saturation The saturation component of the color object in the HSL color space.
+ @param lightness  The lightness component of the color object in the HSL color space.
+ @param alpha      The opacity value of the color object.
+ @return           The color object.
+ */
 + (NSColor *)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
-/// Returns the receiver’s HSL component and opacity values in the respective arguments.
-/// This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+
+/** Returns the receiver’s HSL component and opacity values in the respective arguments.
+ 
+ If NULL is passed in as an argument, the method doesn’t set that value. This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+ 
+ @param hue        Upon return, contains the hue component of the color object.
+ @param saturation Upon return, contains the saturation component of the color object.
+ @param lightness  Upon return, contains the saturation lightness of the color object.
+ @param alpha      Upon return, contains the alpha component of the color object.
+ */
 - (void)getHue:(CGFloat *)hue saturation:(CGFloat *)saturation lightness:(CGFloat *)lightness alpha:(CGFloat *)alpha;
 
 @end
