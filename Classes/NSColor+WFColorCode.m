@@ -74,7 +74,7 @@
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:1]]] scanHexInt:&r];
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:2]]] scanHexInt:&g];
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:3]]] scanHexInt:&b];
-            color = [NSColor colorWithDeviceRed:((CGFloat)r/255) green:((CGFloat)g/255) blue:((CGFloat)b/255) alpha:1.0];
+            color = [NSColor colorWithCalibratedRed:((CGFloat)r/255) green:((CGFloat)g/255) blue:((CGFloat)b/255) alpha:1.0];
         } break;
             
         case WFColorCodeShortHex: {
@@ -82,14 +82,14 @@
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:1]]] scanHexInt:&r];
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:2]]] scanHexInt:&g];
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:3]]] scanHexInt:&b];
-            color = [NSColor colorWithDeviceRed:((CGFloat)r/15) green:((CGFloat)g/15) blue:((CGFloat)b/15) alpha:1.0];
+            color = [NSColor colorWithCalibratedRed:((CGFloat)r/15) green:((CGFloat)g/15) blue:((CGFloat)b/15) alpha:1.0];
         } break;
             
         case WFColorCodeCSSRGB: {
             CGFloat r = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:1]] doubleValue];
             CGFloat g = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:2]] doubleValue];
             CGFloat b = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
-            color = [NSColor colorWithDeviceRed:r/255 green:g/255 blue:b/255 alpha:1.0];
+            color = [NSColor colorWithCalibratedRed:r/255 green:g/255 blue:b/255 alpha:1.0];
         } break;
             
         case WFColorCodeCSSRGBa: {
@@ -97,14 +97,14 @@
             CGFloat g = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:2]] doubleValue];
             CGFloat b = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
             CGFloat a = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:4]] doubleValue];
-            color = [NSColor colorWithDeviceRed:r/255 green:g/255 blue:b/255 alpha:a];
+            color = [NSColor colorWithCalibratedRed:r/255 green:g/255 blue:b/255 alpha:a];
         } break;
             
         case WFColorCodeCSSHSL: {
             CGFloat h = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:1]] doubleValue];
             CGFloat s = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:2]] doubleValue];
             CGFloat l = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
-            color = [NSColor colorWithDeviceHue:h/360 saturation:s/100 lightness:l/100 alpha:1.0];
+            color = [NSColor colorWithCalibratedHue:h/360 saturation:s/100 lightness:l/100 alpha:1.0];
         } break;
             
         case WFColorCodeCSSHSLa: {
@@ -112,9 +112,9 @@
             CGFloat s = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:2]] doubleValue];
             CGFloat l = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
             CGFloat a = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:4]] doubleValue];
-            color = [NSColor colorWithDeviceHue:h/360 saturation:s/100 lightness:l/100 alpha:a];
+            color = [NSColor colorWithCalibratedHue:h/360 saturation:s/100 lightness:l/100 alpha:a];
         } break;
-            
+        
         case WFColorCodeInvalid:
             color = nil;
             break;
