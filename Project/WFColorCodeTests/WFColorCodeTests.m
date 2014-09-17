@@ -39,6 +39,21 @@
 
 @implementation WFColorCodeTests
 
+- (void)testWhite
+{
+    NSColor *color = [[NSColor whiteColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+    
+    XCTAssertThrows([[NSColor whiteColor] colorCodeWithType:WFColorCodeHex]);
+    
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeHex], @"#ffffff");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeShortHex], @"#fff");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSRGB], @"rgb(255,255,255)");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSRGBa], @"rgba(255,255,255,1)");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSHSL], @"hsl(0,0%,100%)");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSHSLa], @"hsla(0,0%,100%,1)");
+}
+
+
 - (void)testHSLaColorCode
 {
     NSString *colorCode = @"hsla(203,10%,20%,0.3)";
