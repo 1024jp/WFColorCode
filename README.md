@@ -6,7 +6,7 @@ WFColorCode
 [![CocoaPods version](http://img.shields.io/cocoapods/v/WFColorCode.svg?style=flat)](http://cocoadocs.org/docsets/WFColorCode)
 [![CocoaPods platform](http://img.shields.io/cocoapods/p/WFColorCode.svg?style=flat)](http://cocoadocs.org/docsets/WFColorCode)
 
-__WFColorCode__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
+__WFColorCode__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.  It also adds the ability to handle HSL color space.
 
 * __Requirements__: OS X 10.7 or later
 * __ARC__: ARC enabled
@@ -64,7 +64,7 @@ WFColorCode is available via [CocoaPods](http://cocoapods.org). You can easily i
 pod "WFColorCode"
 ```
 
-If you're not using CocoaPods, place NSColor+WFColorCode.h and NSColor+WFColorCode.m somewhere in your project.
+If you don't use CocoaPods, place NSColor+WFColorCode.h and NSColor+WFColorCode.m somewhere in your project.
 
 
 
