@@ -71,6 +71,7 @@
     NSColor *color = [NSColor colorWithColorCode:@"#0066aa" codeType:&colorCodeType];
     
     XCTAssertEqual(colorCodeType, WFColorCodeHex);
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeHex], @"#0066aa");
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeShortHex], @"#06a");
 }
 
