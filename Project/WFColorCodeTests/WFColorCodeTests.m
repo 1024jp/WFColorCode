@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014 1024jp
+ Copyright (c) 2014-2015 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -83,22 +83,10 @@
     
     [color getHue:&hue saturation:&saturation lightness:&lightness alpha:&alpha];
     
-    XCTAssertEqual(roundAt(hue, 3), 0.1);
-    XCTAssertEqual(roundAt(saturation, 3), 0.2);
-    XCTAssertEqual(roundAt(lightness, 3), 0.3);
+    XCTAssertEqualWithAccuracy(hue, 0.1, 3);
+    XCTAssertEqualWithAccuracy(saturation, 0.2, 3);
+    XCTAssertEqualWithAccuracy(lightness, 0.3, 3);
     XCTAssertEqual(alpha, 0.4);
-}
-
-
-- (void)testRoundAt
-{
-    XCTAssertEqual(roundAt(12.000023, 5), 12.00002);
-}
-
-
-double roundAt(double value, unsigned long digit)
-{
-    return floor(value * pow(10, digit) + 0.5) / pow(10, digit);
 }
 
 @end
