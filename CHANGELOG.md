@@ -1,6 +1,11 @@
 CHANGELOG
 ===========
 
+1.1.3
+-----------
+### fix
+- A trivial fix for nullability annotations.
+
 1.1.2
 -----------
 ### mod

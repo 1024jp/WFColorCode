@@ -30,6 +30,12 @@
 @import Cocoa;
 
 
+#if !__has_feature(nullability)  // Xcode 6.3+
+# define nullable
+# define nonnull
+#endif
+
+
 @interface NSColor (WFColorCode)
 
 /// color code type
