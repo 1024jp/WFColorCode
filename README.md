@@ -16,7 +16,7 @@ __WFColorCode__ is a NSColor category that allows creating NSColor instance from
 
 Usage
 -----------------------------
-WFColorCode supports following color code styles.
+WFColorCode supports the following color code styles.
 
 ```objc
 /// color code type
@@ -84,6 +84,6 @@ If you don't use CocoaPods, place NSColor+WFColorCode.h and NSColor+WFColorCode.
 
 License
 -----------------------------
-© 2014 1024jp.
+© 2014-2015 1024jp.
 
 The source code is distributed under the terms of the __MIT License__. See the bundled "[LICENSE](LICENSE)" for details.
