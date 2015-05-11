@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014 1024jp
+ Copyright (c) 2014-2015 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param codeType   Upon return, contains the detected color code type.
  @return           The color object.
  */
-+ (NSColor *)colorWithColorCode:(NSString *)colorCode codeType:(WFColorCodeType *)codeType;
++ (nullable NSColor *)colorWithColorCode:(nonnull NSString *)colorCode codeType:(nullable WFColorCodeType *)codeType;
 
 
 /** Returns the receiver’s color code in desired type.
@@ -60,7 +60,7 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
  @param codeType   The type of color code to format the returned string. You may use one of the types listed in WFColorCodeType.
  @return           The color code string formatted in the input type.
  */
-- (NSString *)colorCodeWithType:(WFColorCodeType)codeType;
+- (nullable NSString *)colorCodeWithType:(WFColorCodeType)codeType;
 
 @end
 
@@ -81,7 +81,7 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
  @param alpha      The opacity value of the color object.
  @return           The color object.
  */
-+ (NSColor *)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
++ (nonnull NSColor *)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
 /** Creates and returns an NSColor object using the given opacity and HSL components.
@@ -94,7 +94,7 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
  @param alpha      The opacity value of the color object.
  @return           The color object.
  */
-+ (NSColor *)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
++ (nonnull NSColor *)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
 /** Returns the receiver’s HSL component and opacity values in the respective arguments.
@@ -106,7 +106,7 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
  @param lightness  Upon return, contains the saturation lightness of the color object.
  @param alpha      Upon return, contains the alpha component of the color object.
  */
-- (void)getHue:(CGFloat *)hue saturation:(CGFloat *)saturation lightness:(CGFloat *)lightness alpha:(CGFloat *)alpha;
+- (void)getHue:(nullable CGFloat *)hue saturation:(nullable CGFloat *)saturation lightness:(nullable CGFloat *)lightness alpha:(nullable CGFloat *)alpha;
 
 
 /** Returns the saturation component of the HSL color equivalent to the receiver.

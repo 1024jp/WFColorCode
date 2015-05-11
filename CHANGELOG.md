@@ -1,6 +1,12 @@
 CHANGELOG
 ===========
 
+1.1.2
+-----------
+### mod
+- Add nullability to methods.
+
+
 1.1.1
 -----------
 ### mod
@@ -11,5 +17,6 @@ CHANGELOG
 -----------
 ### new
 - New methods `hslSaturationComponent` and `lightnessComponent`
+
 ### mod
 - Add detailed doc comments

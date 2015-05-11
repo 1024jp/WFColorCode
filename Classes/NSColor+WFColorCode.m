@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014 1024jp
+ Copyright (c) 2014-2015 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,8 @@
 @implementation NSColor (WFColorCode)
 
 /// Creates and returns an NSColor object using the given color code or nil.
-+ (NSColor *)colorWithColorCode:(NSString *)colorCode
-                       codeType:(WFColorCodeType *)codeType
++ (nullable NSColor *)colorWithColorCode:(nonnull NSString *)colorCode
+                       codeType:(nullable WFColorCodeType *)codeType
 {
     colorCode = [colorCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSRange codeRange = NSMakeRange(0, [colorCode length]);
@@ -125,10 +125,8 @@
 
 
 /// Returns the receiver’s color code string as desired type.
-- (NSString *)colorCodeWithType:(WFColorCodeType)codeType
+- (nullable NSString *)colorCodeWithType:(WFColorCodeType)codeType
 {
-    NSString *code;
-    
     int r = (int)roundf(255 * [self redComponent]);
     int g = (int)roundf(255 * [self greenComponent]);
     int b = (int)roundf(255 * [self blueComponent]);
@@ -136,20 +134,16 @@
     
     switch (codeType) {
         case WFColorCodeHex:
-            code = [NSString stringWithFormat:@"#%02x%02x%02x", r, g, b];
-            break;
+            return [NSString stringWithFormat:@"#%02x%02x%02x", r, g, b];
             
         case WFColorCodeShortHex:
-            code = [NSString stringWithFormat:@"#%1x%1x%1x", r/16, g/16, b/16];
-            break;
+            return [NSString stringWithFormat:@"#%1x%1x%1x", r/16, g/16, b/16];
             
         case WFColorCodeCSSRGB:
-            code = [NSString stringWithFormat:@"rgb(%d,%d,%d)", r, g, b];
-            break;
+            return [NSString stringWithFormat:@"rgb(%d,%d,%d)", r, g, b];
             
         case WFColorCodeCSSRGBa:
-            code = [NSString stringWithFormat:@"rgba(%d,%d,%d,%g)", r, g, b, alpha];
-            break;
+            return [NSString stringWithFormat:@"rgba(%d,%d,%d,%g)", r, g, b, alpha];
             
         case WFColorCodeCSSHSL:
         case WFColorCodeCSSHSLa: {
@@ -161,17 +155,15 @@
             int l = (int)roundf(100 * lightness);
             
             if (codeType == WFColorCodeCSSHSLa) {
-                code = [NSString stringWithFormat:@"hsla(%d,%d%%,%d%%,%g)", h, s, l, alpha];
+                return [NSString stringWithFormat:@"hsla(%d,%d%%,%d%%,%g)", h, s, l, alpha];
             } else {
-                code = [NSString stringWithFormat:@"hsl(%d,%d%%,%d%%)", h, s, l];
+                return [NSString stringWithFormat:@"hsl(%d,%d%%,%d%%)", h, s, l];
             }
-        } break;
+        }
             
         case WFColorCodeInvalid:
-            break;
+            return nil;
     }
-    
-    return code;
 }
 
 @end
@@ -184,7 +176,7 @@
 @implementation NSColor (WFHSL)
 
 /// Creates and returns an NSColor object using the given opacity and HSL components.
-+ (NSColor *)colorWithDeviceHue:(CGFloat)hue
++ (nonnull NSColor *)colorWithDeviceHue:(CGFloat)hue
                      saturation:(CGFloat)saturation
                       lightness:(CGFloat)lightness
                           alpha:(CGFloat)alpha
@@ -196,7 +188,7 @@
 }
 
 /// Creates and returns an NSColor object using the given opacity and HSL components.
-+ (NSColor *)colorWithCalibratedHue:(CGFloat)hue
++ (nonnull NSColor *)colorWithCalibratedHue:(CGFloat)hue
                          saturation:(CGFloat)saturation
                           lightness:(CGFloat)lightness
                               alpha:(CGFloat)alpha
@@ -209,10 +201,10 @@
 
 
 /// Returns the receiver’s HSL component and opacity values in the respective arguments.
-- (void)getHue:(CGFloat *)hue
-    saturation:(CGFloat *)saturation
-     lightness:(CGFloat *)lightness
-         alpha:(CGFloat *)alpha
+- (void)getHue:(nullable CGFloat *)hue
+    saturation:(nullable CGFloat *)saturation
+     lightness:(nullable CGFloat *)lightness
+         alpha:(nullable CGFloat *)alpha
 {
     if (hue)        { *hue        = [self hueComponent]; }
     if (saturation) { *saturation = [self hslSaturationComponent]; }

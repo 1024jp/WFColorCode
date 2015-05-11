@@ -30,6 +30,19 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 };
 ```
 
+```swift
+/// color code type
+enum WFColorCodeType : UInt {
+    case Invalid   // nil
+    case Hex       // #ffffff
+    case ShortHex  // #fff
+    case CSSRGB    // rgb(255,255,255)
+    case CSSRGBa   // rgba(255,255,255,1)
+    case CSSHSL    // hsl(0,0%,100%)
+    case CSSHSLa   // hsla(0,0%,100%,1)
+};
+```
+
 ### Example
 Import NSColor+WFColorCode.h to use.
 
