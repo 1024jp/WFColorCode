@@ -1,4 +1,4 @@
 language: objective-c
 xcode_project: Project/WFColorCode.xcodeproj
 xcode_scheme: WFColorCodeTests
-osx_image: xcode63
+osx_image: xcode6.4
