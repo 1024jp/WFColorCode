@@ -30,21 +30,47 @@
 @import Cocoa;
 
 
+/**
+ This category on @c NSColor allows creating @c NSColor instance from a CSS color code string, or color code string from a NSColor instance.
+ */
 @interface NSColor (WFColorCode)
 
-/// color code type
+/**
+ Color code type
+ */
 typedef NS_ENUM(NSUInteger, WFColorCodeType) {
-    WFColorCodeInvalid,   // nil
-    WFColorCodeHex,       // #ffffff
-    WFColorCodeShortHex,  // #fff
-    WFColorCodeCSSRGB,    // rgb(255,255,255)
-    WFColorCodeCSSRGBa,   // rgba(255,255,255,1)
-    WFColorCodeCSSHSL,    // hsl(0,0%,100%)
-    WFColorCodeCSSHSLa    // hsla(0,0%,100%,1)
+    /// Color code is invalid.
+    WFColorCodeInvalid,
+    
+    /// 6-digit hexadecimal color code with # symbol. For example: #ffffff
+    WFColorCodeHex,
+    
+    /// 3-digit hexadecimal color code with # symbol. For example: #fff
+    WFColorCodeShortHex,
+    
+    /// CSS style color code in RGB. For example: rgb(255,255,255)
+    WFColorCodeCSSRGB,
+    
+    /// CSS style color code in RGB with alpha channel. For example: rgba(255,255,255,1)
+    WFColorCodeCSSRGBa,
+    
+    /// CSS style color code in HSL. For example: hsl(0,0%,100%)
+    WFColorCodeCSSHSL,
+    
+    /// CSS style color code in HSL with alpha channel. For example: hsla(0,0%,100%,1)
+    WFColorCodeCSSHSLa
 };
 
 
-/** Creates and returns an NSColor object using the given color code. Or returns nil if color code is invalid.
+/**
+ Creates and returns an @c NSColor object using the given color code. Or returns @c nil if color code is invalid.
+ 
+ Example usage:
+ @code
+ WFColorCodeType colorCodeType;
+ NSColor *whiteColor = [NSColor colorWithColorCode:@"hsla(0,0%,100%,0.5)" codeTypfe:&colorCodeType];
+ NSString *hex = [whiteColor colorCodeWithType:WFColorCodeHex];  // => #ffffff
+ @endcode
  
  @param colorCode  The CSS3 style color code string.
  @param codeType   Upon return, contains the detected color code type.
@@ -53,11 +79,12 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 + (nullable NSColor *)colorWithColorCode:(nonnull NSString *)colorCode codeType:(nullable WFColorCodeType *)codeType;
 
 
-/** Returns the receiver’s color code in desired type.
+/**
+ Returns the receiver’s color code in desired type.
  
-This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+ This method works only with objects representing colors in the @c NSCalibratedRGBColorSpace or @c NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
  
- @param codeType   The type of color code to format the returned string. You may use one of the types listed in WFColorCodeType.
+ @param codeType   The type of color code to format the returned string. You may use one of the types listed in @c WFColorCodeType.
  @return           The color code string formatted in the input type.
  */
 - (nullable NSString *)colorCodeWithType:(WFColorCodeType)codeType;
@@ -69,9 +96,13 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
 
 #pragma mark -
 
+/**
+ This category on NSColor adds the ability to handle HSL color space.
+ */
 @interface NSColor (WFHSL)
 
-/** Creates and returns an NSColor object using the given opacity and HSL components.
+/**
+ Creates and returns an @c NSColor object using the given opacity and HSL components.
  
  Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
  
@@ -84,7 +115,8 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
 + (nonnull NSColor *)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
-/** Creates and returns an NSColor object using the given opacity and HSL components.
+/**
+ Creates and returns an @c NSColor object using the given opacity and HSL components.
  
  Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
  
@@ -97,9 +129,10 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
 + (nonnull NSColor *)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
-/** Returns the receiver’s HSL component and opacity values in the respective arguments.
+/**
+ Returns the receiver’s HSL component and opacity values in the respective arguments.
  
- If NULL is passed in as an argument, the method doesn’t set that value. This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+ If NULL is passed in as an argument, the method doesn’t set that value. This method works only with objects representing colors in the @c NSCalibratedRGBColorSpace or @c NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
  
  @param hue        Upon return, contains the hue component of the color object.
  @param saturation Upon return, contains the saturation component of the color object.
@@ -109,18 +142,20 @@ This method works only with objects representing colors in the NSCalibratedRGBCo
 - (void)getHue:(nullable CGFloat *)hue saturation:(nullable CGFloat *)saturation lightness:(nullable CGFloat *)lightness alpha:(nullable CGFloat *)alpha;
 
 
-/** Returns the saturation component of the HSL color equivalent to the receiver.
+/**
+ Returns the saturation component of the HSL color equivalent to the receiver.
  
- This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+ This method works only with objects representing colors in the @c NSCalibratedRGBColorSpace or @c NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
  
  @return           The color object's saturation component.
  */
 - (CGFloat)hslSaturationComponent;
 
 
-/** Returns the lightness component of the HSL color equivalent to the receiver.
+/**
+ Returns the lightness component of the HSL color equivalent to the receiver.
  
- This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+ This method works only with objects representing colors in the @c NSCalibratedRGBColorSpace or @c NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
  
  @return           The color object's lightness component.
  */
