@@ -3,9 +3,9 @@ WFColorCode
 =============================
 
 [![Build Status](http://img.shields.io/travis/1024jp/WFColorCode.svg?style=flat)](https://travis-ci.org/1024jp/WFColorCode)
-[![CocoaPods version](http://img.shields.io/cocoapods/v/WFColorCode.svg?style=flat)](http://cocoadocs.org/docsets/WFColorCode)
-[![License](https://img.shields.io/cocoapods/l/WFColorCode.svg?style=flat)](http://cocoadocs.org/docsets/WFColorCode)
-[![CocoaPods platform](http://img.shields.io/cocoapods/p/WFColorCode.svg?style=flat)](http://cocoadocs.org/docsets/WFColorCode)
+[![CocoaPods version](http://img.shields.io/cocoapods/v/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
+[![License](https://img.shields.io/cocoapods/l/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
+[![CocoaPods platform](http://img.shields.io/cocoapods/p/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
 
 __WFColorCode__ is a NSColor category that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.  It also adds the ability to handle HSL color space.
 
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
     WFColorCodeCSSRGBa,   // rgba(255,255,255,1)
     WFColorCodeCSSHSL,    // hsl(0,0%,100%)
     WFColorCodeCSSHSLa    // hsla(0,0%,100%,1)
-    WFColorCodeCSSKeyword // PowderBlue
+    WFColorCodeCSSKeyword // White
 };
 ```
 
@@ -42,7 +42,7 @@ enum WFColorCodeType : UInt {
     case CSSRGBa    // rgba(255,255,255,1)
     case CSSHSL     // hsl(0,0%,100%)
     case CSSHSLa    // hsla(0,0%,100%,1)
-    case CSSKeyword // PowderBlue
+    case CSSKeyword // White
 };
 ```
 

@@ -75,7 +75,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  NSString *hex = [whiteColor colorCodeWithType:WFColorCodeHex];  // => #ffffff
  @endcode
  
- @param colorCode  The CSS3 style color code string.
+ @param colorCode  The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
  @param codeType   Upon return, contains the detected color code type.
  @return           The color object.
  */
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 /**
  Creates and returns a @c <NSString, NSColor> paired dictionary represents all keyword colors specified in CSS3.
  
- @return           The Dcitonary of the stylesheet keyword names and colors pairs.
+ @return           The Dcitonary of the stylesheet keyword names and colors pairs. The names are in upper camel case.
  */
 + (nonnull NSDictionary *)stylesheetKeywordColors;
 
