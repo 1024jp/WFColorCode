@@ -21,14 +21,14 @@ WFColorCode supports the following color code styles.
 ```objc
 /// color code type
 typedef NS_ENUM(NSUInteger, WFColorCodeType) {
-    WFColorCodeInvalid,   // nil
-    WFColorCodeHex,       // #ffffff
-    WFColorCodeShortHex,  // #fff
-    WFColorCodeCSSRGB,    // rgb(255,255,255)
-    WFColorCodeCSSRGBa,   // rgba(255,255,255,1)
-    WFColorCodeCSSHSL,    // hsl(0,0%,100%)
-    WFColorCodeCSSHSLa    // hsla(0,0%,100%,1)
-    WFColorCodeCSSKeyword // White
+    WFColorCodeInvalid,    // nil
+    WFColorCodeHex,        // #ffffff
+    WFColorCodeShortHex,   // #fff
+    WFColorCodeCSSRGB,     // rgb(255,255,255)
+    WFColorCodeCSSRGBa,    // rgba(255,255,255,1)
+    WFColorCodeCSSHSL,     // hsl(0,0%,100%)
+    WFColorCodeCSSHSLa,    // hsla(0,0%,100%,1)
+    WFColorCodeCSSKeyword, // White
 };
 ```
 
