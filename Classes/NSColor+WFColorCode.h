@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
     /// CSS style color code in HSL with alpha channel. For example: hsla(0,0%,100%,1)
     WFColorCodeCSSHSLa,
     
-    /// CSS style color code with keyrowd. For example: darkgreen
+    /// CSS style color code with keyrowd. For example: White
     WFColorCodeCSSKeyword,
 };
 
