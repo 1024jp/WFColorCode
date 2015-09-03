@@ -59,10 +59,8 @@ WFColorCodeType colorCodeType;
 NSColor *whiteColor = [NSColor colorWithColorCode:@"hsla(0,0%,100%,0.5)" codeType:&colorCodeType];
 NSString *hex = [whiteColor colorCodeWithType:WFColorCodeHex];  // => #ffffff
 
-
 // create NSColor instance from HSLa values
 NSColor *color = [NSColor colorWithDeviceHue:0.1 saturation:0.2 lightness:0.3 alpha:1.0];
-
 
 // create NSColor instance from a CSS3 keyword
 NSColor *ivoryColor = [NSColor colorWithColorCode:@"ivory" codeType:NULL];
