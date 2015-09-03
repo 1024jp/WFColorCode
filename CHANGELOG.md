@@ -1,7 +1,7 @@
 CHANGELOG
 ===========
 
-develop
+1.2.0
 -----------
 ### new
 - Add `WFColorCodeCSSKeyword` color code type.
