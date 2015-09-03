@@ -6,6 +6,9 @@ develop
 ### new
 - Add new `colorWithHex:alpha:` method.
 
+### mod
+- Return `instancetype` instead of `NSColor`.
+
 
 1.1.4
 -----------

@@ -34,8 +34,8 @@
 
 #pragma mark Public Methods
 
-+ (nullable NSColor *)colorWithColorCode:(nonnull NSString *)colorCode
-                                codeType:(nullable WFColorCodeType *)codeType
++ (nullable instancetype)colorWithColorCode:(nonnull NSString *)colorCode
+                                   codeType:(nullable WFColorCodeType *)codeType
 {
     colorCode = [colorCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSRange codeRange = NSMakeRange(0, [colorCode length]);
@@ -125,7 +125,7 @@
 }
 
 
-+ (nullable NSColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha
++ (nullable instancetype)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha
 {
     if (hex > 0xFFFFFF) { return nil; }
     
@@ -189,10 +189,10 @@
 
 #pragma mark Public Methods
 
-+ (nonnull NSColor *)colorWithDeviceHue:(CGFloat)hue
-                             saturation:(CGFloat)saturation
-                              lightness:(CGFloat)lightness
-                                  alpha:(CGFloat)alpha
++ (nonnull instancetype)colorWithDeviceHue:(CGFloat)hue
+                                saturation:(CGFloat)saturation
+                                 lightness:(CGFloat)lightness
+                                     alpha:(CGFloat)alpha
 {
     return [NSColor colorWithDeviceHue:hue
                             saturation:hsbSaturation(saturation, lightness)
@@ -201,10 +201,10 @@
 }
 
 
-+ (nonnull NSColor *)colorWithCalibratedHue:(CGFloat)hue
-                                 saturation:(CGFloat)saturation
-                                  lightness:(CGFloat)lightness
-                                      alpha:(CGFloat)alpha
++ (nonnull instancetype)colorWithCalibratedHue:(CGFloat)hue
+                                    saturation:(CGFloat)saturation
+                                     lightness:(CGFloat)lightness
+                                         alpha:(CGFloat)alpha
 {
     return [NSColor colorWithCalibratedHue:hue
                                 saturation:hsbSaturation(saturation, lightness)

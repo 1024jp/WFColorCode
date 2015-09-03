@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param codeType   Upon return, contains the detected color code type.
  @return           The color object.
  */
-+ (nullable NSColor *)colorWithColorCode:(nonnull NSString *)colorCode codeType:(nullable WFColorCodeType *)codeType;
++ (nullable instancetype)colorWithColorCode:(nonnull NSString *)colorCode codeType:(nullable WFColorCodeType *)codeType;
 
 
 /**
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param alpha      The opacity value of the color object.
  @return           The color object.
  */
-+ (nullable NSColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha;
++ (nullable instancetype)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha;
 
 
 /**
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param alpha      The opacity value of the color object.
  @return           The color object.
  */
-+ (nonnull NSColor *)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
++ (nonnull instancetype)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
 /**
@@ -142,7 +142,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param alpha      The opacity value of the color object.
  @return           The color object.
  */
-+ (nonnull NSColor *)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
++ (nonnull instancetype)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
 /**
