@@ -58,12 +58,15 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
     WFColorCodeCSSHSL,
     
     /// CSS style color code in HSL with alpha channel. For example: hsla(0,0%,100%,1)
-    WFColorCodeCSSHSLa
+    WFColorCodeCSSHSLa,
+    
+    /// CSS style color code with keyrowd. For example: darkgreen
+    WFColorCodeCSSKeyword,
 };
 
 
 /**
- Creates and returns an @c NSColor object using the given color code. Or returns @c nil if color code is invalid.
+ Creates and returns a @c NSColor object using the given color code. Or returns @c nil if color code is invalid.
  
  Example usage:
  @code
@@ -76,7 +79,31 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param codeType   Upon return, contains the detected color code type.
  @return           The color object.
  */
-+ (nullable NSColor *)colorWithColorCode:(nonnull NSString *)colorCode codeType:(nullable WFColorCodeType *)codeType;
++ (nullable instancetype)colorWithColorCode:(nonnull NSString *)colorCode codeType:(nullable WFColorCodeType *)codeType;
+
+
+/**
+ Creates and returns a @c NSColor object using the given hex color code. Or returns @c nil if color code is invalid.
+ 
+ Example usage:
+ @code
+ NSColor *redColor = [NSColor colorWithHex:0xFF0000 alpha:1.0];
+ NSString *hex = [redColor colorCodeWithType:WFColorCodeHex];  // => #ff0000
+ @endcode
+ 
+ @param hex        The 6-digit hexadecimal color code.
+ @param alpha      The opacity value of the color object.
+ @return           The color object.
+ */
++ (nullable instancetype)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha;
+
+
+/**
+ Creates and returns a @c <NSString, NSColor> paired dictionary represents all keyword colors specified in CSS3.
+ 
+ @return           The Dcitonary of the stylesheet keyword names and colors pairs.
+ */
++ (nonnull NSDictionary *)stylesheetKeywordColors;
 
 
 /**
@@ -102,7 +129,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 @interface NSColor (WFHSL)
 
 /**
- Creates and returns an @c NSColor object using the given opacity and HSL components.
+ Creates and returns a @c NSColor object using the given opacity and HSL components.
  
  Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
  
@@ -112,11 +139,11 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param alpha      The opacity value of the color object.
  @return           The color object.
  */
-+ (nonnull NSColor *)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
++ (nonnull instancetype)colorWithDeviceHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
 /**
- Creates and returns an @c NSColor object using the given opacity and HSL components.
+ Creates and returns a @c NSColor object using the given opacity and HSL components.
  
  Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
  
@@ -126,7 +153,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  @param alpha      The opacity value of the color object.
  @return           The color object.
  */
-+ (nonnull NSColor *)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
++ (nonnull instancetype)colorWithCalibratedHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 
 
 /**

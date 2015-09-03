@@ -28,19 +28,21 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
     WFColorCodeCSSRGBa,   // rgba(255,255,255,1)
     WFColorCodeCSSHSL,    // hsl(0,0%,100%)
     WFColorCodeCSSHSLa    // hsla(0,0%,100%,1)
+    WFColorCodeCSSKeyword // PowderBlue
 };
 ```
 
 ```swift
 /// color code type
 enum WFColorCodeType : UInt {
-    case Invalid   // nil
-    case Hex       // #ffffff
-    case ShortHex  // #fff
-    case CSSRGB    // rgb(255,255,255)
-    case CSSRGBa   // rgba(255,255,255,1)
-    case CSSHSL    // hsl(0,0%,100%)
-    case CSSHSLa   // hsla(0,0%,100%,1)
+    case Invalid    // nil
+    case Hex        // #ffffff
+    case ShortHex   // #fff
+    case CSSRGB     // rgb(255,255,255)
+    case CSSRGBa    // rgba(255,255,255,1)
+    case CSSHSL     // hsl(0,0%,100%)
+    case CSSHSLa    // hsla(0,0%,100%,1)
+    case CSSKeyword // PowderBlue
 };
 ```
 
@@ -57,9 +59,11 @@ WFColorCodeType colorCodeType;
 NSColor *whiteColor = [NSColor colorWithColorCode:@"hsla(0,0%,100%,0.5)" codeType:&colorCodeType];
 NSString *hex = [whiteColor colorCodeWithType:WFColorCodeHex];  // => #ffffff
 
-
 // create NSColor instance from HSLa values
 NSColor *color = [NSColor colorWithDeviceHue:0.1 saturation:0.2 lightness:0.3 alpha:1.0];
+
+// create NSColor instance from a CSS3 keyword
+NSColor *ivoryColor = [NSColor colorWithColorCode:@"ivory" codeType:NULL];
 
 // get HSL values from NSColor instance
 CGFloat hue, saturation, lightness, alpha;

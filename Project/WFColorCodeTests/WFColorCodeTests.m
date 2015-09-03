@@ -89,4 +89,28 @@
     XCTAssertEqual(alpha, 0.4);
 }
 
+
+- (void)testHex
+{
+    NSColor *color = [NSColor colorWithHex:0xFF6600 alpha:1.0];
+    
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeHex], @"#ff6600");
+    XCTAssertNil([NSColor colorWithHex:0xFFFFFF + 1 alpha:1.0]);
+}
+
+
+- (void)testKeyword
+{
+    WFColorCodeType colorCodeType;
+    NSColor *color = [NSColor colorWithColorCode:@"navy" codeType:&colorCodeType];
+    
+    XCTAssertEqual(colorCodeType, WFColorCodeCSSKeyword);
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSKeyword], @"Navy");
+    XCTAssertNil([NSColor colorWithColorCode:@"foobar" codeType:NULL]);
+    
+    NSDictionary *keywordColors = [NSColor stylesheetKeywordColors];
+    NSString *keyword = @"Orange";
+    XCTAssertEqualObjects(keywordColors[keyword], [NSColor colorWithColorCode:keyword codeType:NULL]);
+}
+
 @end
