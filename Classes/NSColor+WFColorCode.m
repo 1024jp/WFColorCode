@@ -32,9 +32,10 @@
 
 @implementation NSColor (WFColorCode)
 
-/// Creates and returns an NSColor object using the given color code or nil.
+#pragma mark Public Methods
+
 + (nullable NSColor *)colorWithColorCode:(nonnull NSString *)colorCode
-                       codeType:(nullable WFColorCodeType *)codeType
+                                codeType:(nullable WFColorCodeType *)codeType
 {
     colorCode = [colorCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSRange codeRange = NSMakeRange(0, [colorCode length]);
@@ -114,7 +115,7 @@
             CGFloat a = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:4]] doubleValue];
             color = [NSColor colorWithCalibratedHue:h/360 saturation:s/100 lightness:l/100 alpha:a];
         } break;
-        
+            
         case WFColorCodeInvalid:
             color = nil;
             break;
@@ -124,7 +125,6 @@
 }
 
 
-/// Returns the receiver’s color code string as desired type.
 - (nullable NSString *)colorCodeWithType:(WFColorCodeType)codeType
 {
     int r = (int)roundf(255 * [self redComponent]);
@@ -175,11 +175,12 @@
 
 @implementation NSColor (WFHSL)
 
-/// Creates and returns an NSColor object using the given opacity and HSL components.
+#pragma mark Public Methods
+
 + (nonnull NSColor *)colorWithDeviceHue:(CGFloat)hue
-                     saturation:(CGFloat)saturation
-                      lightness:(CGFloat)lightness
-                          alpha:(CGFloat)alpha
+                             saturation:(CGFloat)saturation
+                              lightness:(CGFloat)lightness
+                                  alpha:(CGFloat)alpha
 {
     return [NSColor colorWithDeviceHue:hue
                             saturation:hsbSaturation(saturation, lightness)
@@ -187,11 +188,11 @@
                                  alpha:alpha];
 }
 
-/// Creates and returns an NSColor object using the given opacity and HSL components.
+
 + (nonnull NSColor *)colorWithCalibratedHue:(CGFloat)hue
-                         saturation:(CGFloat)saturation
-                          lightness:(CGFloat)lightness
-                              alpha:(CGFloat)alpha
+                                 saturation:(CGFloat)saturation
+                                  lightness:(CGFloat)lightness
+                                      alpha:(CGFloat)alpha
 {
     return [NSColor colorWithCalibratedHue:hue
                                 saturation:hsbSaturation(saturation, lightness)
@@ -200,7 +201,6 @@
 }
 
 
-/// Returns the receiver’s HSL component and opacity values in the respective arguments.
 - (void)getHue:(nullable CGFloat *)hue
     saturation:(nullable CGFloat *)saturation
      lightness:(nullable CGFloat *)lightness
@@ -213,7 +213,6 @@
 }
 
 
-/// Returns the saturation component of HSL color equivalent to the receiver.
 - (CGFloat)hslSaturationComponent
 {
     CGFloat max = MAX(MAX([self redComponent], [self greenComponent]), [self blueComponent]);
@@ -232,7 +231,6 @@
 }
 
 
-/// Returns the lightness component of HSL color equivalent to the receiver.
 - (CGFloat)lightnessComponent
 {
     CGFloat max = MAX(MAX([self redComponent], [self greenComponent]), [self blueComponent]);
@@ -241,6 +239,8 @@
     return (max + min) / 2;
 }
 
+
+#pragma mark Private Functions
 
 CGFloat hsbSaturation(CGFloat hslSaturation, CGFloat hslLightness)
 {
