@@ -4,7 +4,8 @@ CHANGELOG
 develop
 -----------
 ### new
-- Add new `colorWithHex:alpha:` method.
+- Add `WFColorCodeCSSKeyword` color code type.
+- Add `colorWithHex:alpha:` and `stylesheetKeywordColors` class methods.
 
 ### mod
 - Return `instancetype` instead of `NSColor`.
