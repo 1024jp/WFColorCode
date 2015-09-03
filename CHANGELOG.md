@@ -1,6 +1,11 @@
 CHANGELOG
 ===========
 
+1.1.4
+-----------
+### mod
+- Add more documentation.
+
 1.1.3
 -----------
 ### fix
