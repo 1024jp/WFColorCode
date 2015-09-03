@@ -51,6 +51,7 @@
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSRGBa], @"rgba(255,255,255,1)");
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSHSL], @"hsl(0,0%,100%)");
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSHSLa], @"hsla(0,0%,100%,1)");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSKeyword], @"White");
 }
 
 
@@ -102,10 +103,11 @@
 - (void)testKeyword
 {
     WFColorCodeType colorCodeType;
-    NSColor *color = [NSColor colorWithColorCode:@"navy" codeType:&colorCodeType];
+    NSColor *color = [NSColor colorWithColorCode:@"MidnightBlue" codeType:&colorCodeType];
     
     XCTAssertEqual(colorCodeType, WFColorCodeCSSKeyword);
-    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSKeyword], @"Navy");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSKeyword], @"MidnightBlue");
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeHex], @"#191970");
     XCTAssertNil([NSColor colorWithColorCode:@"foobar" codeType:NULL]);
     
     NSDictionary *keywordColors = [NSColor stylesheetKeywordColors];
