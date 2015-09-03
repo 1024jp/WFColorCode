@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 
 
 /**
- Creates and returns an @c NSColor object using the given color code. Or returns @c nil if color code is invalid.
+ Creates and returns a @c NSColor object using the given color code. Or returns @c nil if color code is invalid.
  
  Example usage:
  @code
@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 
 
 /**
- Creates and returns an @c NSColor object using the given hex color code. Or returns @c nil if color code is invalid.
+ Creates and returns a @c NSColor object using the given hex color code. Or returns @c nil if color code is invalid.
  
  Example usage:
  @code
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 @interface NSColor (WFHSL)
 
 /**
- Creates and returns an @c NSColor object using the given opacity and HSL components.
+ Creates and returns a @c NSColor object using the given opacity and HSL components.
  
  Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
  
@@ -143,7 +143,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 
 
 /**
- Creates and returns an @c NSColor object using the given opacity and HSL components.
+ Creates and returns a @c NSColor object using the given opacity and HSL components.
  
  Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
  
