@@ -1,6 +1,12 @@
 CHANGELOG
 ===========
 
+develop
+-----------
+### new
+- Add new `colorWithHex:alpha:` method.
+
+
 1.1.4
 -----------
 ### mod

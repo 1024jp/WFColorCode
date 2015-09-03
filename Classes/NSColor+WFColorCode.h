@@ -80,6 +80,22 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
 
 
 /**
+ Creates and returns an @c NSColor object using the given hex color code. Or returns @c nil if color code is invalid.
+ 
+ Example usage:
+ @code
+ NSColor *redColor = [NSColor colorWithHex:0xFF0000 alpha:1.0];
+ NSString *hex = [redColor colorCodeWithType:WFColorCodeHex];  // => #ff0000
+ @endcode
+ 
+ @param hex        The 6-digit hexadecimal color code.
+ @param alpha      The opacity value of the color object.
+ @return           The color object.
+ */
++ (nullable NSColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha;
+
+
+/**
  Returns the receiver’s color code in desired type.
  
  This method works only with objects representing colors in the @c NSCalibratedRGBColorSpace or @c NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.

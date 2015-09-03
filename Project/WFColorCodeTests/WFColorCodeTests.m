@@ -89,4 +89,13 @@
     XCTAssertEqual(alpha, 0.4);
 }
 
+
+- (void)testHex
+{
+    NSColor *color = [NSColor colorWithHex:0xFF6600 alpha:1.0];
+    
+    XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeHex], @"#ff6600");
+    XCTAssertNil([NSColor colorWithHex:0xFFFFFF + 1 alpha:1.0]);
+}
+
 @end

@@ -125,6 +125,18 @@
 }
 
 
++ (nullable NSColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha
+{
+    if (hex > 0xFFFFFF) { return nil; }
+    
+    CGFloat r = (hex & 0xFF0000) >> 16;
+    CGFloat g = (hex & 0x00FF00) >> 8;
+    CGFloat b = (hex & 0x0000FF);
+    
+    return [NSColor colorWithCalibratedRed:r/255 green:g/255 blue:b/255 alpha:alpha];
+}
+
+
 - (nullable NSString *)colorCodeWithType:(WFColorCodeType)codeType
 {
     int r = (int)roundf(255 * [self redComponent]);
