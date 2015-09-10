@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
     /// CSS style color code in HSL with alpha channel. For example: hsla(0,0%,100%,1)
     WFColorCodeCSSHSLa,
     
-    /// CSS style color code with keyrowd. For example: darkgreen
+    /// CSS style color code with keyrowd. For example: White
     WFColorCodeCSSKeyword,
 };
 
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  
  @return           The Dcitonary of the stylesheet keyword names and colors pairs. The names are in upper camel case.
  */
-+ (nonnull NSDictionary *)stylesheetKeywordColors;
++ (nonnull NSDictionary<NSString *, NSColor *> *)stylesheetKeywordColors;
 
 
 /**

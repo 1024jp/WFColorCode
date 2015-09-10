@@ -41,7 +41,7 @@
     NSRange codeRange = NSMakeRange(0, [colorCode length]);
     WFColorCodeType detectedCodeType = WFColorCodeInvalid;
     
-    NSDictionary *patterns = @{@(WFColorCodeHex): @"^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$",
+    NSDictionary<NSString *, NSString *> *patterns = @{@(WFColorCodeHex): @"^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$",
                                @(WFColorCodeShortHex): @"^#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$",
                                @(WFColorCodeCSSRGB): @"^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$",
                                @(WFColorCodeCSSRGBa): @"^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$",
@@ -56,7 +56,7 @@
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:patterns[key]
                                                                                options:0
                                                                                  error:nil];
-        NSArray *matchs = [regex matchesInString:colorCode options:0 range:codeRange];
+        NSArray<NSTextCheckingResult *> *matchs = [regex matchesInString:colorCode options:0 range:codeRange];
         if ([matchs count] == 1) {
             detectedCodeType = [key integerValue];
             result = matchs[0];
@@ -76,7 +76,7 @@
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:2]]] scanHexInt:&g];
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:3]]] scanHexInt:&b];
             return [NSColor colorWithCalibratedRed:((CGFloat)r/255) green:((CGFloat)g/255) blue:((CGFloat)b/255) alpha:1.0];
-        } break;
+        }
             
         case WFColorCodeShortHex: {
             unsigned int r, g, b;
@@ -84,14 +84,14 @@
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:2]]] scanHexInt:&g];
             [[NSScanner scannerWithString:[colorCode substringWithRange:[result rangeAtIndex:3]]] scanHexInt:&b];
             return [NSColor colorWithCalibratedRed:((CGFloat)r/15) green:((CGFloat)g/15) blue:((CGFloat)b/15) alpha:1.0];
-        } break;
+        }
             
         case WFColorCodeCSSRGB: {
             CGFloat r = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:1]] doubleValue];
             CGFloat g = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:2]] doubleValue];
             CGFloat b = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
             return [NSColor colorWithCalibratedRed:r/255 green:g/255 blue:b/255 alpha:1.0];
-        } break;
+        }
             
         case WFColorCodeCSSRGBa: {
             CGFloat r = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:1]] doubleValue];
@@ -99,14 +99,14 @@
             CGFloat b = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
             CGFloat a = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:4]] doubleValue];
             return [NSColor colorWithCalibratedRed:r/255 green:g/255 blue:b/255 alpha:a];
-        } break;
+        }
             
         case WFColorCodeCSSHSL: {
             CGFloat h = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:1]] doubleValue];
             CGFloat s = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:2]] doubleValue];
             CGFloat l = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
             return [NSColor colorWithCalibratedHue:h/360 saturation:s/100 lightness:l/100 alpha:1.0];
-        } break;
+        }
             
         case WFColorCodeCSSHSLa: {
             CGFloat h = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:1]] doubleValue];
@@ -114,12 +114,12 @@
             CGFloat l = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:3]] doubleValue];
             CGFloat a = (CGFloat)[[colorCode substringWithRange:[result rangeAtIndex:4]] doubleValue];
             return [NSColor colorWithCalibratedHue:h/360 saturation:s/100 lightness:l/100 alpha:a];
-        } break;
+        }
             
         case WFColorCodeCSSKeyword: {
             NSString *lowercase = [colorCode lowercaseString];
-            NSDictionary *map = [NSColor colorKeywordDictionary];
-            __block NSColor *color;
+            NSDictionary<NSString *, NSNumber *> *map = [NSColor colorKeywordDictionary];
+            __block NSColor *color = nil;
             [map enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 if ([[(NSString *)key lowercaseString] isEqualToString:lowercase]) {
                     NSUInteger hex = [(NSNumber *)obj unsignedIntegerValue];
@@ -127,22 +127,15 @@
                     *stop = YES;
                 }
             }];
-            if (color) {
-                return color;
-            } else {
-                if (codeType) {
-                    *codeType = WFColorCodeInvalid;
-                }
-                return nil;
+            if (!color && codeType) {
+                *codeType = WFColorCodeInvalid;
             }
-        } break;
-            
+            return color;
+        }
             
         case WFColorCodeInvalid:
             return nil;
     }
-    
-    return nil;
 }
 
 
@@ -158,10 +151,10 @@
 }
 
 
-+ (nonnull NSDictionary *)stylesheetKeywordColors
++ (nonnull NSDictionary<NSString *, NSColor *> *)stylesheetKeywordColors
 {
-    NSDictionary *map = [NSColor colorKeywordDictionary];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[map count]];
+    NSDictionary<NSString *, NSNumber *> *map = [NSColor colorKeywordDictionary];
+    NSMutableDictionary<NSString *, NSColor *> *dict = [NSMutableDictionary dictionaryWithCapacity:[map count]];
     
     for (NSString *keyword in map) {
         NSUInteger hex = [(NSNumber *)map[keyword] unsignedIntegerValue];
@@ -208,7 +201,7 @@
         }
             
         case WFColorCodeCSSKeyword: {
-            NSDictionary *map = [NSColor colorKeywordDictionary];
+            NSDictionary<NSString *, NSNumber *> *map = [NSColor colorKeywordDictionary];
             NSNumber *hexNumber = @(((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
             __block NSString *colorCode = nil;
             [map enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -220,7 +213,6 @@
             return colorCode;
         }
             
-            
         case WFColorCodeInvalid:
             return nil;
     }
@@ -229,7 +221,7 @@
 
 #pragma mark Private Methods
 
-+ (nonnull NSDictionary *)colorKeywordDictionary
++ (nonnull NSDictionary<NSString *, NSNumber *> *)colorKeywordDictionary
 {
     return @{// CSS2.1
              @"Black" : @0x000000,
