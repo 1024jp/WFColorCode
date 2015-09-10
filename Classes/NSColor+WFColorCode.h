@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, WFColorCodeType) {
  
  @return           The Dcitonary of the stylesheet keyword names and colors pairs. The names are in upper camel case.
  */
-+ (nonnull NSDictionary *)stylesheetKeywordColors;
++ (nonnull NSDictionary<NSString *, NSColor *> *)stylesheetKeywordColors;
 
 
 /**

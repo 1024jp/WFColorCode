@@ -41,7 +41,7 @@
     NSRange codeRange = NSMakeRange(0, [colorCode length]);
     WFColorCodeType detectedCodeType = WFColorCodeInvalid;
     
-    NSDictionary *patterns = @{@(WFColorCodeHex): @"^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$",
+    NSDictionary<NSString *, NSString *> *patterns = @{@(WFColorCodeHex): @"^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$",
                                @(WFColorCodeShortHex): @"^#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$",
                                @(WFColorCodeCSSRGB): @"^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$",
                                @(WFColorCodeCSSRGBa): @"^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$",
@@ -56,7 +56,7 @@
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:patterns[key]
                                                                                options:0
                                                                                  error:nil];
-        NSArray *matchs = [regex matchesInString:colorCode options:0 range:codeRange];
+        NSArray<NSTextCheckingResult *> *matchs = [regex matchesInString:colorCode options:0 range:codeRange];
         if ([matchs count] == 1) {
             detectedCodeType = [key integerValue];
             result = matchs[0];
@@ -118,7 +118,7 @@
             
         case WFColorCodeCSSKeyword: {
             NSString *lowercase = [colorCode lowercaseString];
-            NSDictionary *map = [NSColor colorKeywordDictionary];
+            NSDictionary<NSString *, NSNumber *> *map = [NSColor colorKeywordDictionary];
             __block NSColor *color = nil;
             [map enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 if ([[(NSString *)key lowercaseString] isEqualToString:lowercase]) {
@@ -151,10 +151,10 @@
 }
 
 
-+ (nonnull NSDictionary *)stylesheetKeywordColors
++ (nonnull NSDictionary<NSString *, NSColor *> *)stylesheetKeywordColors
 {
-    NSDictionary *map = [NSColor colorKeywordDictionary];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[map count]];
+    NSDictionary<NSString *, NSNumber *> *map = [NSColor colorKeywordDictionary];
+    NSMutableDictionary<NSString *, NSColor *> *dict = [NSMutableDictionary dictionaryWithCapacity:[map count]];
     
     for (NSString *keyword in map) {
         NSUInteger hex = [(NSNumber *)map[keyword] unsignedIntegerValue];
@@ -201,7 +201,7 @@
         }
             
         case WFColorCodeCSSKeyword: {
-            NSDictionary *map = [NSColor colorKeywordDictionary];
+            NSDictionary<NSString *, NSNumber *> *map = [NSColor colorKeywordDictionary];
             NSNumber *hexNumber = @(((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
             __block NSString *colorCode = nil;
             [map enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -221,7 +221,7 @@
 
 #pragma mark Private Methods
 
-+ (nonnull NSDictionary *)colorKeywordDictionary
++ (nonnull NSDictionary<NSString *, NSNumber *> *)colorKeywordDictionary
 {
     return @{// CSS2.1
              @"Black" : @0x000000,

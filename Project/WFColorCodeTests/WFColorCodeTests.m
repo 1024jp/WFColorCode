@@ -110,7 +110,7 @@
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeHex], @"#191970");
     XCTAssertNil([NSColor colorWithColorCode:@"foobar" codeType:NULL]);
     
-    NSDictionary *keywordColors = [NSColor stylesheetKeywordColors];
+    NSDictionary<NSString *, NSColor *> *keywordColors = [NSColor stylesheetKeywordColors];
     NSString *keyword = @"Orange";
     XCTAssertEqualObjects(keywordColors[keyword], [NSColor colorWithColorCode:keyword codeType:NULL]);
 }
