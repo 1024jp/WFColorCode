@@ -1,6 +1,11 @@
 CHANGELOG
 ===========
 
+1.3.0
+-----------
+### New
+- Support Objective-C generics of Xcode 7
+
 1.2.0
 -----------
 ### new
