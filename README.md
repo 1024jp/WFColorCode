@@ -3,6 +3,7 @@ WFColorCode
 =============================
 
 [![Build Status](http://img.shields.io/travis/1024jp/WFColorCode.svg?style=flat)](https://travis-ci.org/1024jp/WFColorCode)
+[![Coverage Status](https://coveralls.io/repos/github/1024jp/WFColorCode/badge.svg?branch=master)](https://coveralls.io/github/1024jp/WFColorCode?branch=master)
 [![CocoaPods version](http://img.shields.io/cocoapods/v/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
 [![License](https://img.shields.io/cocoapods/l/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
 [![CocoaPods platform](http://img.shields.io/cocoapods/p/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
