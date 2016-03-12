@@ -39,6 +39,40 @@
 
 @implementation WFColorCodeTests
 
+- (void)testColorCreation
+{
+    NSColor *whiteColor = [[NSColor whiteColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+    WFColorCodeType type;
+    
+    XCTAssertEqualObjects([NSColor colorWithColorCode:@"#ffffff" codeType:&type], whiteColor);
+    XCTAssertEqual(type, WFColorCodeHex);
+    
+    XCTAssertEqualObjects([NSColor colorWithColorCode:@"#fff" codeType:&type], whiteColor);
+    XCTAssertEqual(type, WFColorCodeShortHex);
+    
+    XCTAssertEqualObjects([NSColor colorWithColorCode:@"rgb(255,255,255)" codeType:&type], whiteColor);
+    XCTAssertEqual(type, WFColorCodeCSSRGB);
+    
+    XCTAssertEqualObjects([NSColor colorWithColorCode:@"rgba(255,255,255,1)" codeType:&type], whiteColor);
+    XCTAssertEqual(type, WFColorCodeCSSRGBa);
+    
+    XCTAssertEqualObjects([NSColor colorWithColorCode:@"hsl(0,0%,100%)" codeType:&type], whiteColor);
+    XCTAssertEqual(type, WFColorCodeCSSHSL);
+    
+    XCTAssertEqualObjects([NSColor colorWithColorCode:@"hsla(0,0%,100%,1)" codeType:&type], whiteColor);
+    XCTAssertEqual(type, WFColorCodeCSSHSLa);
+    
+    XCTAssertEqualObjects([NSColor colorWithColorCode:@"White" codeType:&type], whiteColor);
+    XCTAssertEqual(type, WFColorCodeCSSKeyword);
+    
+    XCTAssertNil([NSColor colorWithColorCode:@"" codeType:&type]);
+    XCTAssertEqual(type, WFColorCodeInvalid);
+    
+    XCTAssertNil([NSColor colorWithColorCode:@"foobar" codeType:&type]);
+    XCTAssertEqual(type, WFColorCodeInvalid);
+}
+
+
 - (void)testWhite
 {
     NSColor *color = [[NSColor whiteColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
@@ -52,6 +86,7 @@
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSHSL], @"hsl(0,0%,100%)");
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSHSLa], @"hsla(0,0%,100%,1)");
     XCTAssertEqualObjects([color colorCodeWithType:WFColorCodeCSSKeyword], @"White");
+    XCTAssertNil([color colorCodeWithType:WFColorCodeInvalid]);
 }
 
 
