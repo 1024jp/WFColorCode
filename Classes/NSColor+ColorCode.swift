@@ -30,7 +30,7 @@
 import Foundation
 import AppKit.NSColor
 
-public enum ColorCodeType {
+public enum ColorCodeType: Int {
     
     /// Color code is invalid.
     case invalid
@@ -70,7 +70,7 @@ public extension NSColor {
      Example usage:
      ```
      var colorCodeType: WFColorCodeType = .invalid
-     let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)" codeTypfe: &colorCodeType)
+     let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", codeTypfe: &colorCodeType)
      let hex = whiteColor.colorCode(type: .hex)  // => "#ffffff"
      ```
      
@@ -171,7 +171,7 @@ public extension NSColor {
      
      Example usage:
      ```
-     let redColor = NSColor(hex: 0xFF0000 alpha:1.0)
+     let redColor = NSColor(hex: 0xFF0000, alpha:1.0)
      let hex = redColor.colorCode(type: .hex)  // => "#ff0000"
      ```
      

@@ -29,6 +29,7 @@
  */
 
 import Cocoa
+import ColorCode
 import XCTest
 
 class ColorCodeTests: XCTestCase {

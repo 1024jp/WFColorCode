@@ -7,16 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A48101F1D4CB87000F7D34C /* NSColor+ColorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */; };
-		2A4810211D4CB8AA00F7D34C /* NSColor+HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */; };
+		2A48102F1D4D0F8A00F7D34C /* NSColor+ColorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */; };
+		2A4810301D4D0F8F00F7D34C /* NSColor+HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */; };
+		2A4810311D4D0FA500F7D34C /* ColorCode.framework in Resources */ = {isa = PBXBuildFile; fileRef = 2A4810271D4D0F0F00F7D34C /* ColorCode.framework */; };
+		2A4810341D4D12E400F7D34C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4810331D4D12E400F7D34C /* Foundation.framework */; };
+		2A4810361D4D12EC00F7D34C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4810351D4D12EC00F7D34C /* AppKit.framework */; };
 		2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2A4810371D4D136400F7D34C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A07501019B563500020EA75 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A4810261D4D0F0F00F7D34C;
+			remoteInfo = ColorCode;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WFColorCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A07502B19B563500020EA75 /* ColorCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A07503019B563500020EA75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+ColorCode.swift"; sourceTree = "<group>"; };
 		2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+HSL.swift"; sourceTree = "<group>"; };
+		2A4810271D4D0F0F00F7D34C /* ColorCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ColorCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A48102A1D4D0F0F00F7D34C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A4810331D4D12E400F7D34C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A4810351D4D12EC00F7D34C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -28,14 +45,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2A4810231D4D0F0F00F7D34C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A4810341D4D12E400F7D34C /* Foundation.framework in Frameworks */,
+				2A4810361D4D12EC00F7D34C /* AppKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2A07500F19B563500020EA75 = {
 			isa = PBXGroup;
 			children = (
-				2A07501A19B563500020EA75 /* WFColorCode */,
-				2A07502E19B563500020EA75 /* WFColorCodeTests */,
+				2A07501A19B563500020EA75 /* Sources */,
+				2A4810281D4D0F0F00F7D34C /* Supporting Files */,
+				2A07502E19B563500020EA75 /* ColorCodeTests */,
+				2A4810321D4D12E400F7D34C /* Frameworks */,
 				2A07501919B563500020EA75 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,28 +71,29 @@
 		2A07501919B563500020EA75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */,
+				2A07502B19B563500020EA75 /* ColorCodeTests.xctest */,
+				2A4810271D4D0F0F00F7D34C /* ColorCode.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2A07501A19B563500020EA75 /* WFColorCode */ = {
+		2A07501A19B563500020EA75 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */,
 				2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */,
 			);
-			name = WFColorCode;
+			name = Sources;
 			path = ../Classes;
 			sourceTree = "<group>";
 		};
-		2A07502E19B563500020EA75 /* WFColorCodeTests */ = {
+		2A07502E19B563500020EA75 /* ColorCodeTests */ = {
 			isa = PBXGroup;
 			children = (
 				2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */,
 				2A07502F19B563500020EA75 /* Supporting Files */,
 			);
-			path = WFColorCodeTests;
+			path = ColorCodeTests;
 			sourceTree = "<group>";
 		};
 		2A07502F19B563500020EA75 /* Supporting Files */ = {
@@ -75,12 +104,40 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		2A4810281D4D0F0F00F7D34C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A48102A1D4D0F0F00F7D34C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			path = ColorCode;
+			sourceTree = "<group>";
+		};
+		2A4810321D4D12E400F7D34C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A4810331D4D12E400F7D34C /* Foundation.framework */,
+				2A4810351D4D12EC00F7D34C /* AppKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2A4810241D4D0F0F00F7D34C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		2A07502A19B563500020EA75 /* WFColorCodeTests */ = {
+		2A07502A19B563500020EA75 /* ColorCodeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "WFColorCodeTests" */;
+			buildConfigurationList = 2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "ColorCodeTests" */;
 			buildPhases = (
 				2A07502719B563500020EA75 /* Sources */,
 				2A07502819B563500020EA75 /* Frameworks */,
@@ -89,11 +146,30 @@
 			buildRules = (
 			);
 			dependencies = (
+				2A4810381D4D136400F7D34C /* PBXTargetDependency */,
 			);
-			name = WFColorCodeTests;
+			name = ColorCodeTests;
 			productName = WFColorCodeTests;
-			productReference = 2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */;
+			productReference = 2A07502B19B563500020EA75 /* ColorCodeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2A4810261D4D0F0F00F7D34C /* ColorCode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A48102C1D4D0F0F00F7D34C /* Build configuration list for PBXNativeTarget "ColorCode" */;
+			buildPhases = (
+				2A4810221D4D0F0F00F7D34C /* Sources */,
+				2A4810231D4D0F0F00F7D34C /* Frameworks */,
+				2A4810241D4D0F0F00F7D34C /* Headers */,
+				2A4810251D4D0F0F00F7D34C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ColorCode;
+			productName = ColorCode;
+			productReference = 2A4810271D4D0F0F00F7D34C /* ColorCode.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -110,6 +186,12 @@
 						LastSwiftMigration = 0800;
 						TestTargetID = 2A07501719B563500020EA75;
 					};
+					2A4810261D4D0F0F00F7D34C = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = HT3Z3A72WZ;
+						DevelopmentTeamName = "Mineko IMANISHI";
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 2A07501319B563500020EA75 /* Build configuration list for PBXProject "WFColorCode" */;
@@ -124,13 +206,22 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2A07502A19B563500020EA75 /* WFColorCodeTests */,
+				2A4810261D4D0F0F00F7D34C /* ColorCode */,
+				2A07502A19B563500020EA75 /* ColorCodeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2A07502919B563500020EA75 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A4810311D4D0FA500F7D34C /* ColorCode.framework in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A4810251D4D0F0F00F7D34C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,13 +235,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A48101F1D4CB87000F7D34C /* NSColor+ColorCode.swift in Sources */,
 				2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */,
-				2A4810211D4CB8AA00F7D34C /* NSColor+HSL.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A4810221D4D0F0F00F7D34C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A4810301D4D0F8F00F7D34C /* NSColor+HSL.swift in Sources */,
+				2A48102F1D4D0F8A00F7D34C /* NSColor+ColorCode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2A4810381D4D136400F7D34C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A4810261D4D0F0F00F7D34C /* ColorCode */;
+			targetProxy = 2A4810371D4D136400F7D34C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2A07503319B563500020EA75 /* Debug */ = {
@@ -191,7 +297,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -231,7 +337,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 3.0;
@@ -248,7 +354,6 @@
 				);
 				INFOPLIST_FILE = WFColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -265,9 +370,51 @@
 				);
 				INFOPLIST_FILE = WFColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2A48102D1D4D0F0F00F7D34C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = ColorCode/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wolfrosch.ColorCode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		2A48102E1D4D0F0F00F7D34C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = ColorCode/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wolfrosch.ColorCode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -283,7 +430,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "WFColorCodeTests" */ = {
+		2A07503819B563500020EA75 /* Build configuration list for PBXNativeTarget "ColorCodeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2A07503919B563500020EA75 /* Debug */,
@@ -291,6 +438,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		2A48102C1D4D0F0F00F7D34C /* Build configuration list for PBXNativeTarget "ColorCode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A48102D1D4D0F0F00F7D34C /* Debug */,
+				2A48102E1D4D0F0F00F7D34C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
