@@ -36,34 +36,34 @@ class ColorCodeTests: XCTestCase {
     func testColorCreation() {
         
         let whiteColor = NSColor.white().usingColorSpaceName(NSCalibratedRGBColorSpace)
-        var type: WFColorCodeType = .invalid
+        var type: ColorCodeType = .invalid
         
-        XCTAssertEqual(NSColor(colorCode: "#ffffff", codeType: &type), whiteColor)
-        XCTAssertEqual(type, WFColorCodeType.hex)
+        XCTAssertEqual(NSColor(colorCode: "#ffffff", type: &type), whiteColor)
+        XCTAssertEqual(type, ColorCodeType.hex)
         
-        XCTAssertEqual(NSColor(colorCode: "#fff", codeType: &type), whiteColor)
-        XCTAssertEqual(type, WFColorCodeType.shortHex)
+        XCTAssertEqual(NSColor(colorCode: "#fff", type: &type), whiteColor)
+        XCTAssertEqual(type, ColorCodeType.shortHex)
         
-        XCTAssertEqual(NSColor(colorCode: "rgb(255,255,255)", codeType: &type), whiteColor)
-        XCTAssertEqual(type, WFColorCodeType.CSSRGB)
+        XCTAssertEqual(NSColor(colorCode: "rgb(255,255,255)", type: &type), whiteColor)
+        XCTAssertEqual(type, ColorCodeType.cssRGB)
         
-        XCTAssertEqual(NSColor(colorCode: "rgba(255,255,255,1)", codeType: &type), whiteColor)
-        XCTAssertEqual(type, WFColorCodeType.cssrgBa)
+        XCTAssertEqual(NSColor(colorCode: "rgba(255,255,255,1)", type: &type), whiteColor)
+        XCTAssertEqual(type, ColorCodeType.cssRGBa)
         
-        XCTAssertEqual(NSColor(colorCode: "hsl(0,0%,100%)", codeType: &type), whiteColor)
-        XCTAssertEqual(type, WFColorCodeType.CSSHSL)
+        XCTAssertEqual(NSColor(colorCode: "hsl(0,0%,100%)", type: &type), whiteColor)
+        XCTAssertEqual(type, ColorCodeType.cssHSL)
         
-        XCTAssertEqual(NSColor(colorCode: "hsla(0,0%,100%,1)", codeType: &type), whiteColor)
-        XCTAssertEqual(type, WFColorCodeType.csshsLa)
+        XCTAssertEqual(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type), whiteColor)
+        XCTAssertEqual(type, ColorCodeType.cssHSLa)
         
-        XCTAssertEqual(NSColor(colorCode: "white", codeType: &type), whiteColor)
-        XCTAssertEqual(type, WFColorCodeType.cssKeyword)
+        XCTAssertEqual(NSColor(colorCode: "white", type: &type), whiteColor)
+        XCTAssertEqual(type, ColorCodeType.cssKeyword)
         
-        XCTAssertNil(NSColor(colorCode: "", codeType: &type))
-        XCTAssertEqual(type, WFColorCodeType.invalid)
+        XCTAssertNil(NSColor(colorCode: "", type: &type))
+        XCTAssertEqual(type, ColorCodeType.invalid)
         
-        XCTAssertNil(NSColor(colorCode: "foobar", codeType: &type))
-        XCTAssertEqual(type, WFColorCodeType.invalid)
+        XCTAssertNil(NSColor(colorCode: "foobar", type: &type))
+        XCTAssertEqual(type, ColorCodeType.invalid)
     }
     
     
@@ -71,36 +71,36 @@ class ColorCodeTests: XCTestCase {
         
         let color = NSColor.white().usingColorSpaceName(NSCalibratedRGBColorSpace)
         
-        XCTAssertEqual(color?.colorCode(with: .hex), "#ffffff")
-        XCTAssertEqual(color?.colorCode(with: .shortHex), "#fff")
-        XCTAssertEqual(color?.colorCode(with: .CSSRGB), "rgb(255,255,255)")
-        XCTAssertEqual(color?.colorCode(with: .cssrgBa), "rgba(255,255,255,1)")
-        XCTAssertEqual(color?.colorCode(with: .CSSHSL), "hsl(0,0%,100%)")
-        XCTAssertEqual(color?.colorCode(with: .csshsLa), "hsla(0,0%,100%,1)")
-        XCTAssertEqual(color?.colorCode(with: .cssKeyword), "White")
-        XCTAssertNil(color?.colorCode(with: .invalid))
+        XCTAssertEqual(color?.colorCode(type: .hex), "#ffffff")
+        XCTAssertEqual(color?.colorCode(type: .shortHex), "#fff")
+        XCTAssertEqual(color?.colorCode(type: .cssRGB), "rgb(255,255,255)")
+        XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
+        XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
+        XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "White")
+        XCTAssertNil(color?.colorCode(type: .invalid))
     }
     
     
     func testHSLaColorCode() {
         
         let colorCode = "hsla(203,10%,20%,0.3)"
-        var type: WFColorCodeType = .invalid
-        let color = NSColor(colorCode: colorCode, codeType: &type)
+        var type: ColorCodeType = .invalid
+        let color = NSColor(colorCode: colorCode, type: &type)
         
-        XCTAssertEqual(type, WFColorCodeType.csshsLa)
-        XCTAssertEqual(color?.colorCode(with: type), colorCode)
+        XCTAssertEqual(type, ColorCodeType.cssHSLa)
+        XCTAssertEqual(color?.colorCode(type: type), colorCode)
     }
     
     
     func testHexColorCode() {
         
-        var type: WFColorCodeType = .invalid
-        let color = NSColor(colorCode: "#0066aa", codeType: &type)
+        var type: ColorCodeType = .invalid
+        let color = NSColor(colorCode: "#0066aa", type: &type)
         
-        XCTAssertEqual(type, WFColorCodeType.hex)
-        XCTAssertEqual(color?.colorCode(with: .hex), "#0066aa")
-        XCTAssertEqual(color?.colorCode(with: .shortHex), "#06a")
+        XCTAssertEqual(type, ColorCodeType.hex)
+        XCTAssertEqual(color?.colorCode(type: .hex), "#0066aa")
+        XCTAssertEqual(color?.colorCode(type: .shortHex), "#06a")
     }
     
     
@@ -112,7 +112,7 @@ class ColorCodeTests: XCTestCase {
         var alpha: CGFloat = 0
         let color = NSColor(deviceHue: 0.1, saturation: 0.2, lightness: 0.3, alpha: 0.4)
         
-        color.getHue(&hue, saturation: &saturation, lightness: &lightness, alpha: &alpha)
+        color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &alpha)
         
         XCTAssertEqualWithAccuracy(hue, 0.1, accuracy: 3)
         XCTAssertEqualWithAccuracy(saturation, 0.2, accuracy: 3)
@@ -125,24 +125,24 @@ class ColorCodeTests: XCTestCase {
         
         let color = NSColor(hex: 0xFF6600, alpha: 1.0)
         
-        XCTAssertEqual(color?.colorCode(with: .hex), "#ff6600")
+        XCTAssertEqual(color?.colorCode(type: .hex), "#ff6600")
         XCTAssertNil(NSColor(hex: 0xFFFFFF + 1, alpha: 1.0))
     }
     
     
     func testKeyword() {
         
-        var type: WFColorCodeType = .invalid
-        let color = NSColor(colorCode: "MidnightBlue", codeType: &type)
+        var type: ColorCodeType = .invalid
+        let color = NSColor(colorCode: "MidnightBlue", type: &type)
         
-        XCTAssertEqual(type, WFColorCodeType.cssKeyword)
-        XCTAssertEqual(color?.colorCode(with: .cssKeyword), "MidnightBlue")
-        XCTAssertEqual(color?.colorCode(with: .hex), "#191970")
-        XCTAssertNil(NSColor(colorCode: "foobar", codeType: nil))
+        XCTAssertEqual(type, ColorCodeType.cssKeyword)
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "MidnightBlue")
+        XCTAssertEqual(color?.colorCode(type: .hex), "#191970")
+        XCTAssertNil(NSColor(colorCode: "foobar", type: nil))
         
-        let keywordColors = NSColor.stylesheetKeywordColors()
+        let keywordColors = NSColor.stylesheetKeywordColors
         let keyword = "Orange"
-        XCTAssertEqual(keywordColors[keyword], NSColor(colorCode: keyword, codeType: nil))
+        XCTAssertEqual(keywordColors[keyword], NSColor(colorCode: keyword, type: nil))
     }
     
 }

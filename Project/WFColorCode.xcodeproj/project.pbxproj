@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A07503E19B564470020EA75 /* NSColor+WFColorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */; };
+		2A48101F1D4CB87000F7D34C /* NSColor+ColorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */; };
+		2A4810211D4CB8AA00F7D34C /* NSColor+HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */; };
 		2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WFColorCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A07503019B563500020EA75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A07503B19B5637E0020EA75 /* NSColor+WFColorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+WFColorCode.h"; sourceTree = "<group>"; };
-		2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+WFColorCode.m"; sourceTree = "<group>"; };
-		2A7A1D471D4BDC84001B74B8 /* WFColorCodeTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WFColorCodeTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+ColorCode.swift"; sourceTree = "<group>"; };
+		2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+HSL.swift"; sourceTree = "<group>"; };
 		2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,8 +51,8 @@
 		2A07501A19B563500020EA75 /* WFColorCode */ = {
 			isa = PBXGroup;
 			children = (
-				2A07503B19B5637E0020EA75 /* NSColor+WFColorCode.h */,
-				2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */,
+				2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */,
+				2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */,
 			);
 			name = WFColorCode;
 			path = ../Classes;
@@ -61,7 +61,6 @@
 		2A07502E19B563500020EA75 /* WFColorCodeTests */ = {
 			isa = PBXGroup;
 			children = (
-				2A7A1D471D4BDC84001B74B8 /* WFColorCodeTests-Bridging-Header.h */,
 				2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */,
 				2A07502F19B563500020EA75 /* Supporting Files */,
 			);
@@ -145,8 +144,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A48101F1D4CB87000F7D34C /* NSColor+ColorCode.swift in Sources */,
 				2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */,
-				2A07503E19B564470020EA75 /* NSColor+WFColorCode.m in Sources */,
+				2A4810211D4CB8AA00F7D34C /* NSColor+HSL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +251,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "WFColorCodeTests/WFColorCodeTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -269,7 +268,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "WFColorCodeTests/WFColorCodeTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
