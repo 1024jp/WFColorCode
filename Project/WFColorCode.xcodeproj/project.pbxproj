@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A07503219B563500020EA75 /* WFColorCodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07503119B563500020EA75 /* WFColorCodeTests.m */; };
 		2A07503E19B564470020EA75 /* NSColor+WFColorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */; };
+		2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A07502B19B563500020EA75 /* WFColorCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WFColorCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A07503019B563500020EA75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A07503119B563500020EA75 /* WFColorCodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFColorCodeTests.m; sourceTree = "<group>"; };
 		2A07503B19B5637E0020EA75 /* NSColor+WFColorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+WFColorCode.h"; sourceTree = "<group>"; };
 		2A07503C19B5637E0020EA75 /* NSColor+WFColorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+WFColorCode.m"; sourceTree = "<group>"; };
+		2A7A1D471D4BDC84001B74B8 /* WFColorCodeTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WFColorCodeTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +61,8 @@
 		2A07502E19B563500020EA75 /* WFColorCodeTests */ = {
 			isa = PBXGroup;
 			children = (
-				2A07503119B563500020EA75 /* WFColorCodeTests.m */,
+				2A7A1D471D4BDC84001B74B8 /* WFColorCodeTests-Bridging-Header.h */,
+				2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */,
 				2A07502F19B563500020EA75 /* Supporting Files */,
 			);
 			path = WFColorCodeTests;
@@ -106,6 +108,7 @@
 				TargetAttributes = {
 					2A07502A19B563500020EA75 = {
 						CreatedOnToolsVersion = 6.0;
+						LastSwiftMigration = 0800;
 						TestTargetID = 2A07501719B563500020EA75;
 					};
 				};
@@ -142,8 +145,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */,
 				2A07503E19B564470020EA75 /* NSColor+WFColorCode.m in Sources */,
-				2A07503219B563500020EA75 /* WFColorCodeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +172,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -191,6 +195,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -213,6 +218,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -228,6 +234,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -235,19 +242,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = WFColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WFColorCodeTests/WFColorCodeTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -255,15 +260,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WFColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WFColorCodeTests/WFColorCodeTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
