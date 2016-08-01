@@ -95,9 +95,9 @@ public extension NSColor {
             ]
         
         // detect code type
-        var result: TextCheckingResult!
+        var result: NSTextCheckingResult!
         for (key, pattern) in patterns {
-            let regex = try! RegularExpression(pattern: pattern)
+            let regex = try! NSRegularExpression(pattern: pattern)
             let matches = regex.matches(in: code, range: codeRange)
             if let match = matches.first, matches.count == 1 {
                 detectedCodeType = key
@@ -114,9 +114,9 @@ public extension NSColor {
             var r: UInt32 = 0
             var g: UInt32 = 0
             var b: UInt32 = 0
-            Scanner(string: (code as NSString).substring(with: result.range(at: 1))).scanHexInt32(&r)
-            Scanner(string: (code as NSString).substring(with: result.range(at: 2))).scanHexInt32(&g)
-            Scanner(string: (code as NSString).substring(with: result.range(at: 3))).scanHexInt32(&b)
+            Scanner(string: (code as NSString).substring(with: result.rangeAt(1))).scanHexInt32(&r)
+            Scanner(string: (code as NSString).substring(with: result.rangeAt(2))).scanHexInt32(&g)
+            Scanner(string: (code as NSString).substring(with: result.rangeAt(3))).scanHexInt32(&b)
             
             if detectedCodeType == .hex {
                 self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
@@ -125,29 +125,29 @@ public extension NSColor {
             }
             
         case .cssRGB:
-            let r = Double((code as NSString).substring(with: result.range(at: 1))) ?? 0
-            let g = Double((code as NSString).substring(with: result.range(at: 2))) ?? 0
-            let b = Double((code as NSString).substring(with: result.range(at: 3))) ?? 0
+            let r = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
+            let g = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
+            let b = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
             
         case .cssRGBa:
-            let r = Double((code as NSString).substring(with: result.range(at: 1))) ?? 0
-            let g = Double((code as NSString).substring(with: result.range(at: 2))) ?? 0
-            let b = Double((code as NSString).substring(with: result.range(at: 3))) ?? 0
-            let a = Double((code as NSString).substring(with: result.range(at: 4))) ?? 1
+            let r = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
+            let g = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
+            let b = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
+            let a = Double((code as NSString).substring(with: result.rangeAt(4))) ?? 1
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a))
             
         case .cssHSL:
-            let h = Double((code as NSString).substring(with: result.range(at: 1))) ?? 0
-            let s = Double((code as NSString).substring(with: result.range(at: 2))) ?? 0
-            let l = Double((code as NSString).substring(with: result.range(at: 3))) ?? 0
+            let h = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
+            let s = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
+            let l = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: 1.0)
             
         case .cssHSLa:
-            let h = Double((code as NSString).substring(with: result.range(at: 1))) ?? 0
-            let s = Double((code as NSString).substring(with: result.range(at: 2))) ?? 0
-            let l = Double((code as NSString).substring(with: result.range(at: 3))) ?? 0
-            let a = Double((code as NSString).substring(with: result.range(at: 4))) ?? 1
+            let h = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
+            let s = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
+            let l = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
+            let a = Double((code as NSString).substring(with: result.rangeAt(4))) ?? 1
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: CGFloat(a))
             
         case .cssKeyword:
