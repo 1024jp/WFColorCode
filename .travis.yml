@@ -4,7 +4,7 @@ osx_image: xcode8
 xcode_project: Project/WFColorCode.xcodeproj
 xcode_scheme: ColorCode
 
-script: xcodebuild -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" clean build test TEST_AFTER_BUILD=YES OBJROOT=build
+script: xcodebuild -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" clean build test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
