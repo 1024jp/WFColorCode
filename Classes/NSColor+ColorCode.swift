@@ -78,15 +78,14 @@ public extension NSColor {
      - parameter type:       Upon return, contains the detected color code type.
      - returns:              The color object.
      */
-    public convenience init?(colorCode: String, type: UnsafeMutablePointer<ColorCodeType>?) {
+    public convenience init?(colorCode: String, type: UnsafeMutablePointer<ColorCodeType>? = nil) {
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
         let codeRange = NSRange(location: 0, length: code.utf16.count)
-        var detectedCodeType: ColorCodeType = .invalid
         
         let patterns: [ColorCodeType : String] = [
-            .hex: "^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$",
-            .shortHex: "^#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$",
+            .hex: "^#[0-9a-fA-F]{6}$",
+            .shortHex: "^#[0-9a-fA-F]{3}$",
             .cssRGB: "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$",
             .cssRGBa: "^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$",
             .cssHSL: "^hsl\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\\)$",
@@ -95,6 +94,7 @@ public extension NSColor {
             ]
         
         // detect code type
+        var detectedCodeType: ColorCodeType = .invalid
         var result: NSTextCheckingResult!
         for (key, pattern) in patterns {
             let regex = try! NSRegularExpression(pattern: pattern)
@@ -110,44 +110,41 @@ public extension NSColor {
         
         // create color from result
         switch detectedCodeType {
-        case .hex, .shortHex:
-            var r: UInt32 = 0
-            var g: UInt32 = 0
-            var b: UInt32 = 0
-            Scanner(string: (code as NSString).substring(with: result.rangeAt(1))).scanHexInt32(&r)
-            Scanner(string: (code as NSString).substring(with: result.rangeAt(2))).scanHexInt32(&g)
-            Scanner(string: (code as NSString).substring(with: result.rangeAt(3))).scanHexInt32(&b)
+        case .hex:
+            let hex = Int(String(code.characters.dropFirst()), radix: 16) ?? 0
+            self.init(hex: hex)
             
-            if detectedCodeType == .hex {
-                self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
-            } else {  // .shortHex
-                self.init(calibratedRed: CGFloat(r) / 15, green: CGFloat(g) / 15, blue: CGFloat(b) / 15, alpha: 1.0)
-            }
+        case .shortHex:
+            let hex = Int(String(code.characters.dropFirst()), radix: 16) ?? 0
+            let r = (hex & 0xF00) >> 8
+            let g = (hex & 0x0F0) >> 4
+            let b = (hex & 0x00F)
+            self.init(calibratedRed: CGFloat(r) / 15, green: CGFloat(g) / 15, blue: CGFloat(b) / 15, alpha: 1.0)
             
         case .cssRGB:
-            let r = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
-            let g = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
-            let b = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
+            let r = Double(code.substring(with: result.rangeAt(1))) ?? 0
+            let g = Double(code.substring(with: result.rangeAt(2))) ?? 0
+            let b = Double(code.substring(with: result.rangeAt(3))) ?? 0
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
             
         case .cssRGBa:
-            let r = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
-            let g = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
-            let b = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
-            let a = Double((code as NSString).substring(with: result.rangeAt(4))) ?? 1
+            let r = Double(code.substring(with: result.rangeAt(1))) ?? 0
+            let g = Double(code.substring(with: result.rangeAt(2))) ?? 0
+            let b = Double(code.substring(with: result.rangeAt(3))) ?? 0
+            let a = Double(code.substring(with: result.rangeAt(4))) ?? 1
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a))
             
         case .cssHSL:
-            let h = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
-            let s = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
-            let l = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
+            let h = Double(code.substring(with: result.rangeAt(1))) ?? 0
+            let s = Double(code.substring(with: result.rangeAt(2))) ?? 0
+            let l = Double(code.substring(with: result.rangeAt(3))) ?? 0
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: 1.0)
             
         case .cssHSLa:
-            let h = Double((code as NSString).substring(with: result.rangeAt(1))) ?? 0
-            let s = Double((code as NSString).substring(with: result.rangeAt(2))) ?? 0
-            let l = Double((code as NSString).substring(with: result.rangeAt(3))) ?? 0
-            let a = Double((code as NSString).substring(with: result.rangeAt(4))) ?? 1
+            let h = Double(code.substring(with: result.rangeAt(1))) ?? 0
+            let s = Double(code.substring(with: result.rangeAt(2))) ?? 0
+            let l = Double(code.substring(with: result.rangeAt(3))) ?? 0
+            let a = Double(code.substring(with: result.rangeAt(4))) ?? 1
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: CGFloat(a))
             
         case .cssKeyword:
@@ -409,3 +406,14 @@ private let ColorKeywordMap: [String: Int] = [
     "LightYellow": 0xFFFFE0,
     "Ivory": 0xFFFFF0,
 ]
+
+
+
+private extension String {
+    
+    func substring(with range: NSRange) -> String {
+        
+        return (self as NSString).substring(with: range)
+    }
+    
+}
