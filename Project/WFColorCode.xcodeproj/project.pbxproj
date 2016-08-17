@@ -10,8 +10,7 @@
 		2A48102F1D4D0F8A00F7D34C /* NSColor+ColorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */; };
 		2A4810301D4D0F8F00F7D34C /* NSColor+HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */; };
 		2A4810311D4D0FA500F7D34C /* ColorCode.framework in Resources */ = {isa = PBXBuildFile; fileRef = 2A4810271D4D0F0F00F7D34C /* ColorCode.framework */; };
-		2A4810341D4D12E400F7D34C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4810331D4D12E400F7D34C /* Foundation.framework */; };
-		2A4810361D4D12EC00F7D34C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4810351D4D12EC00F7D34C /* AppKit.framework */; };
+		2A6B20D41D64BA1F00AADBD7 /* ColorCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4810271D4D0F0F00F7D34C /* ColorCode.framework */; };
 		2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,8 +31,6 @@
 		2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+HSL.swift"; sourceTree = "<group>"; };
 		2A4810271D4D0F0F00F7D34C /* ColorCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ColorCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A48102A1D4D0F0F00F7D34C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A4810331D4D12E400F7D34C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2A4810351D4D12EC00F7D34C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,15 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2A4810231D4D0F0F00F7D34C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2A4810341D4D12E400F7D34C /* Foundation.framework in Frameworks */,
-				2A4810361D4D12EC00F7D34C /* AppKit.framework in Frameworks */,
+				2A6B20D41D64BA1F00AADBD7 /* ColorCode.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +52,6 @@
 				2A07501A19B563500020EA75 /* Sources */,
 				2A4810281D4D0F0F00F7D34C /* Supporting Files */,
 				2A07502E19B563500020EA75 /* ColorCodeTests */,
-				2A4810321D4D12E400F7D34C /* Frameworks */,
 				2A07501919B563500020EA75 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -113,26 +101,7 @@
 			path = ColorCode;
 			sourceTree = "<group>";
 		};
-		2A4810321D4D12E400F7D34C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2A4810331D4D12E400F7D34C /* Foundation.framework */,
-				2A4810351D4D12EC00F7D34C /* AppKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		2A4810241D4D0F0F00F7D34C /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		2A07502A19B563500020EA75 /* ColorCodeTests */ = {
@@ -158,9 +127,6 @@
 			buildConfigurationList = 2A48102C1D4D0F0F00F7D34C /* Build configuration list for PBXNativeTarget "ColorCode" */;
 			buildPhases = (
 				2A4810221D4D0F0F00F7D34C /* Sources */,
-				2A4810231D4D0F0F00F7D34C /* Frameworks */,
-				2A4810241D4D0F0F00F7D34C /* Headers */,
-				2A4810251D4D0F0F00F7D34C /* Resources */,
 			);
 			buildRules = (
 			);
@@ -221,13 +187,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2A4810251D4D0F0F00F7D34C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -285,7 +244,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -301,6 +259,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -340,6 +299,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -356,7 +316,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -392,8 +351,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -413,8 +370,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wolfrosch.ColorCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

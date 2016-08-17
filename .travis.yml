@@ -2,11 +2,11 @@ language: objective-c
 osx_image: xcode8
 
 xcode_project: Project/WFColorCode.xcodeproj
-xcode_scheme: ColorCodeTests
+xcode_scheme: ColorCode
 
 # coveralls
 before_install:
   - sudo easy_install cpp-coveralls
-script: xcodebuild -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" test TEST_AFTER_BUILD=YES OBJROOT=build GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+script: xcodebuild -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" clean build test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO TEST_AFTER_BUILD=YES OBJROOT=build GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
   - coveralls -e ColorCodeTests
