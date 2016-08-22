@@ -195,12 +195,11 @@ public extension NSColor {
      */
     public static var stylesheetKeywordColors: [String: NSColor] {
         
-        let map = ColorKeywordMap
-        var dict = [String: NSColor]()
-        for (keyword, hex) in map {
-            dict[keyword] = NSColor(hex: hex)
+        return ColorKeywordMap.reduce([:]) { (dict, item) in
+            var dict = dict
+            dict[item.key] = NSColor(hex: item.value)
+            return dict
         }
-        return dict
     }
     
     
@@ -236,7 +235,6 @@ public extension NSColor {
             let hue = self.hueComponent
             let saturation = self.hslSaturationComponent
             let lightness = self.lightnessComponent
-            let alpha = self.alphaComponent
             
             let h = (saturation > 0) ? Int(round(360 * hue)) : 0
             let s = Int(round(100 * saturation))
