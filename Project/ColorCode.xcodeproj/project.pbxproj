@@ -159,7 +159,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2A07501319B563500020EA75 /* Build configuration list for PBXProject "WFColorCode" */;
+			buildConfigurationList = 2A07501319B563500020EA75 /* Build configuration list for PBXProject "ColorCode" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -373,7 +373,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2A07501319B563500020EA75 /* Build configuration list for PBXProject "WFColorCode" */ = {
+		2A07501319B563500020EA75 /* Build configuration list for PBXProject "ColorCode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2A07503319B563500020EA75 /* Debug */,

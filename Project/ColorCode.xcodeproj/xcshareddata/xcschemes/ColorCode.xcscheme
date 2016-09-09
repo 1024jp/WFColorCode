@@ -17,7 +17,7 @@
                BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
                BuildableName = "ColorCode.framework"
                BlueprintName = "ColorCode"
-               ReferencedContainer = "container:WFColorCode.xcodeproj">
+               ReferencedContainer = "container:ColorCode.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,7 +36,7 @@
                BlueprintIdentifier = "2A07502A19B563500020EA75"
                BuildableName = "ColorCodeTests.xctest"
                BlueprintName = "ColorCodeTests"
-               ReferencedContainer = "container:WFColorCode.xcodeproj">
+               ReferencedContainer = "container:ColorCode.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -46,7 +46,7 @@
             BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
             BuildableName = "ColorCode.framework"
             BlueprintName = "ColorCode"
-            ReferencedContainer = "container:WFColorCode.xcodeproj">
+            ReferencedContainer = "container:ColorCode.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,7 +68,7 @@
             BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
             BuildableName = "ColorCode.framework"
             BlueprintName = "ColorCode"
-            ReferencedContainer = "container:WFColorCode.xcodeproj">
+            ReferencedContainer = "container:ColorCode.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -86,7 +86,7 @@
             BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
             BuildableName = "ColorCode.framework"
             BlueprintName = "ColorCode"
-            ReferencedContainer = "container:WFColorCode.xcodeproj">
+            ReferencedContainer = "container:ColorCode.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
