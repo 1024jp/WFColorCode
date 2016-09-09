@@ -154,9 +154,8 @@
 					};
 					2A4810261D4D0F0F00F7D34C = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = HT3Z3A72WZ;
 						DevelopmentTeamName = "Mineko IMANISHI";
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -335,6 +334,7 @@
 		2A48102D1D4D0F0F00F7D34C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -354,6 +354,7 @@
 		2A48102E1D4D0F0F00F7D34C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
