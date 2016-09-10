@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -143,7 +143,7 @@
 		2A07501019B563500020EA75 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = WF;
+				CLASSPREFIX = "";
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = 1024jp;
 				TargetAttributes = {
@@ -160,7 +160,7 @@
 				};
 			};
 			buildConfigurationList = 2A07501319B563500020EA75 /* Build configuration list for PBXProject "ColorCode" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
