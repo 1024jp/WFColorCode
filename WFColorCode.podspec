@@ -8,12 +8,14 @@ Pod::Spec.new do |s|
                      :file => "LICENSE" }
   s.author       = { "1024jp" => "1024jp@wolfrosch.com" }
 
-  s.platform     = :osx, '10.9'
   s.source       = { :git => "https://github.com/1024jp/WFColorCode.git",
                      :tag => s.version }
-
+  
   s.source_files = 'Classes/*.swift'
-  s.frameworks   = "Foundation", "AppKit"
   s.requires_arc = true
-  s.compiler_flags = '-fmodules'
+
+  s.osx.deployment_target = '10.9'
+  s.osx.frameworks        = "AppKit"
+  
+  s.pod_target_xcconfig   = { 'SWIFT_VERSION' => '3.0' }
 end
