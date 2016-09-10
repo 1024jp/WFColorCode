@@ -1,10 +1,19 @@
 CHANGELOG
 ===========
 
+2.0.0
+-----------
+### New
+- Migrate to Swift
+- Become a framework
+- Change target OS to OS X 10.9 or higher.
+
+
 1.3.0
 -----------
 ### New
 - Support Objective-C generics of Xcode 7
+
 
 1.2.0
 -----------
@@ -21,10 +30,12 @@ CHANGELOG
 ### mod
 - Add more documentation.
 
+
 1.1.3
 -----------
 ### fix
 - A trivial fix for nullability annotations.
+
 
 1.1.2
 -----------

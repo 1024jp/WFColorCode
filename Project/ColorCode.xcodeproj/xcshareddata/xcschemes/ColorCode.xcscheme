@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -9,15 +9,15 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2A07502A19B563500020EA75"
-               BuildableName = "WFColorCodeTests.xctest"
-               BlueprintName = "WFColorCodeTests"
-               ReferencedContainer = "container:WFColorCode.xcodeproj">
+               BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
+               BuildableName = "ColorCode.framework"
+               BlueprintName = "ColorCode"
+               ReferencedContainer = "container:ColorCode.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,19 +34,19 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2A07502A19B563500020EA75"
-               BuildableName = "WFColorCodeTests.xctest"
-               BlueprintName = "WFColorCodeTests"
-               ReferencedContainer = "container:WFColorCode.xcodeproj">
+               BuildableName = "ColorCodeTests.xctest"
+               BlueprintName = "ColorCodeTests"
+               ReferencedContainer = "container:ColorCode.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2A07502A19B563500020EA75"
-            BuildableName = "WFColorCodeTests.xctest"
-            BlueprintName = "WFColorCodeTests"
-            ReferencedContainer = "container:WFColorCode.xcodeproj">
+            BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
+            BuildableName = "ColorCode.framework"
+            BlueprintName = "ColorCode"
+            ReferencedContainer = "container:ColorCode.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -54,8 +54,8 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -65,10 +65,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2A07502A19B563500020EA75"
-            BuildableName = "WFColorCodeTests.xctest"
-            BlueprintName = "WFColorCodeTests"
-            ReferencedContainer = "container:WFColorCode.xcodeproj">
+            BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
+            BuildableName = "ColorCode.framework"
+            BlueprintName = "ColorCode"
+            ReferencedContainer = "container:ColorCode.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,10 +83,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2A07502A19B563500020EA75"
-            BuildableName = "WFColorCodeTests.xctest"
-            BlueprintName = "WFColorCodeTests"
-            ReferencedContainer = "container:WFColorCode.xcodeproj">
+            BlueprintIdentifier = "2A4810261D4D0F0F00F7D34C"
+            BuildableName = "ColorCode.framework"
+            BlueprintName = "ColorCode"
+            ReferencedContainer = "container:ColorCode.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -1,11 +1,17 @@
 language: objective-c
-xcode_project: Project/WFColorCode.xcodeproj
-xcode_scheme: WFColorCodeTests
-osx_image: xcode7.2
+osx_image: xcode8
 
-# coveralls
+xcode_project: Project/WFColorCode.xcodeproj
+xcode_scheme: ColorCode
+
 before_install:
-  - sudo easy_install cpp-coveralls
-script: xctool -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" test TEST_AFTER_BUILD=YES OBJROOT=build GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  - gem install xcpretty
+  - gem install xcpretty-travis-formatter
+script:
+  xcodebuild
+  -project "$TRAVIS_XCODE_PROJECT"
+  -scheme "$TRAVIS_XCODE_SCHEME"
+  clean test
+  | xcpretty -f `xcpretty-travis-formatter`
 after_success:
-  - coveralls -e WFColorCodeTests
+  - bash <(curl -s https://codecov.io/bash)
