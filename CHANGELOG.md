@@ -1,9 +1,15 @@
 CHANGELOG
 ===========
 
+2.0.1
+-----------
+### mod
+- Update Swift to 3.0.1.
+
+
 2.0.0
 -----------
-### New
+### new
 - Migrate to Swift
 - Become a framework
 - Change target OS to OS X 10.9 or higher.
@@ -11,7 +17,7 @@ CHANGELOG
 
 1.3.0
 -----------
-### New
+### new
 - Support Objective-C generics of Xcode 7
 
 
