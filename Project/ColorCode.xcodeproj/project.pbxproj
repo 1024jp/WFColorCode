@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2A48102F1D4D0F8A00F7D34C /* NSColor+ColorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48101E1D4CB87000F7D34C /* NSColor+ColorCode.swift */; };
 		2A4810301D4D0F8F00F7D34C /* NSColor+HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */; };
-		2A4810311D4D0FA500F7D34C /* ColorCode.framework in Resources */ = {isa = PBXBuildFile; fileRef = 2A4810271D4D0F0F00F7D34C /* ColorCode.framework */; };
 		2A6B20D41D64BA1F00AADBD7 /* ColorCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4810271D4D0F0F00F7D34C /* ColorCode.framework */; };
 		2A7A1D491D4BDC84001B74B8 /* ColorCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */; };
 /* End PBXBuildFile section */
@@ -110,7 +109,6 @@
 			buildPhases = (
 				2A07502719B563500020EA75 /* Sources */,
 				2A07502819B563500020EA75 /* Frameworks */,
-				2A07502919B563500020EA75 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -144,13 +142,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = "";
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = 1024jp;
 				TargetAttributes = {
 					2A07502A19B563500020EA75 = {
 						CreatedOnToolsVersion = 6.0;
 						LastSwiftMigration = 0800;
-						TestTargetID = 2A07501719B563500020EA75;
 					};
 					2A4810261D4D0F0F00F7D34C = {
 						CreatedOnToolsVersion = 8.0;
@@ -176,17 +173,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		2A07502919B563500020EA75 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2A4810311D4D0FA500F7D34C /* ColorCode.framework in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2A07502719B563500020EA75 /* Sources */ = {
@@ -231,8 +217,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -258,7 +246,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -276,8 +264,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -297,39 +287,27 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};
 		2A07503919B563500020EA75 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = ColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		2A07503A19B563500020EA75 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = ColorCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -350,7 +328,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -370,7 +347,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wolfrosch.ColorCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
