@@ -14,5 +14,6 @@ Pod::Spec.new do |s|
   s.source_files = 'Sources/*.swift'
   s.requires_arc = true
 
+  s.module_name = 'ColorCode'
   s.osx.deployment_target = '10.9'
 end
