@@ -4,7 +4,7 @@ WFColorCode
 
 [![Build Status](http://img.shields.io/travis/1024jp/WFColorCode.svg?style=flat)](https://travis-ci.org/1024jp/WFColorCode)
 [![codecov.io](https://codecov.io/gh/1024jp/WFColorCode/branch/develop/graphs/badge.svg)](https://codecov.io/gh/1024jp/WFColorCode)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-✔-4BC51D.svg.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-✔-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![SPM compatible](https://img.shields.io/badge/SPM-✔-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
 [![CocoaPods version](http://img.shields.io/cocoapods/v/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
 [![CocoaPods platform](http://img.shields.io/cocoapods/p/WFColorCode.svg?style=flat)](https://cocoapods.org/pods/WFColorCode)
