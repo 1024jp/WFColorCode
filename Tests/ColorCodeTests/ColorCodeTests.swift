@@ -28,8 +28,7 @@
  THE SOFTWARE.
  */
 
-import Cocoa
-import ColorCode
+@testable import ColorCode
 import XCTest
 
 class ColorCodeTests: XCTestCase {
