@@ -50,7 +50,7 @@
 			children = (
 				2A07501A19B563500020EA75 /* Sources */,
 				2A4810281D4D0F0F00F7D34C /* Supporting Files */,
-				2A07502E19B563500020EA75 /* ColorCodeTests */,
+				2A07502E19B563500020EA75 /* Tests */,
 				2A07501919B563500020EA75 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,13 +74,13 @@
 			path = ../Sources;
 			sourceTree = "<group>";
 		};
-		2A07502E19B563500020EA75 /* ColorCodeTests */ = {
+		2A07502E19B563500020EA75 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				2A7A1D481D4BDC84001B74B8 /* ColorCodeTests.swift */,
 				2A07502F19B563500020EA75 /* Supporting Files */,
 			);
-			name = ColorCodeTests;
+			name = Tests;
 			path = ../Tests;
 			sourceTree = "<group>";
 		};
@@ -90,7 +90,7 @@
 				2A07503019B563500020EA75 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			path = ../Project/ColorCodeTests;
+			path = ../Project;
 			sourceTree = "<group>";
 		};
 		2A4810281D4D0F0F00F7D34C /* Supporting Files */ = {
@@ -99,7 +99,6 @@
 				2A48102A1D4D0F0F00F7D34C /* Info.plist */,
 			);
 			name = "Supporting Files";
-			path = ColorCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,7 +295,7 @@
 		2A07503919B563500020EA75 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = ColorCodeTests/Info.plist;
+				INFOPLIST_FILE = "Info-Tests.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -306,7 +305,7 @@
 		2A07503A19B563500020EA75 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = ColorCodeTests/Info.plist;
+				INFOPLIST_FILE = "Info-Tests.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfrosch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -323,7 +322,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = ColorCode/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wolfrosch.ColorCode;
@@ -343,7 +342,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = ColorCode/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wolfrosch.ColorCode;
