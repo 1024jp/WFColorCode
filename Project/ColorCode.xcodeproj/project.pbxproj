@@ -71,7 +71,7 @@
 				2A4810201D4CB8AA00F7D34C /* NSColor+HSL.swift */,
 			);
 			name = Sources;
-			path = ../Classes;
+			path = ../Sources;
 			sourceTree = "<group>";
 		};
 		2A07502E19B563500020EA75 /* ColorCodeTests */ = {

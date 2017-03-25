@@ -22,7 +22,7 @@ WFColorCode supports the following color code styles.
 
 ```swift
 /// color code type
-enum WFColorCodeType : Int {
+enum WFColorCodeType: Int {
     case invalid    // nil
     case hex        // #ffffff
     case shortHex   // #fff
@@ -85,6 +85,6 @@ If you use neither CocoaPods nor Carthage, place NSColor+ColorCode.swift and NSC
 
 License
 -----------------------------
-© 2014-2016 1024jp.
+© 2014-2017 1024jp.
 
 The source code is distributed under the terms of the __MIT License__. See the bundled "[LICENSE](LICENSE)" for details.
