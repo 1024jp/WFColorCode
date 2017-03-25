@@ -1,17 +1,8 @@
 language: objective-c
 osx_image: xcode8.2
 
-xcode_project: Project/WFColorCode.xcodeproj
-xcode_scheme: ColorCode
-
-before_install:
-  - gem install xcpretty
-  - gem install xcpretty-travis-formatter
 script:
-  xcodebuild
-  -project "$TRAVIS_XCODE_PROJECT"
-  -scheme "$TRAVIS_XCODE_SCHEME"
-  clean test
-  | xcpretty -f `xcpretty-travis-formatter`
+  - set -o pipefail
+  - xcodebuild -project Project/ColorCode.xcodeproj -scheme ColorCode test | xcpretty
 after_success:
   - bash <(curl -s https://codecov.io/bash)
