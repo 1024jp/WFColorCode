@@ -206,7 +206,7 @@ public extension NSColor {
     /**
      Returns the receiver’s color code in desired type.
      
-     This method works only with objects representing colors in the `NSCalibratedRGBColorSpace` or `NSDeviceRGBColorSpace` color space. Sending it to other objects raises an exception.
+     This method works only with objects representing colors in the `NSColorSpaceName.calibratedRGB` or `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
      
      - parameter type:       The type of color code to format the returned string. You may use one of the types listed in `ColorCodeType`.
      - returns:              The color code string formatted in the input type.
@@ -246,7 +246,10 @@ public extension NSColor {
             return String(format: "hsl(%d,%d%%,%d%%)", h, s, l)
             
         case .cssKeyword:
-            let hex = ((Int(r) & 0xff) << 16) + ((Int(g) & 0xff) << 8) + (Int(b) & 0xff)
+            let rHex = (Int(r) & 0xff) << 16
+            let gHex = (Int(g) & 0xff) << 8
+            let bHex = (Int(b) & 0xff)
+            let hex = rHex + gHex + bHex
             return ColorKeywordMap.first { $0.value == hex }?.key
             
         case .invalid:
