@@ -6,7 +6,8 @@ CHANGELOG
 ### mod
 - Update Xcode to 9.
 
-2.0.2
+
+2.0.4
 -----------
 ### mod
 - Update Xcode to 8.2.
