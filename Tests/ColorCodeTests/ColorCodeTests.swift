@@ -114,10 +114,10 @@ class ColorCodeTests: XCTestCase {
         
         color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &alpha)
         
-        XCTAssertEqualWithAccuracy(hue, 0.1, accuracy: 3)
-        XCTAssertEqualWithAccuracy(saturation, 0.2, accuracy: 3)
-        XCTAssertEqualWithAccuracy(lightness, 0.3, accuracy: 3)
-        XCTAssertEqualWithAccuracy(alpha, 0.4, accuracy: 3)
+        XCTAssertEqual(hue, 0.1, accuracy: 3)
+        XCTAssertEqual(saturation, 0.2, accuracy: 3)
+        XCTAssertEqual(lightness, 0.3, accuracy: 3)
+        XCTAssertEqual(alpha, 0.4, accuracy: 3)
     }
     
     
