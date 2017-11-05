@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2016 1024jp
+ Copyright (c) 2014-2017 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -111,11 +111,11 @@ public extension NSColor {
         // create color from result
         switch detectedCodeType {
         case .hex:
-            let hex = Int(String(code.characters.dropFirst()), radix: 16) ?? 0
+            let hex = Int(String(code.dropFirst()), radix: 16) ?? 0
             self.init(hex: hex)
             
         case .shortHex:
-            let hex = Int(String(code.characters.dropFirst()), radix: 16) ?? 0
+            let hex = Int(String(code.dropFirst()), radix: 16) ?? 0
             let r = (hex & 0xF00) >> 8
             let g = (hex & 0x0F0) >> 4
             let b = (hex & 0x00F)
