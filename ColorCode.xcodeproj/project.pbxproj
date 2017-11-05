@@ -27,7 +27,7 @@
 		OBJ_10 /* NSColor+HSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+HSL.swift"; sourceTree = "<group>"; };
 		OBJ_13 /* ColorCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorCodeTests.swift; path = ColorCodeTests/ColorCodeTests.swift; sourceTree = "<group>"; };
 		OBJ_15 /* ColorCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ColorCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_16 /* ColorCodeTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = ColorCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_16 /* ColorCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = ColorCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* NSColor+ColorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+ColorCode.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +122,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					OBJ_17 = {
+						LastSwiftMigration = 0900;
+					};
+					OBJ_25 = {
+						LastSwiftMigration = 0900;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "ColorCode" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -251,7 +259,7 @@
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				USE_HEADERMAP = NO;
 			};
 			name = Debug;
@@ -271,7 +279,7 @@
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				USE_HEADERMAP = NO;
 			};
 			name = Release;
