@@ -4,7 +4,7 @@ CHANGELOG
 2.1.0
 -----------
 ### mod
-- Update Xcode to 9.
+- Update Xcode to 9.1.
 
 
 2.0.4
