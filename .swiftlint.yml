@@ -36,5 +36,4 @@ vertical_whitespace:
 
 line_length: 500
 function_body_length: 80
-file_length: 500
 cyclomatic_complexity: 11
