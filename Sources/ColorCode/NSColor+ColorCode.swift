@@ -83,7 +83,7 @@ public extension NSColor {
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
         let codeRange = NSRange(location: 0, length: code.utf16.count)
         
-        let patterns: [ColorCodeType : String] = [
+        let patterns: [ColorCodeType: String] = [
             .hex: "^#[0-9a-fA-F]{6}$",
             .shortHex: "^#[0-9a-fA-F]{3}$",
             .cssRGB: "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$",
@@ -149,12 +149,11 @@ public extension NSColor {
             
         case .cssKeyword:
             let lowercase = code.lowercased()
-            guard let hex = ColorKeywordMap.first(where: {
-                $0.key.lowercased() == lowercase
-            })?.value else {
-                type?.pointee = .invalid
-                return nil
-            }
+            guard let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value
+                else {
+                    type?.pointee = .invalid
+                    return nil
+                }
             self.init(hex: hex)
             
         case .invalid:
@@ -178,7 +177,9 @@ public extension NSColor {
      */
     public convenience init?(hex: Int, alpha: CGFloat = 1.0) {
         
-        guard (0...0xFFFFFF).contains(hex) else { return nil }
+        guard (0...0xFFFFFF).contains(hex) else {
+            return nil
+        }
         
         let r = (hex & 0xFF0000) >> 16
         let g = (hex & 0x00FF00) >> 8
@@ -195,7 +196,7 @@ public extension NSColor {
      */
     public static var stylesheetKeywordColors: [String: NSColor] {
         
-        return ColorKeywordMap.reduce([:]) { (dict, item) in
+        return colorKeywordMap.reduce([:]) { dict, item in
             var dict = dict
             dict[item.key] = NSColor(hex: item.value)
             return dict
@@ -250,7 +251,7 @@ public extension NSColor {
             let gHex = (Int(g) & 0xff) << 8
             let bHex = (Int(b) & 0xff)
             let hex = rHex + gHex + bHex
-            return ColorKeywordMap.first { $0.value == hex }?.key
+            return colorKeywordMap.first { $0.value == hex }?.key
             
         case .invalid:
             return nil
@@ -261,7 +262,7 @@ public extension NSColor {
 
 
 
-private let ColorKeywordMap: [String: Int] = [
+private let colorKeywordMap: [String: Int] = [
     // CSS2.1
     "Black": 0x000000,
     "Navy": 0x000080,
