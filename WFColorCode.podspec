@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/1024jp/WFColorCode.git",
                      :tag => s.version }
   
-  s.source_files = 'Sources/*.swift'
+  s.source_files = 'Sources/ColorCode/*.swift'
   s.requires_arc = true
 
   s.module_name = 'ColorCode'

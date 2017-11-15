@@ -77,7 +77,8 @@
 				OBJ_9 /* NSColor+ColorCode.swift */,
 				OBJ_10 /* NSColor+HSL.swift */,
 			);
-			path = Sources;
+			name = Sources;
+			path = Sources/ColorCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
