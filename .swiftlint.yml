@@ -23,6 +23,7 @@ opt_in_rules:
   - vertical_parameter_alignment_on_call
 
 disabled_rules:
+  - force_unwrapping
   - force_try
 
 trailing_comma:

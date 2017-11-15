@@ -189,19 +189,8 @@ public extension NSColor {
     }
     
     
-    /**
-     Creates and returns a `<String, NSColor>` paired dictionary represents all keyword colors specified in CSS3.
-     
-     - returns:              The Dcitonary of the stylesheet keyword names and colors pairs. The names are in upper camel case.
-     */
-    public static var stylesheetKeywordColors: [String: NSColor] {
-        
-        return colorKeywordMap.reduce([:]) { dict, item in
-            var dict = dict
-            dict[item.key] = NSColor(hex: item.value)
-            return dict
-        }
-    }
+    /// Creates and returns a `<String, NSColor>` paired dictionary represents all keyword colors specified in CSS3. The names are in upper camel-case.
+    public static var stylesheetKeywordColors: [String: NSColor] = colorKeywordMap.mapValues { NSColor(hex: $0)! }
     
     
     /**
