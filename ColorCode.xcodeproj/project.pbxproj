@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AC3E84E1FBBD7920082CA63 /* ColorKeywordMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E84D1FBBD7920082CA63 /* ColorKeywordMap.swift */; };
 		OBJ_22 /* NSColor+ColorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* NSColor+ColorCode.swift */; };
 		OBJ_23 /* NSColor+HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* NSColor+HSL.swift */; };
 		OBJ_30 /* ColorCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* ColorCodeTests.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2AC3E84D1FBBD7920082CA63 /* ColorKeywordMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorKeywordMap.swift; sourceTree = "<group>"; };
 		OBJ_10 /* NSColor+HSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+HSL.swift"; sourceTree = "<group>"; };
 		OBJ_13 /* ColorCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorCodeTests.swift; path = ColorCodeTests/ColorCodeTests.swift; sourceTree = "<group>"; };
 		OBJ_15 /* ColorCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ColorCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,8 +78,10 @@
 			children = (
 				OBJ_9 /* NSColor+ColorCode.swift */,
 				OBJ_10 /* NSColor+HSL.swift */,
+				2AC3E84D1FBBD7920082CA63 /* ColorKeywordMap.swift */,
 			);
-			path = Sources;
+			name = Sources;
+			path = Sources/ColorCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +91,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_18 /* Build configuration list for PBXNativeTarget "ColorCode" */;
 			buildPhases = (
+				2A7DC7B91FBBCA6A00539D90 /* Lint Swift Code */,
 				OBJ_21 /* Sources */,
 			);
 			buildRules = (
@@ -149,12 +154,30 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2A7DC7B91FBBCA6A00539D90 /* Lint Swift Code */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Lint Swift Code";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		OBJ_21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
 				OBJ_22 /* NSColor+ColorCode.swift in Sources */,
+				2AC3E84E1FBBD7920082CA63 /* ColorKeywordMap.swift in Sources */,
 				OBJ_23 /* NSColor+HSL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

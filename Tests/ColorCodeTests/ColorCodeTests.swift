@@ -28,8 +28,8 @@
  THE SOFTWARE.
  */
 
-@testable import ColorCode
 import XCTest
+import ColorCode
 
 class ColorCodeTests: XCTestCase {
 

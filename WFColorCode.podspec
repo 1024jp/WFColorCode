@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WFColorCode"
-  s.version      = "2.1.1"
+  s.version      = "2.1.2"
   s.summary      = "NSColor category adding ability to handle HSL color space and CSS3 style color codes like hex, rgb() or hsla()."
 
   s.homepage     = "https://github.com/1024jp/WFColorCode"
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/1024jp/WFColorCode.git",
                      :tag => s.version }
   
-  s.source_files = 'Sources/*.swift'
+  s.source_files = 'Sources/ColorCode/*.swift'
   s.requires_arc = true
 
   s.module_name = 'ColorCode'

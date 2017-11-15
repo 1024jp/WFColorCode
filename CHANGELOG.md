@@ -1,6 +1,13 @@
 CHANGELOG
 ===========
 
+2.1.2
+-----------
+### mod
+- Tweak code
+### fix
+- Fix swift package manager
+
 2.1.0
 -----------
 ### mod
