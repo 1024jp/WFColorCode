@@ -9,7 +9,6 @@ opt_in_rules:
   - first_where
   - force_unwrapping
   - implicit_return
-  - implicitly_unwrapped_optional
   - let_var_whitespace
   - multiline_parameters
   - nimble_operator
@@ -38,3 +37,7 @@ vertical_whitespace:
 line_length: 500
 function_body_length: 80
 cyclomatic_complexity: 11
+
+identifier_name:
+  min_length:
+    warning: 1

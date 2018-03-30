@@ -1,12 +1,20 @@
 CHANGELOG
 ===========
 
+2.1.3
+-----------
+### mod
+- Update Xcode to 9.3.
+
+
 2.1.2
 -----------
 ### mod
 - Tweak code
+
 ### fix
 - Fix swift package manager
+
 
 2.1.0
 -----------
