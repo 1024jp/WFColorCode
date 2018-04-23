@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2016 1024jp
+ Copyright (c) 2014-2018 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -36,34 +36,32 @@ class ColorCodeTests: XCTestCase {
     func testColorCreation() {
         
         let whiteColor = NSColor.white.usingColorSpaceName(.calibratedRGB)
-        var type: ColorCodeType = .invalid
+        var type: ColorCodeType?
         
         XCTAssertEqual(NSColor(colorCode: "#ffffff", type: &type), whiteColor)
-        XCTAssertEqual(type, ColorCodeType.hex)
+        XCTAssertEqual(type, .hex)
         
         XCTAssertEqual(NSColor(colorCode: "#fff", type: &type), whiteColor)
-        XCTAssertEqual(type, ColorCodeType.shortHex)
+        XCTAssertEqual(type, .shortHex)
         
         XCTAssertEqual(NSColor(colorCode: "rgb(255,255,255)", type: &type), whiteColor)
-        XCTAssertEqual(type, ColorCodeType.cssRGB)
+        XCTAssertEqual(type, .cssRGB)
         
         XCTAssertEqual(NSColor(colorCode: "rgba(255,255,255,1)", type: &type), whiteColor)
-        XCTAssertEqual(type, ColorCodeType.cssRGBa)
+        XCTAssertEqual(type, .cssRGBa)
         
         XCTAssertEqual(NSColor(colorCode: "hsl(0,0%,100%)", type: &type), whiteColor)
-        XCTAssertEqual(type, ColorCodeType.cssHSL)
+        XCTAssertEqual(type, .cssHSL)
         
         XCTAssertEqual(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type), whiteColor)
-        XCTAssertEqual(type, ColorCodeType.cssHSLa)
+        XCTAssertEqual(type, .cssHSLa)
         
         XCTAssertEqual(NSColor(colorCode: "white", type: &type), whiteColor)
-        XCTAssertEqual(type, ColorCodeType.cssKeyword)
+        XCTAssertEqual(type, .cssKeyword)
         
         XCTAssertNil(NSColor(colorCode: "", type: &type))
-        XCTAssertEqual(type, ColorCodeType.invalid)
         
         XCTAssertNil(NSColor(colorCode: "foobar", type: &type))
-        XCTAssertEqual(type, ColorCodeType.invalid)
     }
     
     
@@ -78,27 +76,26 @@ class ColorCodeTests: XCTestCase {
         XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
         XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
         XCTAssertEqual(color?.colorCode(type: .cssKeyword), "White")
-        XCTAssertNil(color?.colorCode(type: .invalid))
     }
     
     
     func testHSLaColorCode() {
         
         let colorCode = "hsla(203,10%,20%,0.3)"
-        var type: ColorCodeType = .invalid
+        var type: ColorCodeType?
         let color = NSColor(colorCode: colorCode, type: &type)
         
-        XCTAssertEqual(type, ColorCodeType.cssHSLa)
-        XCTAssertEqual(color?.colorCode(type: type), colorCode)
+        XCTAssertEqual(type, .cssHSLa)
+        XCTAssertEqual(color?.colorCode(type: .cssHSLa), colorCode)
     }
     
     
     func testHexColorCode() {
         
-        var type: ColorCodeType = .invalid
+        var type: ColorCodeType?
         let color = NSColor(colorCode: "#0066aa", type: &type)
         
-        XCTAssertEqual(type, ColorCodeType.hex)
+        XCTAssertEqual(type, .hex)
         XCTAssertEqual(color?.colorCode(type: .hex), "#0066aa")
         XCTAssertEqual(color?.colorCode(type: .shortHex), "#06a")
     }
@@ -132,17 +129,17 @@ class ColorCodeTests: XCTestCase {
     
     func testKeyword() {
         
-        var type: ColorCodeType = .invalid
+        var type: ColorCodeType?
         let color = NSColor(colorCode: "MidnightBlue", type: &type)
         
-        XCTAssertEqual(type, ColorCodeType.cssKeyword)
+        XCTAssertEqual(type, .cssKeyword)
         XCTAssertEqual(color?.colorCode(type: .cssKeyword), "MidnightBlue")
         XCTAssertEqual(color?.colorCode(type: .hex), "#191970")
-        XCTAssertNil(NSColor(colorCode: "foobar", type: nil))
+        XCTAssertNil(NSColor(colorCode: "foobar"))
         
         let keywordColors = NSColor.stylesheetKeywordColors
         let keyword = "Orange"
-        XCTAssertEqual(keywordColors[keyword], NSColor(colorCode: keyword, type: nil))
+        XCTAssertEqual(keywordColors[keyword], NSColor(colorCode: keyword))
     }
     
 }
