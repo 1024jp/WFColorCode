@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2017 1024jp
+ Copyright (c) 2014-2018 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -122,29 +122,29 @@ public extension NSColor {
             self.init(calibratedRed: CGFloat(r) / 15, green: CGFloat(g) / 15, blue: CGFloat(b) / 15, alpha: 1.0)
             
         case .cssRGB:
-            let r = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let g = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let b = Double(code.substring(with: result.range(at: 3))) ?? 0
+            let r = Double(code[result.range(at: 1)]) ?? 0
+            let g = Double(code[result.range(at: 2)]) ?? 0
+            let b = Double(code[result.range(at: 3)]) ?? 0
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
             
         case .cssRGBa:
-            let r = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let g = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let b = Double(code.substring(with: result.range(at: 3))) ?? 0
-            let a = Double(code.substring(with: result.range(at: 4))) ?? 1
+            let r = Double(code[result.range(at: 1)]) ?? 0
+            let g = Double(code[result.range(at: 2)]) ?? 0
+            let b = Double(code[result.range(at: 3)]) ?? 0
+            let a = Double(code[result.range(at: 4)]) ?? 1
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a))
             
         case .cssHSL:
-            let h = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let s = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let l = Double(code.substring(with: result.range(at: 3))) ?? 0
+            let h = Double(code[result.range(at: 1)]) ?? 0
+            let s = Double(code[result.range(at: 2)]) ?? 0
+            let l = Double(code[result.range(at: 3)]) ?? 0
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: 1.0)
             
         case .cssHSLa:
-            let h = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let s = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let l = Double(code.substring(with: result.range(at: 3))) ?? 0
-            let a = Double(code.substring(with: result.range(at: 4))) ?? 1
+            let h = Double(code[result.range(at: 1)]) ?? 0
+            let s = Double(code[result.range(at: 2)]) ?? 0
+            let l = Double(code[result.range(at: 3)]) ?? 0
+            let a = Double(code[result.range(at: 4)]) ?? 1
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: CGFloat(a))
             
         case .cssKeyword:
@@ -253,9 +253,9 @@ public extension NSColor {
 
 private extension String {
     
-    func substring(with range: NSRange) -> String {
+    subscript(range: NSRange) -> SubSequence {
         
-        return (self as NSString).substring(with: range)
+        return self[Range(range, in: self)!]
     }
     
 }
