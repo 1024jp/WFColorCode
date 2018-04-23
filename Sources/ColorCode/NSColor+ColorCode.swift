@@ -236,9 +236,9 @@ public extension NSColor {
             return String(format: "hsl(%d,%d%%,%d%%)", h, s, l)
             
         case .cssKeyword:
-            let rHex = (Int(r) & 0xff) << 16
-            let gHex = (Int(g) & 0xff) << 8
-            let bHex = (Int(b) & 0xff)
+            let rHex = (r & 0xff) << 16
+            let gHex = (g & 0xff) << 8
+            let bHex = (b & 0xff)
             let hex = rHex + gHex + bHex
             return colorKeywordMap.first { $0.value == hex }?.key
             
