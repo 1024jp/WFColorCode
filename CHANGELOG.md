@@ -1,6 +1,14 @@
 CHANGELOG
 ===========
 
+2.2.0
+-----------
+
+### mod
+
+- remove .invalid case from ColorCodeType.
+
+
 2.1.3
 -----------
 ### mod
