@@ -1,6 +1,13 @@
 CHANGELOG
 ===========
 
+2.2.1
+-----------
+
+### fix
+
+- fix ColorCodeType enum number.
+
 2.2.0
 -----------
 
