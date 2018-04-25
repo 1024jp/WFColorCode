@@ -33,7 +33,7 @@ import AppKit.NSColor
 public enum ColorCodeType: Int {
     
     /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`
-    case hex
+    case hex = 1
     
     /// 3-digit hexadecimal color code with # symbol. For example: `#fff`
     case shortHex
