@@ -25,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A4714E1208F51F10093E27F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		2AC3E84D1FBBD7920082CA63 /* ColorKeywordMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorKeywordMap.swift; sourceTree = "<group>"; };
 		OBJ_10 /* NSColor+HSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+HSL.swift"; sourceTree = "<group>"; };
 		OBJ_13 /* ColorCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorCodeTests.swift; path = ColorCodeTests/ColorCodeTests.swift; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
+				2A4714E1208F51F10093E27F /* CHANGELOG.md */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_11 /* Tests */,

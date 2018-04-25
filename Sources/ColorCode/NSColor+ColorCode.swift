@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2017 1024jp
+ Copyright (c) 2014-2018 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -32,9 +32,6 @@ import AppKit.NSColor
 
 public enum ColorCodeType: Int {
     
-    /// Color code is invalid.
-    case invalid
-    
     /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`
     case hex
     
@@ -55,6 +52,9 @@ public enum ColorCodeType: Int {
     
     /// CSS style color code with keyrowd. For example: `White`
     case cssKeyword
+    
+    
+    static let allCases: [ColorCodeType] = [.hex, .shortHex, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword]
 }
 
 
@@ -69,96 +69,110 @@ public extension NSColor {
      
      Example usage:
      ```
-     var colorCodeType: WFColorCodeType = .invalid
-     let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", codeTypfe: &colorCodeType)
+     var type: ColorCodeType?
+     let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
      let hex = whiteColor.colorCode(type: .hex)  // => "#ffffff"
      ```
      
      - parameter colorCode:  The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
      - parameter type:       Upon return, contains the detected color code type.
-     - returns:              The color object.
      */
-    public convenience init?(colorCode: String, type: UnsafeMutablePointer<ColorCodeType>? = nil) {
+    public convenience init?(colorCode: String, type: inout ColorCodeType?) {
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
         let codeRange = NSRange(location: 0, length: code.utf16.count)
         
-        let patterns: [ColorCodeType: String] = [
-            .hex: "^#[0-9a-fA-F]{6}$",
-            .shortHex: "^#[0-9a-fA-F]{3}$",
-            .cssRGB: "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$",
-            .cssRGBa: "^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$",
-            .cssHSL: "^hsl\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\\)$",
-            .cssHSLa: "^hsla\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\\)$",
-            .cssKeyword: "^[a-zA-Z]+$",
-            ]
-        
         // detect code type
-        var detectedCodeType: ColorCodeType = .invalid
-        var result: NSTextCheckingResult!
-        for (key, pattern) in patterns {
-            let regex = try! NSRegularExpression(pattern: pattern)
-            let matches = regex.matches(in: code, range: codeRange)
-            if let match = matches.first, matches.count == 1 {
-                detectedCodeType = key
-                result = match
-                break
-            }
-        }
-        
-        type?.pointee = detectedCodeType
+        guard let (detectedType, result) = ColorCodeType.allCases.lazy
+            .compactMap({ type -> (ColorCodeType, NSTextCheckingResult)? in
+                let pattern: String = {
+                    switch type {
+                    case .hex:
+                        return "^#[0-9a-fA-F]{6}$"
+                    case .shortHex:
+                        return "^#[0-9a-fA-F]{3}$"
+                    case .cssRGB:
+                        return "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$"
+                    case .cssRGBa:
+                        return "^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$"
+                    case .cssHSL:
+                        return "^hsl\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\\)$"
+                    case .cssHSLa:
+                        return "^hsla\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\\)$"
+                    case .cssKeyword:
+                        return "^[a-zA-Z]+$"
+                    }
+                }()
+                let regex = try! NSRegularExpression(pattern: pattern)
+                
+                guard let match = regex.firstMatch(in: code, range: codeRange) else {
+                    return nil
+                }
+                return (type, match)
+                
+            }).first else { return nil }
         
         // create color from result
-        switch detectedCodeType {
+        switch detectedType {
         case .hex:
-            let hex = Int(String(code.dropFirst()), radix: 16) ?? 0
+            let hex = Int(String(code.dropFirst()), radix: 16)!
             self.init(hex: hex)
             
         case .shortHex:
-            let hex = Int(String(code.dropFirst()), radix: 16) ?? 0
+            let hex = Int(String(code.dropFirst()), radix: 16)!
             let r = (hex & 0xF00) >> 8
             let g = (hex & 0x0F0) >> 4
             let b = (hex & 0x00F)
             self.init(calibratedRed: CGFloat(r) / 15, green: CGFloat(g) / 15, blue: CGFloat(b) / 15, alpha: 1.0)
             
         case .cssRGB:
-            let r = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let g = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let b = Double(code.substring(with: result.range(at: 3))) ?? 0
+            let r = Double(code[result.range(at: 1)])!
+            let g = Double(code[result.range(at: 2)])!
+            let b = Double(code[result.range(at: 3)])!
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
             
         case .cssRGBa:
-            let r = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let g = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let b = Double(code.substring(with: result.range(at: 3))) ?? 0
-            let a = Double(code.substring(with: result.range(at: 4))) ?? 1
+            let r = Double(code[result.range(at: 1)])!
+            let g = Double(code[result.range(at: 2)])!
+            let b = Double(code[result.range(at: 3)])!
+            let a = Double(code[result.range(at: 4)])!
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a))
             
         case .cssHSL:
-            let h = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let s = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let l = Double(code.substring(with: result.range(at: 3))) ?? 0
+            let h = Double(code[result.range(at: 1)])!
+            let s = Double(code[result.range(at: 2)])!
+            let l = Double(code[result.range(at: 3)])!
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: 1.0)
             
         case .cssHSLa:
-            let h = Double(code.substring(with: result.range(at: 1))) ?? 0
-            let s = Double(code.substring(with: result.range(at: 2))) ?? 0
-            let l = Double(code.substring(with: result.range(at: 3))) ?? 0
-            let a = Double(code.substring(with: result.range(at: 4))) ?? 1
+            let h = Double(code[result.range(at: 1)])!
+            let s = Double(code[result.range(at: 2)])!
+            let l = Double(code[result.range(at: 3)])!
+            let a = Double(code[result.range(at: 4)])!
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: CGFloat(a))
             
         case .cssKeyword:
             let lowercase = code.lowercased()
-            guard let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value
-                else {
-                    type?.pointee = .invalid
+            guard let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value else {
                     return nil
                 }
             self.init(hex: hex)
-            
-        case .invalid:
-            return nil
         }
+        
+        type = detectedType
+    }
+    
+    
+    /**
+     Creates and returns a `NSColor` object using the given color code. Or returns `nil` if color code is invalid.
+     
+     - parameter colorCode:  The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+     */
+    public convenience init?(colorCode: String) {
+        
+        var type: ColorCodeType?
+        
+        self.init(colorCode: colorCode, type: &type)
     }
     
     
@@ -173,7 +187,6 @@ public extension NSColor {
      
      - parameter hex:        The 6-digit hexadecimal color code.
      - parameter alpha:      The opacity value of the color object.
-     - returns:              The color object.
      */
     public convenience init?(hex: Int, alpha: CGFloat = 1.0) {
         
@@ -236,14 +249,11 @@ public extension NSColor {
             return String(format: "hsl(%d,%d%%,%d%%)", h, s, l)
             
         case .cssKeyword:
-            let rHex = (Int(r) & 0xff) << 16
-            let gHex = (Int(g) & 0xff) << 8
-            let bHex = (Int(b) & 0xff)
+            let rHex = (r & 0xff) << 16
+            let gHex = (g & 0xff) << 8
+            let bHex = (b & 0xff)
             let hex = rHex + gHex + bHex
             return colorKeywordMap.first { $0.value == hex }?.key
-            
-        case .invalid:
-            return nil
         }
     }
     
@@ -253,9 +263,9 @@ public extension NSColor {
 
 private extension String {
     
-    func substring(with range: NSRange) -> String {
+    subscript(range: NSRange) -> SubSequence {
         
-        return (self as NSString).substring(with: range)
+        return self[Range(range, in: self)!]
     }
     
 }

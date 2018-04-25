@@ -22,8 +22,7 @@ WFColorCode supports the following color code styles.
 
 ```swift
 /// color code type
-enum WFColorCodeType: Int {
-    case invalid    // nil
+enum ColorCodeType: Int {
     case hex        // #ffffff
     case shortHex   // #fff
     case cssRGB     // rgb(255,255,255)
@@ -41,15 +40,15 @@ Import `ColorCode` to use.
 import ColorCode
 
 // create NSColor instance from HSLa color code
-var colorCodeType: ColorCodeType = .invalid
-let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &colorCodeType)
+var type: ColorCodeType?
+let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
 let hex: String = whiteColor.colorCode(type: .hex)  // => "#ffffff"
 
 // create NSColor instance from HSLa values
 let color = NSColor(deviceHue:0.1, saturation:0.2, lightness:0.3, alpha:1.0)
 
 // create NSColor instance from a CSS3 keyword
-let ivoryColor = NSColor(colorCode: "ivory", codeType:nil)
+let ivoryColor = NSColor(colorCode: "ivory")
 
 // get HSL values from NSColor instance
 var hue: CGFloat = 0

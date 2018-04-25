@@ -34,9 +34,9 @@ trailing_whitespace:
 vertical_whitespace:
   max_empty_lines: 3
 
-line_length: 500
-function_body_length: 80
-cyclomatic_complexity: 11
+line_length: 200
+function_body_length: 75
+cyclomatic_complexity: 17
 
 identifier_name:
   min_length:
