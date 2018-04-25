@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WFColorCode"
-  s.version      = "2.1.3"
+  s.version      = "2.2.0"
   s.summary      = "NSColor category adding ability to handle HSL color space and CSS3 style color codes like hex, rgb() or hsla()."
 
   s.homepage     = "https://github.com/1024jp/WFColorCode"
