@@ -30,7 +30,7 @@
 import Foundation
 import AppKit.NSColor
 
-public enum ColorCodeType: Int {
+public enum ColorCodeType: Int, CaseIterable {
     
     /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`
     case hex = 1
@@ -52,9 +52,6 @@ public enum ColorCodeType: Int {
     
     /// CSS style color code with keyrowd. For example: `White`
     case cssKeyword
-    
-    
-    static let allCases: [ColorCodeType] = [.hex, .shortHex, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword]
 }
 
 
@@ -115,11 +112,11 @@ public extension NSColor {
         // create color from result
         switch detectedType {
         case .hex:
-            let hex = Int(String(code.dropFirst()), radix: 16)!
+            let hex = Int(code.dropFirst(), radix: 16)!
             self.init(hex: hex)
             
         case .shortHex:
-            let hex = Int(String(code.dropFirst()), radix: 16)!
+            let hex = Int(code.dropFirst(), radix: 16)!
             let r = (hex & 0xF00) >> 8
             let g = (hex & 0x0F0) >> 4
             let b = (hex & 0x00F)
