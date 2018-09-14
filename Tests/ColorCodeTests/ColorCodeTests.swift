@@ -79,6 +79,12 @@ class ColorCodeTests: XCTestCase {
     }
     
     
+    func testBlack() {
+        
+        XCTAssertEqual(NSColor(colorCode: "#000000")?.colorCode(type: .cssKeyword), "Black")
+    }
+    
+    
     func testHSLaColorCode() {
         
         let colorCode = "hsla(203,10%,20%,0.3)"
