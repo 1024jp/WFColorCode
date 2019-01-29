@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2018 1024jp
+ Copyright (c) 2014-2019 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -74,7 +74,7 @@ public extension NSColor {
      - parameter colorCode:  The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
      - parameter type:       Upon return, contains the detected color code type.
      */
-    public convenience init?(colorCode: String, type: inout ColorCodeType?) {
+    convenience init?(colorCode: String, type: inout ColorCodeType?) {
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
         let codeRange = NSRange(location: 0, length: code.utf16.count)
@@ -165,7 +165,7 @@ public extension NSColor {
      
      - parameter colorCode:  The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
      */
-    public convenience init?(colorCode: String) {
+    convenience init?(colorCode: String) {
         
         var type: ColorCodeType?
         
@@ -185,7 +185,7 @@ public extension NSColor {
      - parameter hex:        The 6-digit hexadecimal color code.
      - parameter alpha:      The opacity value of the color object.
      */
-    public convenience init?(hex: Int, alpha: CGFloat = 1.0) {
+    convenience init?(hex: Int, alpha: CGFloat = 1.0) {
         
         guard (0...0xFFFFFF).contains(hex) else {
             return nil
@@ -200,7 +200,7 @@ public extension NSColor {
     
     
     /// Creates and returns a `<String, NSColor>` paired dictionary represents all keyword colors specified in CSS3. The names are in upper camel-case.
-    public static var stylesheetKeywordColors: [String: NSColor] = colorKeywordMap.mapValues { NSColor(hex: $0)! }
+    static var stylesheetKeywordColors: [String: NSColor] = colorKeywordMap.mapValues { NSColor(hex: $0)! }
     
     
     /**
@@ -211,7 +211,7 @@ public extension NSColor {
      - parameter type:       The type of color code to format the returned string. You may use one of the types listed in `ColorCodeType`.
      - returns:              The color code string formatted in the input type.
      */
-    public func colorCode(type: ColorCodeType) -> String? {
+    func colorCode(type: ColorCodeType) -> String? {
         
         let r = Int(round(255 * self.redComponent))
         let g = Int(round(255 * self.greenComponent))
