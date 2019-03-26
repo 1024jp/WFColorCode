@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2018 1024jp
+ Copyright (c) 2014-2019 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -56,25 +56,22 @@ public enum ColorCodeType: Int, CaseIterable {
 
 
 
-/**
- This extension on NSColor allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
- */
+/// This extension on NSColor allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
 public extension NSColor {
     
-    /**
-     Creates and returns a `NSColor` object using the given color code. Or returns `nil` if color code is invalid.
-     
-     Example usage:
-     ```
-     var type: ColorCodeType?
-     let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
-     let hex = whiteColor.colorCode(type: .hex)  // => "#ffffff"
-     ```
-     
-     - parameter colorCode:  The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
-     - parameter type:       Upon return, contains the detected color code type.
-     */
-    public convenience init?(colorCode: String, type: inout ColorCodeType?) {
+    /// Creates and returns a `NSColor` object using the given color code. Or returns `nil` if color code is invalid.
+    ///
+    /// Example usage:
+    /// ```
+    /// var type: ColorCodeType?
+    /// let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
+    /// let hex = whiteColor.colorCode(type: .hex)  // => "#ffffff"
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    ///   - type: Upon return, contains the detected color code type.
+    convenience init?(colorCode: String, type: inout ColorCodeType?) {
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
         let codeRange = NSRange(location: 0, length: code.utf16.count)
@@ -160,12 +157,10 @@ public extension NSColor {
     }
     
     
-    /**
-     Creates and returns a `NSColor` object using the given color code. Or returns `nil` if color code is invalid.
-     
-     - parameter colorCode:  The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
-     */
-    public convenience init?(colorCode: String) {
+    /// Creates and returns a `NSColor` object using the given color code. Or returns `nil` if color code is invalid.
+    ///
+    /// - Parameter colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    convenience init?(colorCode: String) {
         
         var type: ColorCodeType?
         
@@ -173,19 +168,18 @@ public extension NSColor {
     }
     
     
-    /**
-     Creates and returns a `NSColor` object using the given hex color code. Or returns `nil` if color code is invalid.
-     
-     Example usage:
-     ```
-     let redColor = NSColor(hex: 0xFF0000, alpha:1.0)
-     let hex = redColor.colorCode(type: .hex)  // => "#ff0000"
-     ```
-     
-     - parameter hex:        The 6-digit hexadecimal color code.
-     - parameter alpha:      The opacity value of the color object.
-     */
-    public convenience init?(hex: Int, alpha: CGFloat = 1.0) {
+    /// Creates and returns a `NSColor` object using the given hex color code. Or returns `nil` if color code is invalid.
+    ///
+    /// Example usage:
+    /// ```
+    /// let redColor = NSColor(hex: 0xFF0000, alpha:1.0)
+    /// let hex = redColor.colorCode(type: .hex)  // => "#ff0000"
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - hex: The 6-digit hexadecimal color code.
+    ///   - alpha: The opacity value of the color object.
+    convenience init?(hex: Int, alpha: CGFloat = 1.0) {
         
         guard (0...0xFFFFFF).contains(hex) else {
             return nil
@@ -200,18 +194,17 @@ public extension NSColor {
     
     
     /// Creates and returns a `<String, NSColor>` paired dictionary represents all keyword colors specified in CSS3. The names are in upper camel-case.
-    public static var stylesheetKeywordColors: [String: NSColor] = colorKeywordMap.mapValues { NSColor(hex: $0)! }
+    static var stylesheetKeywordColors: [String: NSColor] = colorKeywordMap.mapValues { NSColor(hex: $0)! }
     
     
-    /**
-     Returns the receiver’s color code in desired type.
-     
-     This method works only with objects representing colors in the `NSColorSpaceName.calibratedRGB` or `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
-     
-     - parameter type:       The type of color code to format the returned string. You may use one of the types listed in `ColorCodeType`.
-     - returns:              The color code string formatted in the input type.
-     */
-    public func colorCode(type: ColorCodeType) -> String? {
+    /// Returns the receiver’s color code in desired type.
+    ///
+    /// This method works only with objects representing colors in the `NSColorSpaceName.calibratedRGB` or
+    /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
+    ///
+    /// - Parameter type: The type of color code to format the returned string. You may use one of the types listed in `ColorCodeType`.
+    /// - Returns: The color code string formatted in the input type.
+    func colorCode(type: ColorCodeType) -> String? {
         
         let r = Int(round(255 * self.redComponent))
         let g = Int(round(255 * self.greenComponent))

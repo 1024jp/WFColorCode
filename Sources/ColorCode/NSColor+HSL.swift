@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2016 1024jp
+ Copyright (c) 2014-2019 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -30,23 +30,19 @@
 import Foundation
 import AppKit.NSColor
 
-/**
- This extension on NSColor adds the ability to handle HSL color space.
- */
+/// This extension on NSColor adds the ability to handle HSL color space.
 public extension NSColor {
     
-    /**
-     Creates and returns a `NSColor` object using the given opacity and HSL components.
-     
-     Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
-     
-     - parameter hue:        The hue component of the color object in the HSL color space.
-     - parameter saturation: The saturation component of the color object in the HSL color space.
-     - parameter lightness:  The lightness component of the color object in the HSL color space.
-     - parameter alpha:      The opacity value of the color object.
-     - returns:              The color object.
-     */
-    public convenience init(deviceHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat) {
+    /// Creates and returns a `NSColor` object using the given opacity and HSL components.
+    ///
+    /// Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+    ///
+    /// - Parameters:
+    ///   - hue: The hue component of the color object in the HSL color space.
+    ///   - saturation: The saturation component of the color object in the HSL color space.
+    ///   - lightness: The lightness component of the color object in the HSL color space.
+    ///   - alpha: The opacity value of the color object.
+    convenience init(deviceHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat) {
         
         self.init(deviceHue: hue,
                   saturation: hsbSaturation(saturation: saturation, lightness: lightness),
@@ -54,18 +50,17 @@ public extension NSColor {
                   alpha: alpha)
     }
     
-    /**
-     Creates and returns a `NSColor` object using the given opacity and HSL components.
-     
-     Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
-     
-     - parameter hue:        The hue component of the color object in the HSL color space.
-     - parameter saturation: The saturation component of the color object in the HSL color space.
-     - parameter lightness:  The lightness component of the color object in the HSL color space.
-     - parameter alpha:      The opacity value of the color object.
-     - returns:              The color object.
-     */
-    public convenience init(calibratedHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat) {
+    
+    /// Creates and returns a `NSColor` object using the given opacity and HSL components.
+    ///
+    /// Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+    ///
+    /// - Parameters:
+    ///   - hue: The hue component of the color object in the HSL color space.
+    ///   - saturation: The saturation component of the color object in the HSL color space.
+    ///   - lightness: The lightness component of the color object in the HSL color space.
+    ///   - alpha: The opacity value of the color object.
+    convenience init(calibratedHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat) {
         
         self.init(calibratedHue: hue,
                   saturation: hsbSaturation(saturation: saturation, lightness: lightness),
@@ -74,19 +69,18 @@ public extension NSColor {
     }
     
     
-    /**
-     Returns the receiver’s HSL component and opacity values in the respective arguments.
-     
-     If NULL is passed in as an argument, the method doesn’t set that value.
-     This method works only with objects representing colors in the `NSColorSpaceName.calibratedRGB` or
-     `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
-     
-     - parameter hue:        Upon return, contains the hue component of the color object.
-     - parameter saturation: Upon return, contains the saturation component of the color object.
-     - parameter lightness:  Upon return, contains the saturation lightness of the color object.
-     - parameter alpha:      Upon return, contains the alpha component of the color object.
-     */
-    public func getHue(hue: UnsafeMutablePointer<CGFloat>?, saturation: UnsafeMutablePointer<CGFloat>?, lightness: UnsafeMutablePointer<CGFloat>?, alpha: UnsafeMutablePointer<CGFloat>?) {
+    /// Returns the receiver’s HSL component and opacity values in the respective arguments.
+    ///
+    /// If `nil` is passed in as an argument, the method doesn’t set that value.
+    /// This method works only with objects representing colors in the `NSColorSpaceName.calibratedRGB` or
+    /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
+    ///
+    /// - Parameters:
+    ///   - hue: Upon return, contains the hue component of the color object.
+    ///   - saturation: Upon return, contains the saturation component of the color object.
+    ///   - lightness: Upon return, contains the saturation lightness of the color object.
+    ///   - alpha: Upon return, contains the alpha component of the color object.
+    func getHue(hue: UnsafeMutablePointer<CGFloat>?, saturation: UnsafeMutablePointer<CGFloat>?, lightness: UnsafeMutablePointer<CGFloat>?, alpha: UnsafeMutablePointer<CGFloat>?) {
         
         hue?.pointee = self.hueComponent
         saturation?.pointee = self.hslSaturationComponent
@@ -95,12 +89,11 @@ public extension NSColor {
     }
     
     
-    /**
-     The saturation component of the HSL color equivalent to the receiver.
-     
-     Access this property only for colors in the `NSColorSpaceName.calibratedRGB` or `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
-     */
-    public var hslSaturationComponent: CGFloat {
+    /// The saturation component of the HSL color equivalent to the receiver.
+    ///
+    /// Access this property only for colors in the `NSColorSpaceName.calibratedRGB` or
+    /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
+    var hslSaturationComponent: CGFloat {
         
         let maxValue = max(self.redComponent, self.greenComponent, self.blueComponent)
         let minValue = min(self.redComponent, self.greenComponent, self.blueComponent)
@@ -116,12 +109,11 @@ public extension NSColor {
     }
     
     
-    /**
-     The lightness component of the HSL color equivalent to the receiver.
-     
-     Access this property only for colors in the `NSColorSpaceName.calibratedRGB` or `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
-     */
-    public var lightnessComponent: CGFloat {
+    /// The lightness component of the HSL color equivalent to the receiver.
+    ///
+    /// Access this property only for colors in the `NSColorSpaceName.calibratedRGB` or
+    /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
+    var lightnessComponent: CGFloat {
         
         let maxValue = max(self.redComponent, self.greenComponent, self.blueComponent)
         let minValue = min(self.redComponent, self.greenComponent, self.blueComponent)
