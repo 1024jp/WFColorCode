@@ -1,10 +1,9 @@
 language: swift
-osx_image: xcode10.2
+osx_image: xcode11
 
 script:
   - swiftlint
   - swift test
   - set -o pipefail
-  - pod lib lint --quick
 after_success:
   - bash <(curl -s https://codecov.io/bash)
