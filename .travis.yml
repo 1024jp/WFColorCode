@@ -1,9 +1,0 @@
-language: swift
-osx_image: xcode11
-
-script:
-  - swiftlint
-  - swift test
-  - set -o pipefail
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
