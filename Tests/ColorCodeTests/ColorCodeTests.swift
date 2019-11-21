@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2018 1024jp
+ Copyright (c) 2014-2019 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -60,8 +60,13 @@ class ColorCodeTests: XCTestCase {
         XCTAssertEqual(type, .cssKeyword)
         
         XCTAssertNil(NSColor(colorCode: "", type: &type))
+        XCTAssertNil(type)
         
         XCTAssertNil(NSColor(colorCode: "foobar", type: &type))
+        XCTAssertNil(type)
+        
+        XCTAssertNil(NSColor(colorCode: "rgba(255,255,255,.)", type: &type))
+        XCTAssertNil(type)
     }
     
     
