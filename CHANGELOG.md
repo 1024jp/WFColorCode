@@ -1,6 +1,14 @@
 CHANGELOG
 ===========
 
+2.6.0
+-----------
+
+### mod
+
+- Make alpha value in NSColor init omittable.
+
+
 2.5.0
 -----------
 

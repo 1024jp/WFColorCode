@@ -42,7 +42,7 @@ public extension NSColor {
     ///   - saturation: The saturation component of the color object in the HSL color space.
     ///   - lightness: The lightness component of the color object in the HSL color space.
     ///   - alpha: The opacity value of the color object.
-    convenience init(deviceHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat) {
+    convenience init(deviceHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat = 1.0) {
         
         self.init(deviceHue: hue,
                   saturation: hsbSaturation(saturation: saturation, lightness: lightness),
@@ -60,7 +60,7 @@ public extension NSColor {
     ///   - saturation: The saturation component of the color object in the HSL color space.
     ///   - lightness: The lightness component of the color object in the HSL color space.
     ///   - alpha: The opacity value of the color object.
-    convenience init(calibratedHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat) {
+    convenience init(calibratedHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat = 1.0) {
         
         self.init(calibratedHue: hue,
                   saturation: hsbSaturation(saturation: saturation, lightness: lightness),
