@@ -14,6 +14,7 @@ __WFColorCode__ is a NSColor extension that allows creating NSColor instance fro
 
 Usage
 -----------------------------
+
 WFColorCode supports the following color code styles.
 
 ```swift
@@ -30,6 +31,7 @@ enum ColorCodeType: Int {
 ```
 
 ### Example
+
 Import `ColorCode` to use.
 
 ```swift
@@ -60,15 +62,19 @@ Installation
 -----------------------------
 
 ### Swift Package Manager
+
 WFColorCode is SwiftPM compatible.
 
+
 ### Source files
-If you use neither CocoaPods nor SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in Classes/ directory somewhere in your project.
+
+If you don't use SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in Classes/ directory somewhere in your project.
 
 
 
 License
 -----------------------------
+
 © 2014-2019 1024jp.
 
 The source code is distributed under the terms of the __MIT License__. See the bundled "[LICENSE](LICENSE)" for details.
