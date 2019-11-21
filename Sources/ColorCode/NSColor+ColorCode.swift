@@ -74,7 +74,7 @@ public extension NSColor {
     convenience init?(colorCode: String, type: inout ColorCodeType?) {
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
-        let codeRange = NSRange(location: 0, length: code.utf16.count)
+        let codeRange = NSRange(0..<code.utf16.count)
         
         // detect code type
         guard let (detectedType, result) = ColorCodeType.allCases.lazy
