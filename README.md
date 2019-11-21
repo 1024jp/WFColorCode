@@ -68,7 +68,7 @@ WFColorCode is SwiftPM compatible.
 
 ### Source files
 
-If you don't use SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in Classes/ directory somewhere in your project.
+If you don't use SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in Sources/ColorCode/ directory somewhere in your project.
 
 
 
