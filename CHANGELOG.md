@@ -1,6 +1,20 @@
 CHANGELOG
 ===========
 
+2.6.0
+-----------
+
+### mod
+
+- Make alpha value in NSColor init omittable.
+- Make sure the detected inout `type` paramater is set to `nil` when NSColor creation with a color code failed.
+
+
+### fix
+
+- Fix an issue where NSColor initialization with a color code could crash when just `.` is passed as a float number.
+
+
 2.5.0
 -----------
 

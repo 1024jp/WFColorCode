@@ -73,8 +73,11 @@ public extension NSColor {
     ///   - type: Upon return, contains the detected color code type.
     convenience init?(colorCode: String, type: inout ColorCodeType?) {
         
+        // initialize with `nil` anyway
+        type = nil
+        
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
-        let codeRange = NSRange(location: 0, length: code.utf16.count)
+        let codeRange = NSRange(0..<code.utf16.count)
         
         // detect code type
         guard let (detectedType, result) = ColorCodeType.allCases.lazy
@@ -120,36 +123,44 @@ public extension NSColor {
             self.init(calibratedRed: CGFloat(r) / 15, green: CGFloat(g) / 15, blue: CGFloat(b) / 15, alpha: 1.0)
             
         case .cssRGB:
-            let r = Double(code[result.range(at: 1)])!
-            let g = Double(code[result.range(at: 2)])!
-            let b = Double(code[result.range(at: 3)])!
+            guard
+                let r = Double(code[result.range(at: 1)]),
+                let g = Double(code[result.range(at: 2)]),
+                let b = Double(code[result.range(at: 3)])
+                else { return nil }
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
             
         case .cssRGBa:
-            let r = Double(code[result.range(at: 1)])!
-            let g = Double(code[result.range(at: 2)])!
-            let b = Double(code[result.range(at: 3)])!
-            let a = Double(code[result.range(at: 4)])!
+            guard
+                let r = Double(code[result.range(at: 1)]),
+                let g = Double(code[result.range(at: 2)]),
+                let b = Double(code[result.range(at: 3)]),
+                let a = Double(code[result.range(at: 4)])
+                else { return nil }
             self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a))
             
         case .cssHSL:
-            let h = Double(code[result.range(at: 1)])!
-            let s = Double(code[result.range(at: 2)])!
-            let l = Double(code[result.range(at: 3)])!
+            guard
+                let h = Double(code[result.range(at: 1)]),
+                let s = Double(code[result.range(at: 2)]),
+                let l = Double(code[result.range(at: 3)])
+                else { return nil }
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: 1.0)
             
         case .cssHSLa:
-            let h = Double(code[result.range(at: 1)])!
-            let s = Double(code[result.range(at: 2)])!
-            let l = Double(code[result.range(at: 3)])!
-            let a = Double(code[result.range(at: 4)])!
+            guard
+                let h = Double(code[result.range(at: 1)]),
+                let s = Double(code[result.range(at: 2)]),
+                let l = Double(code[result.range(at: 3)]),
+                let a = Double(code[result.range(at: 4)])
+                else { return nil }
             self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: CGFloat(a))
             
         case .cssKeyword:
             let lowercase = code.lowercased()
-            guard let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value else {
-                    return nil
-                }
+            guard
+                let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value
+                else { return nil }
             self.init(hex: hex)
         }
         

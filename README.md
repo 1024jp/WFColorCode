@@ -2,20 +2,18 @@
 WFColorCode
 =============================
 
-[![Build Status](http://img.shields.io/travis/1024jp/WFColorCode.svg?style=flat)](https://travis-ci.org/1024jp/WFColorCode)
-[![codecov.io](https://codecov.io/gh/1024jp/WFColorCode/branch/develop/graphs/badge.svg)](https://codecov.io/gh/1024jp/WFColorCode)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-✔-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![SPM compatible](https://img.shields.io/badge/SPM-✔-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
+[![Test Status](https://github.com/1024jp/WFColorCode/workflows/Test/badge.svg)](https://github.com/1024jp/WFColorCode/actions)
+[![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-✔-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
 
 __WFColorCode__ is a NSColor extension that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.  It also adds the ability to handle HSL color space.
 
 * __Requirements__: OS X 10.9 or later
-* __ARC__: ARC enabled
 
 
 
 Usage
 -----------------------------
+
 WFColorCode supports the following color code styles.
 
 ```swift
@@ -32,6 +30,7 @@ enum ColorCodeType: Int {
 ```
 
 ### Example
+
 Import `ColorCode` to use.
 
 ```swift
@@ -61,23 +60,20 @@ color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &
 Installation
 -----------------------------
 
-### Framework via Carthage
-WFColorCode is Carthage compatible. Add the following line to your Cartfile.
-
-```ruby
-github "1024jp/WFColorCode" ~> 2.0.0
-```
-
 ### Swift Package Manager
-WFColorCode is also Swift Package Manager compatible.
+
+WFColorCode is SwiftPM compatible.
+
 
 ### Source files
-If you use neither CocoaPods nor SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in Classes/ directory somewhere in your project.
+
+If you don't use SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in Sources/ColorCode/ directory somewhere in your project.
 
 
 
 License
 -----------------------------
+
 © 2014-2019 1024jp.
 
 The source code is distributed under the terms of the __MIT License__. See the bundled "[LICENSE](LICENSE)" for details.

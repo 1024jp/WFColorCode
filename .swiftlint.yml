@@ -36,7 +36,7 @@ vertical_whitespace:
 
 line_length: 200
 function_body_length: 75
-cyclomatic_complexity: 17
+cyclomatic_complexity: 22
 
 identifier_name:
   min_length:

@@ -1,0 +1,22 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  macOS:
+    name: Test on macOS
+    runs-on: macOS-latest
+    steps:
+    - name: Show environments
+      run: |
+        swift --version
+        xcodebuild -version
+    - uses: actions/checkout@v1
+    - name: Lint Swift
+      run: |
+        brew install swiftlint
+        swiftlint
+    - name: Test SwiftPM
+      run: |
+        swift build
+        swift test
