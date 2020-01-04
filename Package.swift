@@ -3,6 +3,9 @@ import PackageDescription
 
 let package = Package(
     name: "ColorCode",
+    platforms: [
+        .macOS("10.9"),
+    ],
     products: [
         .library(name: "ColorCode", targets: ["ColorCode"]),
     ],
