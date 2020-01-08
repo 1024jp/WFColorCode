@@ -34,10 +34,12 @@ import ColorCode
 class ColorCodeTests: XCTestCase {
 
     func testColorCreation() {
-        
-        let whiteColor = NSColor.white.usingColorSpaceName(.calibratedRGB)
+        let whiteColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         var type: ColorCodeType?
-        
+
+        XCTAssertEqual(NSColor(colorCode: "#ffffffff", type: &type), whiteColor)
+        XCTAssertEqual(type, .hexRGBa)
+
         XCTAssertEqual(NSColor(colorCode: "#ffffff", type: &type), whiteColor)
         XCTAssertEqual(type, .hex)
         
@@ -71,16 +73,16 @@ class ColorCodeTests: XCTestCase {
     
     
     func testWhite() {
-        
-        let color = NSColor.white.usingColorSpaceName(.calibratedRGB)
-        
-        XCTAssertEqual(color?.colorCode(type: .hex), "#ffffff")
-        XCTAssertEqual(color?.colorCode(type: .shortHex), "#fff")
-        XCTAssertEqual(color?.colorCode(type: .cssRGB), "rgb(255,255,255)")
-        XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
-        XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "White")
+        let color = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+
+        XCTAssertEqual(color.colorCode(type: .hexRGBa), "#ffffffff")
+        XCTAssertEqual(color.colorCode(type: .hex), "#ffffff")
+        XCTAssertEqual(color.colorCode(type: .shortHex), "#fff")
+        XCTAssertEqual(color.colorCode(type: .cssRGB), "rgb(255,255,255)")
+        XCTAssertEqual(color.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
+        XCTAssertEqual(color.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
+        XCTAssertEqual(color.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
+        XCTAssertEqual(color.colorCode(type: .cssKeyword), "White")
     }
     
     
@@ -109,6 +111,21 @@ class ColorCodeTests: XCTestCase {
         XCTAssertEqual(type, .hex)
         XCTAssertEqual(color?.colorCode(type: .hex), "#0066aa")
         XCTAssertEqual(color?.colorCode(type: .shortHex), "#06a")
+    }
+
+    func testHexWithAlpha() {
+        var type: ColorCodeType?
+        guard let color = NSColor(colorCode: "#2566aa10", type: &type) else {
+            XCTAssert(false, "Unable to create color using hex alpha")
+            return
+        }
+        XCTAssertEqual(type, .hexRGBa)
+        XCTAssertEqual(color.redComponent, CGFloat(0x25) / 255.0)
+        XCTAssertEqual(color.greenComponent, CGFloat(0x66) / 255.0)
+        XCTAssertEqual(color.blueComponent, CGFloat(0xaa) / 255.0)
+        XCTAssertEqual(color.alphaComponent, CGFloat(0x10) / 255.0)
+        XCTAssertEqual(color.colorCode(type: .hex), "#2566aa")
+        XCTAssertEqual(color.colorCode(type: .shortHex), "#26a")
     }
     
     

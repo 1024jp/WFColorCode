@@ -31,9 +31,12 @@ import Foundation
 import AppKit.NSColor
 
 public enum ColorCodeType: Int, CaseIterable {
-    
+
+    /// 8-digit hexadecimal color code with # symbol. For example: `#ffffffff`
+    case hexRGBa = 1
+
     /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`
-    case hex = 1
+    case hex
     
     /// 3-digit hexadecimal color code with # symbol. For example: `#fff`
     case shortHex
@@ -84,6 +87,8 @@ public extension NSColor {
             .compactMap({ type -> (ColorCodeType, NSTextCheckingResult)? in
                 let pattern: String = {
                     switch type {
+                    case .hexRGBa:
+                        return "^#[0-9a-fA-F]{8}$"
                     case .hex:
                         return "^#[0-9a-fA-F]{6}$"
                     case .shortHex:
@@ -111,6 +116,13 @@ public extension NSColor {
         
         // create color from result
         switch detectedType {
+
+        case .hexRGBa:
+            let hex = Int(code.dropFirst(), radix: 16)!
+            let af = CGFloat(hex & 0x000000FF) / 255
+            let newHex = hex >> 8
+            self.init(hex: newHex, alpha: af)
+
         case .hex:
             let hex = Int(code.dropFirst(), radix: 16)!
             self.init(hex: hex)
@@ -225,6 +237,10 @@ public extension NSColor {
         switch type {
         case .hex:
             return String(format: "#%02x%02x%02x", r, g, b)
+            
+        case .hexRGBa:
+            let a = Int(round(255 * alpha))
+            return String(format: "#%02x%02x%02x%02x", r, g, b, a)
             
         case .shortHex:
             return String(format: "#%1x%1x%1x", r / 16, g / 16, b / 16)
