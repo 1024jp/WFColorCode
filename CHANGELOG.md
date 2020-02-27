@@ -1,6 +1,14 @@
 CHANGELOG
 ===========
 
+unreleased
+-----------
+
+### mod
+
+- Bump up supported macOS version to 10.10.
+
+
 2.6.0
 -----------
 
