@@ -12,5 +12,8 @@ let package = Package(
     targets: [
         .target(name: "ColorCode"),
         .testTarget(name: "ColorCodeTests", dependencies: ["ColorCode"]),
+    ],
+    swiftLanguageVersions: [
+        .v5,
     ]
 )
