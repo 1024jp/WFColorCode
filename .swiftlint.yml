@@ -24,6 +24,7 @@ opt_in_rules:
 disabled_rules:
   - force_unwrapping
   - force_try
+  - implicit_return
 
 trailing_comma:
   mandatory_comma: true
