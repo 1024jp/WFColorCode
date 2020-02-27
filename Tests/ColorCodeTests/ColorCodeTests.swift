@@ -35,7 +35,7 @@ final class ColorCodeTests: XCTestCase {
 
     func testColorCreation() {
         
-        let whiteColor = NSColor.white.usingColorSpaceName(.calibratedRGB)
+        let whiteColor = NSColor.white.usingColorSpace(.genericRGB)
         var type: ColorCodeType?
         
         XCTAssertEqual(NSColor(colorCode: "#ffffff", type: &type), whiteColor)
@@ -72,7 +72,7 @@ final class ColorCodeTests: XCTestCase {
     
     func testWhite() {
         
-        let color = NSColor.white.usingColorSpaceName(.calibratedRGB)
+        let color = NSColor.white.usingColorSpace(.genericRGB)
         
         XCTAssertEqual(color?.colorCode(type: .hex), "#ffffff")
         XCTAssertEqual(color?.colorCode(type: .shortHex), "#fff")
