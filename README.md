@@ -7,7 +7,7 @@ WFColorCode
 
 __WFColorCode__ is a NSColor extension that allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.  It also adds the ability to handle HSL color space.
 
-* __Requirements__: OS X 10.9 or later
+* __Requirements__: OS X 10.10 or later
 
 
 
@@ -74,6 +74,6 @@ If you don't use SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in
 License
 -----------------------------
 
-© 2014-2019 1024jp.
+© 2014-2020 1024jp.
 
-The source code is distributed under the terms of the __MIT License__. See the bundled "[LICENSE](LICENSE)" for details.
+The source code is distributed under the terms of the __MIT License__. See the bundled [LICENSE](LICENSE) for details.

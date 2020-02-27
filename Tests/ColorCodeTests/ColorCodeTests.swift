@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2019 1024jp
+ © 2014-2020 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -31,11 +31,11 @@
 import XCTest
 import ColorCode
 
-class ColorCodeTests: XCTestCase {
+final class ColorCodeTests: XCTestCase {
 
     func testColorCreation() {
         
-        let whiteColor = NSColor.white.usingColorSpaceName(.calibratedRGB)
+        let whiteColor = NSColor.white.usingColorSpace(.genericRGB)
         var type: ColorCodeType?
         
         XCTAssertEqual(NSColor(colorCode: "#ffffff", type: &type), whiteColor)
@@ -72,7 +72,7 @@ class ColorCodeTests: XCTestCase {
     
     func testWhite() {
         
-        let color = NSColor.white.usingColorSpaceName(.calibratedRGB)
+        let color = NSColor.white.usingColorSpace(.genericRGB)
         
         XCTAssertEqual(color?.colorCode(type: .hex), "#ffffff")
         XCTAssertEqual(color?.colorCode(type: .shortHex), "#fff")

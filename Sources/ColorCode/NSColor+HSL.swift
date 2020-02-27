@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- Copyright (c) 2014-2019 1024jp
+ © 2014-2020 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -101,7 +101,7 @@ public extension NSColor {
         
         let saturation = (self.lightnessComponent > 0.5) ? diff / (2 - maxValue - minValue) : diff / (maxValue + minValue)
         
-        guard !saturation.isNaN && (self.saturationComponent > 0.00001 || self.brightnessComponent > 9.9999) else {
+        guard !saturation.isNaN, (self.saturationComponent > 0.00001 || self.brightnessComponent > 9.9999) else {
             return 0
         }
         
