@@ -1,12 +1,13 @@
 CHANGELOG
 ===========
 
-unreleased
+2.6.1
 -----------
 
 ### mod
 
 - Bump up supported macOS version to 10.10.
+- Improve Package.swift declaration.
 
 
 2.6.0
