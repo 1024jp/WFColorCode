@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2021 1024jp
+ © 2014-2021 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -104,7 +104,6 @@ extension ColorComponents {
         type = nil
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
-        let codeRange = NSRange(0..<code.utf16.count)
         
         // detect code type
         guard let (detectedType, result) = ColorCodeType.allCases.lazy
@@ -129,7 +128,7 @@ extension ColorComponents {
                     }()
                     let regex = try! NSRegularExpression(pattern: pattern)
                     
-                    guard let match = regex.firstMatch(in: code, range: codeRange) else {
+                    guard let match = regex.firstMatch(in: code, range: NSRange(0..<code.utf16.count)) else {
                         return nil
                     }
                     return (type, match)
@@ -151,43 +150,43 @@ extension ColorComponents {
             
         case .cssRGB:
             guard
-                let r = Double(code[result.range(at: 1)]),
-                let g = Double(code[result.range(at: 2)]),
-                let b = Double(code[result.range(at: 3)])
+                let r = result.double(in: code, at: 1),
+                let g = result.double(in: code, at: 2),
+                let b = result.double(in: code, at: 3)
             else { return nil }
             self = .rgb(r / 255, g / 255, b / 255)
             
         case .cssRGBa:
             guard
-                let r = Double(code[result.range(at: 1)]),
-                let g = Double(code[result.range(at: 2)]),
-                let b = Double(code[result.range(at: 3)]),
-                let a = Double(code[result.range(at: 4)])
+                let r = result.double(in: code, at: 1),
+                let g = result.double(in: code, at: 2),
+                let b = result.double(in: code, at: 3),
+                let a = result.double(in: code, at: 4)
             else { return nil }
             self = .rgb(r / 255, g / 255, b / 255, alpha: a)
             
         case .cssHSL:
             guard
-                let h = Double(code[result.range(at: 1)]),
-                let s = Double(code[result.range(at: 2)]),
-                let l = Double(code[result.range(at: 3)])
+                let h = result.double(in: code, at: 1),
+                let s = result.double(in: code, at: 2),
+                let l = result.double(in: code, at: 3)
             else { return nil }
             self = .hsl(h / 360, s / 100, l / 100)
             
         case .cssHSLa:
             guard
-                let h = Double(code[result.range(at: 1)]),
-                let s = Double(code[result.range(at: 2)]),
-                let l = Double(code[result.range(at: 3)]),
-                let a = Double(code[result.range(at: 4)])
+                let h = result.double(in: code, at: 1),
+                let s = result.double(in: code, at: 2),
+                let l = result.double(in: code, at: 3),
+                let a = result.double(in: code, at: 4)
             else { return nil }
             self = .hsl(h / 360, s / 100, l / 100, alpha: a)
             
         case .cssKeyword:
             let lowercase = code.lowercased()
-            guard
-                let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value
-            else { return nil }
+            guard let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value else {
+                return nil
+            }
             self.init(hex: hex)
         }
         
@@ -198,11 +197,13 @@ extension ColorComponents {
 
 
 
-private extension String {
+private extension NSTextCheckingResult {
     
-    subscript(range: NSRange) -> SubSequence {
+    func double(in string: String, at index: Int) -> Double? {
         
-        return self[Range(range, in: self)!]
+        let range = Range(self.range(at: index), in: string)!
+        
+        return Double(string[range])
     }
     
 }
