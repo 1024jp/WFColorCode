@@ -34,9 +34,10 @@
 /// - Returns: A saturation value in HSB color space.
 func hsbSaturation<Value: BinaryFloatingPoint>(saturation: Value, lightness: Value) -> Value {
     
-    let hsbSaturation = saturation * ((lightness < 0.5) ? lightness : 1 - lightness)
+    let brightness = hsbBrightness(saturation: saturation, lightness: lightness)
     
-    return (2 * hsbSaturation / (lightness + hsbSaturation))
+    return 2 * (1 - lightness / brightness)
+    
 }
 
 
@@ -47,7 +48,5 @@ func hsbSaturation<Value: BinaryFloatingPoint>(saturation: Value, lightness: Val
 /// - Returns: A brightness value in HSB color space.
 func hsbBrightness<Value: BinaryFloatingPoint>(saturation: Value, lightness: Value) -> Value {
     
-    let hsbSaturation = saturation * ((lightness < 0.5) ? lightness : 1 - lightness)
-    
-    return lightness + hsbSaturation
+    return lightness + saturation * min(lightness, 1 - lightness)
 }

@@ -85,9 +85,9 @@ extension ColorComponents {
             return nil
         }
         
-        let r = (hex & 0xFF0000) >> 16
-        let g = (hex & 0x00FF00) >> 8
-        let b = (hex & 0x0000FF)
+        let r = (hex >> 16) & 0xff
+        let g = (hex >>  8) & 0xff
+        let b = (hex      ) & 0xff
         
         self = .rgb(Double(r) / 255, Double(g) / 255, Double(b) / 255, alpha: alpha)
     }
