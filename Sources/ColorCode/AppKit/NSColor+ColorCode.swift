@@ -33,7 +33,7 @@ import AppKit.NSColor
 /// This extension on NSColor allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
 public extension NSColor {
     
-    /// Creates and returns a `NSColor` object using the given color code. Or returns `nil` if color code is invalid.
+    /// Initialize with the given color code. Or returns `nil` if color code is invalid.
     ///
     /// Example usage:
     /// ```
@@ -55,7 +55,7 @@ public extension NSColor {
     }
     
     
-    /// Creates and returns a `NSColor` object using the given color code. Or returns `nil` if color code is invalid.
+    /// Initialize with the given color code. Or returns `nil` if color code is invalid.
     ///
     /// - Parameter colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
     convenience init?(colorCode: String) {
@@ -66,7 +66,7 @@ public extension NSColor {
     }
     
     
-    /// Creates and returns a `NSColor` object using the given hex color code. Or returns `nil` if color code is invalid.
+    /// Initialize with the given hex color code. Or returns `nil` if color code is invalid.
     ///
     /// Example usage:
     /// ```
@@ -137,17 +137,21 @@ public extension NSColor {
             return colorKeywordMap.first { $0.value == hex }?.key
         }
     }
-    
-    
-    // MARK: Internal
+}
+
+
+
+extension NSColor {
     
     internal convenience init(components: ColorComponents) {
         
         switch components {
         case let .rgb(r, g, b, alpha: alpha):
             self.init(calibratedRed: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(alpha))
+            
         case let .hsl(h, s, l, alpha: alpha):
             self.init(calibratedHue: CGFloat(h), saturation: CGFloat(s), lightness: CGFloat(l), alpha: CGFloat(alpha))
+            
         case let .hsb(h, s, b, alpha: alpha):
             self.init(calibratedHue: CGFloat(h), saturation: CGFloat(s), brightness: CGFloat(b), alpha: CGFloat(alpha))
         }
