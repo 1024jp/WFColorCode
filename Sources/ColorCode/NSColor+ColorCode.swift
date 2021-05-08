@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2020 1024jp
+ © 2014-2021 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -30,32 +30,6 @@
 import Foundation
 import AppKit.NSColor
 
-public enum ColorCodeType: Int, CaseIterable {
-    
-    /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`
-    case hex = 1
-    
-    /// 3-digit hexadecimal color code with # symbol. For example: `#fff`
-    case shortHex
-    
-    /// CSS style color code in RGB. For example: `rgb(255,255,255)`
-    case cssRGB
-    
-    /// CSS style color code in RGB with alpha channel. For example: `rgba(255,255,255,1)`
-    case cssRGBa
-    
-    /// CSS style color code in HSL. For example: `hsl(0,0%,100%)`
-    case cssHSL
-    
-    /// CSS style color code in HSL with alpha channel. For example: `hsla(0,0%,100%,1)`
-    case cssHSLa
-    
-    /// CSS style color code with keyrowd. For example: `White`
-    case cssKeyword
-}
-
-
-
 /// This extension on NSColor allows creating NSColor instance from a CSS color code string, or color code string from a NSColor instance.
 public extension NSColor {
     
@@ -73,98 +47,11 @@ public extension NSColor {
     ///   - type: Upon return, contains the detected color code type.
     convenience init?(colorCode: String, type: inout ColorCodeType?) {
         
-        // initialize with `nil` anyway
-        type = nil
-        
-        let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
-        let codeRange = NSRange(0..<code.utf16.count)
-        
-        // detect code type
-        guard let (detectedType, result) = ColorCodeType.allCases.lazy
-            .compactMap({ type -> (ColorCodeType, NSTextCheckingResult)? in
-                let pattern: String = {
-                    switch type {
-                    case .hex:
-                        return "^#[0-9a-fA-F]{6}$"
-                    case .shortHex:
-                        return "^#[0-9a-fA-F]{3}$"
-                    case .cssRGB:
-                        return "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$"
-                    case .cssRGBa:
-                        return "^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$"
-                    case .cssHSL:
-                        return "^hsl\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\\)$"
-                    case .cssHSLa:
-                        return "^hsla\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\\)$"
-                    case .cssKeyword:
-                        return "^[a-zA-Z]+$"
-                    }
-                }()
-                let regex = try! NSRegularExpression(pattern: pattern)
-                
-                guard let match = regex.firstMatch(in: code, range: codeRange) else {
-                    return nil
-                }
-                return (type, match)
-                
-            }).first else { return nil }
-        
-        // create color from result
-        switch detectedType {
-        case .hex:
-            let hex = Int(code.dropFirst(), radix: 16)!
-            self.init(hex: hex)
-            
-        case .shortHex:
-            let hex = Int(code.dropFirst(), radix: 16)!
-            let r = (hex & 0xF00) >> 8
-            let g = (hex & 0x0F0) >> 4
-            let b = (hex & 0x00F)
-            self.init(calibratedRed: CGFloat(r) / 15, green: CGFloat(g) / 15, blue: CGFloat(b) / 15, alpha: 1.0)
-            
-        case .cssRGB:
-            guard
-                let r = Double(code[result.range(at: 1)]),
-                let g = Double(code[result.range(at: 2)]),
-                let b = Double(code[result.range(at: 3)])
-                else { return nil }
-            self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1.0)
-            
-        case .cssRGBa:
-            guard
-                let r = Double(code[result.range(at: 1)]),
-                let g = Double(code[result.range(at: 2)]),
-                let b = Double(code[result.range(at: 3)]),
-                let a = Double(code[result.range(at: 4)])
-                else { return nil }
-            self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a))
-            
-        case .cssHSL:
-            guard
-                let h = Double(code[result.range(at: 1)]),
-                let s = Double(code[result.range(at: 2)]),
-                let l = Double(code[result.range(at: 3)])
-                else { return nil }
-            self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: 1.0)
-            
-        case .cssHSLa:
-            guard
-                let h = Double(code[result.range(at: 1)]),
-                let s = Double(code[result.range(at: 2)]),
-                let l = Double(code[result.range(at: 3)]),
-                let a = Double(code[result.range(at: 4)])
-                else { return nil }
-            self.init(calibratedHue: CGFloat(h) / 360, saturation: CGFloat(s) / 100, lightness: CGFloat(l) / 100, alpha: CGFloat(a))
-            
-        case .cssKeyword:
-            let lowercase = code.lowercased()
-            guard
-                let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value
-                else { return nil }
-            self.init(hex: hex)
+        guard let components = ColorComponents(colorCode: colorCode, type: &type) else {
+            return nil
         }
         
-        type = detectedType
+        self.init(components: components)
     }
     
     
@@ -192,15 +79,11 @@ public extension NSColor {
     ///   - alpha: The opacity value of the color object.
     convenience init?(hex: Int, alpha: CGFloat = 1.0) {
         
-        guard (0...0xFFFFFF).contains(hex) else {
+        guard let components = ColorComponents(hex: hex) else {
             return nil
         }
         
-        let r = (hex & 0xFF0000) >> 16
-        let g = (hex & 0x00FF00) >> 8
-        let b = (hex & 0x0000FF)
-        
-        self.init(calibratedRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: alpha)
+        self.init(components: components)
     }
     
     
@@ -258,15 +141,19 @@ public extension NSColor {
         }
     }
     
-}
-
-
-
-private extension String {
     
-    subscript(range: NSRange) -> SubSequence {
+    // MARK: Internal
+    
+    internal convenience init(components: ColorComponents) {
         
-        return self[Range(range, in: self)!]
+        switch components {
+        case let .rgb(r, g, b, alpha: alpha):
+            self.init(calibratedRed: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(alpha))
+        case let .hsl(h, s, l, alpha: alpha):
+            self.init(calibratedHue: CGFloat(h), saturation: CGFloat(s), lightness: CGFloat(l), alpha: CGFloat(alpha))
+        case let .hsb(h, s, b, alpha: alpha):
+            self.init(calibratedHue: CGFloat(h), saturation: CGFloat(s), brightness: CGFloat(b), alpha: CGFloat(alpha))
+        }
     }
     
 }
