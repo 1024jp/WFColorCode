@@ -2,7 +2,6 @@
 //  Color+ColorCode.swift
 //
 //  Created by 1024jp on 2021-05-08.
-//
 
 /*
  The MIT License (MIT)
@@ -78,9 +77,9 @@ public extension Color {
     /// - Parameters:
     ///   - hex: The 6-digit hexadecimal color code.
     ///   - alpha: The opacity value of the color object.
-    init?(hex: Int, alpha: CGFloat = 1.0) {
+    init?(hex: Int, alpha: Double = 1.0) {
         
-        guard let components = ColorComponents(hex: hex) else {
+        guard let components = ColorComponents(hex: hex, alpha: alpha) else {
             return nil
         }
         
