@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2020 1024jp
+ © 2014-2021 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,6 @@
  THE SOFTWARE.
  */
 
-import Foundation
 import AppKit.NSColor
 
 /// This extension on NSColor adds the ability to handle HSL color space.
@@ -121,20 +120,4 @@ public extension NSColor {
         return (maxValue + minValue) / 2
     }
     
-}
-
-
-private func hsbSaturation(saturation: CGFloat, lightness: CGFloat) -> CGFloat {
-    
-    let hsbSaturation = saturation * ((lightness < 0.5) ? lightness : 1 - lightness)
-    
-    return (2 * hsbSaturation / (lightness + hsbSaturation))
-}
-
-
-private func hsbBrightness(saturation: CGFloat, lightness: CGFloat) -> CGFloat {
-    
-    let hsbSaturation = saturation * ((lightness < 0.5) ? lightness : 1 - lightness)
-    
-    return lightness + hsbSaturation
 }

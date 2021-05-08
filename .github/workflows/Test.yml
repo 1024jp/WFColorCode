@@ -19,4 +19,4 @@ jobs:
     - name: Test SwiftPM
       run: |
         swift build
-        swift test
+        swift test 2>&1 | xcpretty -c
