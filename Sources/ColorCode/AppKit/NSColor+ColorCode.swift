@@ -70,14 +70,13 @@ public extension NSColor {
     ///
     /// Example usage:
     /// ```
-    /// let redColor = NSColor(hex: 0xFF0000, alpha: 1.0)
+    /// let redColor = NSColor(hex: 0xFF0000)
     /// let hex = redColor.colorCode(type: .hex)  // => "#ff0000"
     /// ```
     ///
     /// - Parameters:
     ///   - hex: The 6-digit hexadecimal color code.
-    ///   - alpha: The opacity value of the color object.
-    convenience init?(hex: Int, alpha: CGFloat = 1.0) {
+    convenience init?(hex: Int) {
         
         guard let components = ColorComponents(hex: hex) else {
             return nil

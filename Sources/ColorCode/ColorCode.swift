@@ -72,14 +72,12 @@ extension ColorComponents {
     ///
     /// Example usage:
     /// ```
-    /// let redColor = NSColor(hex: 0xFF0000, alpha: 1.0)
-    /// let hex = redColor.colorCode(type: .hex)  // => "#ff0000"
+    /// let redComponents = ColorComponents(hex: 0xFF0000)
     /// ```
     ///
     /// - Parameters:
     ///   - hex: The 6-digit hexadecimal color code.
-    ///   - alpha: The opacity value of the color object.
-    init?(hex: Int, alpha: Double = 1.0) {
+    init?(hex: Int) {
         
         guard (0...0xFFFFFF).contains(hex) else {
             return nil
@@ -89,7 +87,7 @@ extension ColorComponents {
         let g = (hex >>  8) & 0xff
         let b = (hex      ) & 0xff
         
-        self = .rgb(Double(r) / 255, Double(g) / 255, Double(b) / 255, alpha: alpha)
+        self = .rgb(Double(r) / 255, Double(g) / 255, Double(b) / 255)
     }
     
     

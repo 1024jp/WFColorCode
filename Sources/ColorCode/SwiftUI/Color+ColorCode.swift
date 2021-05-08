@@ -38,8 +38,7 @@ public extension Color {
     /// Example usage:
     /// ```
     /// var type: ColorCodeType?
-    /// let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
-    /// let hex = whiteColor.colorCode(type: .hex)  // => "#ffffff"
+    /// let whiteColor = Color(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
     /// ```
     ///
     /// - Parameters:
@@ -70,16 +69,14 @@ public extension Color {
     ///
     /// Example usage:
     /// ```
-    /// let redColor = NSColor(hex: 0xFF0000, alpha: 1.0)
-    /// let hex = redColor.colorCode(type: .hex)  // => "#ff0000"
+    /// let redColor = Color(hex: 0xFF0000)
     /// ```
     ///
     /// - Parameters:
     ///   - hex: The 6-digit hexadecimal color code.
-    ///   - alpha: The opacity value of the color object.
-    init?(hex: Int, alpha: Double = 1.0) {
+    init?(hex: Int) {
         
-        guard let components = ColorComponents(hex: hex, alpha: alpha) else {
+        guard let components = ColorComponents(hex: hex) else {
             return nil
         }
         
