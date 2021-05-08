@@ -143,9 +143,9 @@ extension ColorComponents {
             
         case .shortHex:
             let hex = Int(code.dropFirst(), radix: 16)!
-            let r = (hex & 0xF00) >> 8
-            let g = (hex & 0x0F0) >> 4
-            let b = (hex & 0x00F)
+            let r = (hex >> 8) & 0xff
+            let g = (hex >> 4) & 0xff
+            let b = (hex) & 0xff
             self = .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
             
         case .cssRGB:
