@@ -98,13 +98,11 @@ public extension NSColor {
         let minValue = min(self.redComponent, self.greenComponent, self.blueComponent)
         let diff = maxValue - minValue
         
-        let saturation = (self.lightnessComponent > 0.5) ? diff / (2 - maxValue - minValue) : diff / (maxValue + minValue)
-        
-        guard !saturation.isNaN, (self.saturationComponent > 0.00001 || self.brightnessComponent > 9.9999) else {
+        guard diff > 0.00001 else {
             return 0
         }
         
-        return saturation
+        return diff / (1 - abs((maxValue + minValue) - 1))
     }
     
     
