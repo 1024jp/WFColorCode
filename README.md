@@ -57,23 +57,9 @@ color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &
 
 
 
-Installation
------------------------------
-
-### Swift Package Manager
-
-WFColorCode is SwiftPM compatible.
-
-
-### Source files
-
-If you don't use SwiftPM, place NSColor+ColorCode.swift and NSColor+HSL.swift in Sources/ColorCode/ directory somewhere in your project.
-
-
-
 License
 -----------------------------
 
-© 2014-2021 1024jp.
+© 2014-2022 1024jp.
 
 The source code is distributed under the terms of the __MIT License__. See the bundled [LICENSE](LICENSE) for details.

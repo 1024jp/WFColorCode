@@ -2,12 +2,11 @@
 //  Color+ColorCode.swift
 //
 //  Created by 1024jp on 2021-05-08.
-//
 
 /*
  The MIT License (MIT)
  
- © 2014-2021 1024jp
+ © 2014-2022 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -39,8 +38,7 @@ public extension Color {
     /// Example usage:
     /// ```
     /// var type: ColorCodeType?
-    /// let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
-    /// let hex = whiteColor.colorCode(type: .hex)  // => "#ffffff"
+    /// let whiteColor = Color(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
     /// ```
     ///
     /// - Parameters:
@@ -71,14 +69,12 @@ public extension Color {
     ///
     /// Example usage:
     /// ```
-    /// let redColor = NSColor(hex: 0xFF0000, alpha: 1.0)
-    /// let hex = redColor.colorCode(type: .hex)  // => "#ff0000"
+    /// let redColor = Color(hex: 0xFF0000)
     /// ```
     ///
     /// - Parameters:
     ///   - hex: The 6-digit hexadecimal color code.
-    ///   - alpha: The opacity value of the color object.
-    init?(hex: Int, alpha: CGFloat = 1.0) {
+    init?(hex: Int) {
         
         guard let components = ColorComponents(hex: hex) else {
             return nil
@@ -97,14 +93,14 @@ extension Color {
     init(components: ColorComponents) {
         
         switch components {
-            case let .rgb(r, g, b, alpha: alpha):
-                self.init(.sRGB, red: r, green: g, blue: b, opacity: alpha)
-                
-            case let .hsl(h, s, l, alpha: alpha):
-                self.init(hue: h, saturation: s, lightness: l, opacity: alpha)
-                
-            case let .hsb(h, s, b, alpha: alpha):
-                self.init(hue: h, saturation: s, brightness: b, opacity: alpha)
+        case let .rgb(r, g, b, alpha: alpha):
+            self.init(.sRGB, red: r, green: g, blue: b, opacity: alpha)
+            
+        case let .hsl(h, s, l, alpha: alpha):
+            self.init(hue: h, saturation: s, lightness: l, opacity: alpha)
+            
+        case let .hsb(h, s, b, alpha: alpha):
+            self.init(hue: h, saturation: s, brightness: b, opacity: alpha)
         }
     }
     

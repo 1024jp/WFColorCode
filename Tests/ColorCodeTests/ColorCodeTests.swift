@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2020 1024jp
+ © 2014-2021 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -131,10 +131,10 @@ final class ColorCodeTests: XCTestCase {
     
     func testHex() {
         
-        let color = NSColor(hex: 0xFF6600, alpha: 1.0)
+        let color = NSColor(hex: 0xFF6600)
         
         XCTAssertEqual(color?.colorCode(type: .hex), "#ff6600")
-        XCTAssertNil(NSColor(hex: 0xFFFFFF + 1, alpha: 1.0))
+        XCTAssertNil(NSColor(hex: 0xFFFFFF + 1))
     }
     
     
