@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2021 1024jp
+ © 2014-2022 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,6 @@ func hsbSaturation<Value: BinaryFloatingPoint>(saturation: Value, lightness: Val
     let brightness = hsbBrightness(saturation: saturation, lightness: lightness)
     
     return 2 * (1 - lightness / brightness)
-    
 }
 
 
