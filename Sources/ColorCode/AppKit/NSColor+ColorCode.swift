@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2021 1024jp
+ © 2014-2022 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -146,13 +146,13 @@ extension NSColor {
         
         switch components {
         case let .rgb(r, g, b, alpha: alpha):
-            self.init(calibratedRed: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(alpha))
+            self.init(calibratedRed: r, green: g, blue: b, alpha: alpha)
             
         case let .hsl(h, s, l, alpha: alpha):
-            self.init(calibratedHue: CGFloat(h), saturation: CGFloat(s), lightness: CGFloat(l), alpha: CGFloat(alpha))
+            self.init(calibratedHue: h, saturation: s, lightness: l, alpha: alpha)
             
         case let .hsb(h, s, b, alpha: alpha):
-            self.init(calibratedHue: CGFloat(h), saturation: CGFloat(s), brightness: CGFloat(b), alpha: CGFloat(alpha))
+            self.init(calibratedHue: h, saturation: s, brightness: b, alpha: alpha)
         }
     }
     
