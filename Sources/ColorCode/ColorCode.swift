@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2021 1024jp
+ © 2014-2022 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -84,8 +84,8 @@ extension ColorComponents {
         }
         
         let r = (hex >> 16) & 0xff
-        let g = (hex >>  8) & 0xff
-        let b = (hex      ) & 0xff
+        let g = (hex >> 8) & 0xff
+        let b = (hex) & 0xff
         
         self = .rgb(Double(r) / 255, Double(g) / 255, Double(b) / 255)
     }

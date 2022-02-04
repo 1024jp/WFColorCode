@@ -1,12 +1,21 @@
 CHANGELOG
 ===========
 
+2.7.1
+-----------
+
+### fix
+
+- Fix an issue in SwiftUI.Color that the alpha value was ignored when specified the color in hex.
+
+
 2.7.0
 -----------
 
 ### new
 
 - Support SwiftUI Color creation.
+
 
 2.6.1
 -----------
