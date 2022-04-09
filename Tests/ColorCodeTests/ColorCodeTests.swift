@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2021 1024jp
+ © 2014-2022 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -126,6 +126,13 @@ final class ColorCodeTests: XCTestCase {
         XCTAssertEqual(saturation, 0.2, accuracy: 3)
         XCTAssertEqual(lightness, 0.3, accuracy: 3)
         XCTAssertEqual(alpha, 0.4, accuracy: 3)
+    }
+    
+    
+    func testColorSpace() {
+        
+        XCTAssertEqual(NSColor.white.usingColorSpace(.genericRGB)!.hslSaturationComponent, 0)
+        XCTAssertEqual(NSColor.white.usingColorSpace(.deviceRGB)!.hslSaturationComponent, 0)
     }
     
     

@@ -71,8 +71,8 @@ public extension NSColor {
     /// Returns the receiver’s HSL component and opacity values in the respective arguments.
     ///
     /// If `nil` is passed in as an argument, the method doesn’t set that value.
-    /// This method works only with objects representing colors in the `NSColorSpaceName.calibratedRGB` or
-    /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
+    /// This method works only with objects representing colors in the `NSColorSpace.genericRGB` or
+    /// `NSColorSpace.deviceRGB` color space. Sending it to other objects raises an exception.
     ///
     /// - Parameters:
     ///   - hue: Upon return, contains the hue component of the color object.
@@ -90,8 +90,8 @@ public extension NSColor {
     
     /// The saturation component of the HSL color equivalent to the receiver.
     ///
-    /// Access this property only for colors in the `NSColorSpaceName.calibratedRGB` or
-    /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
+    /// Access this property only for colors in the `NSColorSpace.genericRGB` or
+    /// `NSColorSpace.deviceRGB` color space. Sending it to other objects raises an exception.
     var hslSaturationComponent: CGFloat {
         
         let maxValue = max(self.redComponent, self.greenComponent, self.blueComponent)
@@ -108,8 +108,8 @@ public extension NSColor {
     
     /// The lightness component of the HSL color equivalent to the receiver.
     ///
-    /// Access this property only for colors in the `NSColorSpaceName.calibratedRGB` or
-    /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.
+    /// Access this property only for colors in the `NSColorSpace.genericRGB` or
+    /// `NSColorSpace.deviceRGB` color space. Sending it to other objects raises an exception.
     var lightnessComponent: CGFloat {
         
         let maxValue = max(self.redComponent, self.greenComponent, self.blueComponent)
