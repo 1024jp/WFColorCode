@@ -80,9 +80,9 @@ final class ColorCodeTests: XCTestCase {
         XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
         XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
         XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "White")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "white")
         
-        XCTAssertEqual(NSColor(colorCode: "#ffffff")?.colorCode(type: .cssKeyword), "White")
+        XCTAssertEqual(NSColor(colorCode: "#ffffff")?.colorCode(type: .cssKeyword), "white")
     }
     
     
@@ -96,9 +96,9 @@ final class ColorCodeTests: XCTestCase {
         XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(0,0,0,1)")
         XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,0%)")
         XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,0%,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "Black")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "black")
         
-        XCTAssertEqual(NSColor(colorCode: "#000000")?.colorCode(type: .cssKeyword), "Black")
+        XCTAssertEqual(NSColor(colorCode: "#000000")?.colorCode(type: .cssKeyword), "black")
     }
     
     
@@ -163,7 +163,7 @@ final class ColorCodeTests: XCTestCase {
         let color = NSColor(colorCode: "MidnightBlue", type: &type)
         
         XCTAssertEqual(type, .cssKeyword)
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "MidnightBlue")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "midnightblue")
         XCTAssertEqual(color?.colorCode(type: .hex), "#191970")
         XCTAssertNil(NSColor(colorCode: "foobar"))
         

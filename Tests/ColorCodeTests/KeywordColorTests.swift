@@ -35,7 +35,7 @@ final class KeywordColorTests: XCTestCase {
 
     func testInitialization() {
         
-        let keyword = "MidnightBlue"
+        let keyword = "midnightblue"
         let value = 0x191970
         XCTAssertEqual(KeywordColor(keyword: keyword)?.value, value)
         XCTAssertEqual(KeywordColor(value: value)?.keyword, keyword)

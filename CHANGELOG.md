@@ -10,6 +10,7 @@ CHANGELOG
 
 ### mod
 
+- Change the stylesheet keywords from the upper camel case to the lower case.
 - Deprecate NSColor.stylesheetKeywordColors (Use KeywordColor.stylesheetColors instead).
 
 
