@@ -81,10 +81,22 @@ final class ColorCodeTests: XCTestCase {
         XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
         XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
         XCTAssertEqual(color?.colorCode(type: .cssKeyword), "White")
+        
+        XCTAssertEqual(NSColor(colorCode: "#ffffff")?.colorCode(type: .cssKeyword), "White")
     }
     
     
     func testBlack() {
+        
+        let color = NSColor.black.usingColorSpace(.genericRGB)
+        
+        XCTAssertEqual(color?.colorCode(type: .hex), "#000000")
+        XCTAssertEqual(color?.colorCode(type: .shortHex), "#000")
+        XCTAssertEqual(color?.colorCode(type: .cssRGB), "rgb(0,0,0)")
+        XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(0,0,0,1)")
+        XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,0%)")
+        XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,0%,1)")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "Black")
         
         XCTAssertEqual(NSColor(colorCode: "#000000")?.colorCode(type: .cssKeyword), "Black")
     }
