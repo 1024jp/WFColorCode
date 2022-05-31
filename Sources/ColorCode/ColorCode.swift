@@ -2,7 +2,6 @@
 //  ColorCode.swift
 //
 //  Created by 1024jp on 2021-05-08.
-//
 
 /*
  The MIT License (MIT)
