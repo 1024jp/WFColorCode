@@ -87,6 +87,7 @@ public extension NSColor {
     
     
     /// Creates and returns a `<String, NSColor>` paired dictionary represents all keyword colors specified in CSS3. The names are in upper camel-case.
+    @available(*, deprecated, message: "Use KeywordColor.stylesheetColors instead.")
     static var stylesheetKeywordColors: [String: NSColor] = Dictionary(uniqueKeysWithValues: KeywordColor.stylesheetColors.map({ ($0.keyword, NSColor(hex: $0.value)!) }))
     
     

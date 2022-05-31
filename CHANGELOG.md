@@ -8,6 +8,10 @@ CHANGELOG
 
 - Add KeywordColor struct.
 
+### mod
+
+- Deprecate NSColor.stylesheetKeywordColors (Use KeywordColor.stylesheetColors instead).
+
 
 2.7.1
 -----------
