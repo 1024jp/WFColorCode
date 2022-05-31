@@ -155,9 +155,8 @@ final class ColorCodeTests: XCTestCase {
         XCTAssertEqual(color?.colorCode(type: .hex), "#191970")
         XCTAssertNil(NSColor(colorCode: "foobar"))
         
-        let keywordColors = NSColor.stylesheetKeywordColors
-        let keyword = "Orange"
-        XCTAssertEqual(keywordColors[keyword], NSColor(colorCode: keyword))
+        XCTAssertEqual(NSColor(colorCode: "white")?.colorCode(type: .hex), "#ffffff")
+        XCTAssertEqual(NSColor(colorCode: "black")?.colorCode(type: .hex), "#000000")
     }
     
 }

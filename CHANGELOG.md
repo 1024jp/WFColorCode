@@ -1,6 +1,14 @@
 CHANGELOG
 ===========
 
+2.8.0
+-----------
+
+## new
+
+- Add KeywordColor struct.
+
+
 2.7.1
 -----------
 

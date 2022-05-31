@@ -87,7 +87,7 @@ public extension NSColor {
     
     
     /// Creates and returns a `<String, NSColor>` paired dictionary represents all keyword colors specified in CSS3. The names are in upper camel-case.
-    static var stylesheetKeywordColors: [String: NSColor] = colorKeywordMap.mapValues { NSColor(hex: $0)! }
+    static var stylesheetKeywordColors: [String: NSColor] = Dictionary(uniqueKeysWithValues: KeywordColor.stylesheetColors.map({ ($0.keyword, NSColor(hex: $0.value)!) }))
     
     
     /// Returns the receiver’s color code in desired type.
@@ -133,7 +133,7 @@ public extension NSColor {
             
         case .cssKeyword:
             let hex = (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff)
-            return colorKeywordMap.first { $0.value == hex }?.key
+            return KeywordColor(value: hex)?.keyword
         }
     }
 }
