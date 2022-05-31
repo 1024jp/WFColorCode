@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2021 1024jp
+ © 2014-2022 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -80,13 +80,25 @@ final class ColorCodeTests: XCTestCase {
         XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
         XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
         XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "White")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "white")
+        
+        XCTAssertEqual(NSColor(colorCode: "#ffffff")?.colorCode(type: .cssKeyword), "white")
     }
     
     
     func testBlack() {
         
-        XCTAssertEqual(NSColor(colorCode: "#000000")?.colorCode(type: .cssKeyword), "Black")
+        let color = NSColor.black.usingColorSpace(.genericRGB)
+        
+        XCTAssertEqual(color?.colorCode(type: .hex), "#000000")
+        XCTAssertEqual(color?.colorCode(type: .shortHex), "#000")
+        XCTAssertEqual(color?.colorCode(type: .cssRGB), "rgb(0,0,0)")
+        XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(0,0,0,1)")
+        XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,0%)")
+        XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,0%,1)")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "black")
+        
+        XCTAssertEqual(NSColor(colorCode: "#000000")?.colorCode(type: .cssKeyword), "black")
     }
     
     
@@ -129,6 +141,13 @@ final class ColorCodeTests: XCTestCase {
     }
     
     
+    func testColorSpace() {
+        
+        XCTAssertEqual(NSColor.white.usingColorSpace(.genericRGB)!.hslSaturationComponent, 0)
+        XCTAssertEqual(NSColor.white.usingColorSpace(.deviceRGB)!.hslSaturationComponent, 0)
+    }
+    
+    
     func testHex() {
         
         let color = NSColor(hex: 0xFF6600)
@@ -144,13 +163,12 @@ final class ColorCodeTests: XCTestCase {
         let color = NSColor(colorCode: "MidnightBlue", type: &type)
         
         XCTAssertEqual(type, .cssKeyword)
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "MidnightBlue")
+        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "midnightblue")
         XCTAssertEqual(color?.colorCode(type: .hex), "#191970")
         XCTAssertNil(NSColor(colorCode: "foobar"))
         
-        let keywordColors = NSColor.stylesheetKeywordColors
-        let keyword = "Orange"
-        XCTAssertEqual(keywordColors[keyword], NSColor(colorCode: keyword))
+        XCTAssertEqual(NSColor(colorCode: "white")?.colorCode(type: .hex), "#ffffff")
+        XCTAssertEqual(NSColor(colorCode: "black")?.colorCode(type: .hex), "#000000")
     }
     
 }

@@ -1,6 +1,19 @@
 CHANGELOG
 ===========
 
+2.8.0
+-----------
+
+## new
+
+- Add KeywordColor struct.
+
+### mod
+
+- Change the stylesheet keywords from the upper camel case to the lower case.
+- Deprecate NSColor.stylesheetKeywordColors (Use KeywordColor.stylesheetColors instead).
+
+
 2.7.1
 -----------
 

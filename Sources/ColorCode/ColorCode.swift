@@ -2,7 +2,6 @@
 //  ColorCode.swift
 //
 //  Created by 1024jp on 2021-05-08.
-//
 
 /*
  The MIT License (MIT)
@@ -181,11 +180,10 @@ extension ColorComponents {
             self = .hsl(h / 360, s / 100, l / 100, alpha: a)
             
         case .cssKeyword:
-            let lowercase = code.lowercased()
-            guard let hex = colorKeywordMap.first(where: { $0.key.lowercased() == lowercase })?.value else {
-                return nil
-            }
-            self.init(hex: hex)
+            guard
+                let color = KeywordColor(keyword: code)
+            else { return nil }
+            self.init(hex: color.value)
         }
         
         type = detectedType
