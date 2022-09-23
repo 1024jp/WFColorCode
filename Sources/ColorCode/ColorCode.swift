@@ -29,7 +29,7 @@
 
 import Foundation
 
-public enum ColorCodeType: Int, CaseIterable {
+public enum ColorCodeType: Int, CaseIterable, Sendable {
     
     /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`
     case hex = 1
