@@ -30,7 +30,6 @@
 import SwiftUI
 
 /// This extension on Color allows creating Color instance from a CSS color code string.
-@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 public extension Color {
     
     /// Initialize with the given color code. Or returns `nil` if color code is invalid.
@@ -87,7 +86,6 @@ public extension Color {
 
 
 
-@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 extension Color {
     
     init(components: ColorComponents) {

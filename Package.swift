@@ -1,10 +1,10 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
     name: "ColorCode",
     platforms: [
-        .macOS(.v10_10),
+        .macOS(.v11),
     ],
     products: [
         .library(name: "ColorCode", targets: ["ColorCode"]),
