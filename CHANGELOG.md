@@ -1,10 +1,19 @@
 CHANGELOG
 ===========
 
+2.9.0
+-----------
+
+### mod
+
+- Bump up supported macOS version to 11.
+
+
+
 2.8.0
 -----------
 
-## new
+### new
 
 - Add KeywordColor struct.
 

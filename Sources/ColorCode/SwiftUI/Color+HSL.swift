@@ -30,7 +30,6 @@
 import SwiftUI
 
 /// This extension on Color adds the ability to handle HSL color space.
-@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 public extension Color {
     
     /// Creates and returns a `Color` using the given opacity and HSL components.

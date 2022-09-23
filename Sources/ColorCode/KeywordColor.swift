@@ -63,10 +63,10 @@ public extension KeywordColor {
 
 
 /// The named color defined in the 6-digit RGB hexadecimal value.
-public struct KeywordColor {
+public struct KeywordColor: Sendable {
     
     /// The version of stylesheet.
-    public enum Version: CaseIterable {
+    public enum Version: CaseIterable, Sendable {
         
         case css1
         case css2

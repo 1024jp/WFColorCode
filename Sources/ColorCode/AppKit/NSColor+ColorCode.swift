@@ -100,9 +100,9 @@ public extension NSColor {
     /// - Returns: The color code string formatted in the input type.
     func colorCode(type: ColorCodeType) -> String? {
         
-        let r = Int(round(255 * self.redComponent))
-        let g = Int(round(255 * self.greenComponent))
-        let b = Int(round(255 * self.blueComponent))
+        let r = Int((255 * self.redComponent).rounded())
+        let g = Int((255 * self.greenComponent).rounded())
+        let b = Int((255 * self.blueComponent).rounded())
         let alpha = self.alphaComponent
         
         switch type {
@@ -123,9 +123,9 @@ public extension NSColor {
             let saturation = self.hslSaturationComponent
             let lightness = self.lightnessComponent
             
-            let h = (saturation > 0) ? Int(round(360 * hue)) : 0
-            let s = Int(round(100 * saturation))
-            let l = Int(round(100 * lightness))
+            let h = (saturation > 0) ? Int((360 * hue).rounded()) : 0
+            let s = Int((100 * saturation).rounded())
+            let l = Int((100 * lightness).rounded())
             
             if type == .cssHSLa {
                 return String(format: "hsla(%d,%d%%,%d%%,%g)", h, s, l, alpha)
