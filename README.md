@@ -5,9 +5,9 @@ WFColorCode
 [![Test Status](https://github.com/1024jp/WFColorCode/workflows/Test/badge.svg)](https://github.com/1024jp/WFColorCode/actions)
 [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-✔-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
 
-__WFColorCode__ is a NSColor extension that allows creating NSColor/SwiftUI.Color instance from a CSS color code string, or color code string from an NSColor/SwiftUI.Color instance.  It also adds the ability to handle HSL color space.
+__WFColorCode__ is a NSColor extension that allows creating NSColor/SwiftUI.Color instance from a CSS color code string, or color code string from an NSColor/SwiftUI.Color instance. It also adds the ability to handle HSL color space.
 
-* __Requirements__: OS X 11 or later
+* __Requirements__: macOS 11 or later
 
 
 
