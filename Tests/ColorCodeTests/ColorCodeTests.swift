@@ -32,7 +32,7 @@ import XCTest
 import ColorCode
 
 final class ColorCodeTests: XCTestCase {
-
+    
     func testColorCreation() {
         
         let whiteColor = NSColor.white.usingColorSpace(.genericRGB)

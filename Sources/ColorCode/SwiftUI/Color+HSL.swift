@@ -41,7 +41,7 @@ public extension Color {
     ///   - saturation: The saturation component of the color object in the HSL color space.
     ///   - lightness: The lightness component of the color object in the HSL color space.
     ///   - opacity: The opacity value of the color object.
-     init(hue: Double, saturation: Double, lightness: Double, opacity: Double = 1.0) {
+    init(hue: Double, saturation: Double, lightness: Double, opacity: Double = 1.0) {
         
         self.init(hue: hue,
                   saturation: hsbSaturation(saturation: saturation, lightness: lightness),

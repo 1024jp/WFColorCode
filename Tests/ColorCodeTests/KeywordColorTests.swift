@@ -32,7 +32,7 @@ import XCTest
 import ColorCode
 
 final class KeywordColorTests: XCTestCase {
-
+    
     func testInitialization() {
         
         let keyword = "midnightblue"
