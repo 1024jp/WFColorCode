@@ -49,7 +49,7 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     /// CSS style color code in HSL with alpha channel. For example: `hsla(0,0%,100%,1)`
     case cssHSLa
     
-    /// CSS style color code with keyrowd. For example: `White`
+    /// CSS style color code with keyword. For example: `White`
     case cssKeyword
 }
 

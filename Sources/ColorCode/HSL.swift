@@ -27,9 +27,9 @@
  THE SOFTWARE.
  */
 
-/// Calculate the correspondent satuation in HSB color space from the satuation and lightness in HSL color space.
+/// Calculate the correspondent saturation in HSB color space from the saturation and lightness in HSL color space.
 /// - Parameters:
-///   - saturation: The satuation value in HSL color space.
+///   - saturation: The saturation value in HSL color space.
 ///   - lightness: The lightness value in HSL color space.
 /// - Returns: A saturation value in HSB color space.
 func hsbSaturation<Value: BinaryFloatingPoint>(saturation: Value, lightness: Value) -> Value {
@@ -40,9 +40,9 @@ func hsbSaturation<Value: BinaryFloatingPoint>(saturation: Value, lightness: Val
 }
 
 
-/// Calculate the correspondent brightness in HSB color space from the satuation and lightness in HSL color space.
+/// Calculate the correspondent brightness in HSB color space from the saturation and lightness in HSL color space.
 /// - Parameters:
-///   - saturation: The satuation value in HSL color space.
+///   - saturation: The saturation value in HSL color space.
 ///   - lightness: The lightness value in HSL color space.
 /// - Returns: A brightness value in HSB color space.
 func hsbBrightness<Value: BinaryFloatingPoint>(saturation: Value, lightness: Value) -> Value {
