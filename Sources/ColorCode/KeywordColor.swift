@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2022 1024jp
+ © 2014-2023 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,6 @@ public extension KeywordColor {
         
         self = color
     }
-    
 }
 
 
@@ -233,7 +232,7 @@ public struct KeywordColor: Sendable {
         Self(value: 0xFFFFE0, keyword: "lightyellow", version: .css3),
         Self(value: 0xFFFFF0, keyword: "ivory", version: .css3),
         
+        // CSS4
         Self(value: 0x663399, keyword: "rebeccapurple", version: .css4),
     ]
-    
 }

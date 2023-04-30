@@ -188,7 +188,6 @@ extension ColorComponents {
         
         type = detectedType
     }
-    
 }
 
 
@@ -201,5 +200,4 @@ private extension NSTextCheckingResult {
         
         return Double(string[range])
     }
-    
 }

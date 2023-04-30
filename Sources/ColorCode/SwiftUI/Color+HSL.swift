@@ -48,5 +48,4 @@ public extension Color {
                   brightness: hsbBrightness(saturation: saturation, lightness: lightness),
                   opacity: opacity)
     }
-    
 }

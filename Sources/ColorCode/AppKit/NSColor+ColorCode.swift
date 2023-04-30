@@ -156,5 +156,4 @@ extension NSColor {
             self.init(calibratedHue: h, saturation: s, brightness: b, alpha: alpha)
         }
     }
-    
 }

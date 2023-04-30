@@ -81,7 +81,6 @@ public extension Color {
         
         self.init(components: components)
     }
-    
 }
 
 
@@ -101,5 +100,4 @@ extension Color {
             self.init(hue: h, saturation: s, brightness: b, opacity: alpha)
         }
     }
-    
 }

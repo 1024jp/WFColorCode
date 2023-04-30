@@ -117,5 +117,4 @@ public extension NSColor {
         
         return (maxValue + minValue) / 2
     }
-    
 }
