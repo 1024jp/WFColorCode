@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2022 1024jp
+ © 2022-2023 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -33,12 +33,15 @@ import ColorCode
 
 final class KeywordColorTests: XCTestCase {
     
-    func testInitialization() {
+    func testInitialization() throws {
         
         let keyword = "midnightblue"
         let value = 0x191970
-        XCTAssertEqual(KeywordColor(keyword: keyword)?.value, value)
-        XCTAssertEqual(KeywordColor(value: value)?.keyword, keyword)
+        
+        let keywordColor = try XCTUnwrap(KeywordColor(keyword: keyword))
+        XCTAssertEqual(keywordColor.value, value)
+        
+        let valueColor = try XCTUnwrap(KeywordColor(value: value))
+        XCTAssertEqual(valueColor.keyword, keyword)
     }
-    
 }

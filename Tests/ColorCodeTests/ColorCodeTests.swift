@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2022 1024jp
+ © 2014-2023 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ final class ColorCodeTests: XCTestCase {
     
     func testColorCreation() {
         
-        let whiteColor = NSColor.white.usingColorSpace(.genericRGB)
+        let whiteColor = NSColor.white.usingColorSpace(.genericRGB)!
         var type: ColorCodeType?
         
         XCTAssertEqual(NSColor(colorCode: "#ffffff", type: &type), whiteColor)
@@ -70,57 +70,59 @@ final class ColorCodeTests: XCTestCase {
     }
     
     
-    func testWhite() {
+    func testWhite() throws {
         
-        let color = NSColor.white.usingColorSpace(.genericRGB)
+        let color = NSColor.white.usingColorSpace(.genericRGB)!
         
-        XCTAssertEqual(color?.colorCode(type: .hex), "#ffffff")
-        XCTAssertEqual(color?.colorCode(type: .shortHex), "#fff")
-        XCTAssertEqual(color?.colorCode(type: .cssRGB), "rgb(255,255,255)")
-        XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
-        XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "white")
+        XCTAssertEqual(color.colorCode(type: .hex), "#ffffff")
+        XCTAssertEqual(color.colorCode(type: .shortHex), "#fff")
+        XCTAssertEqual(color.colorCode(type: .cssRGB), "rgb(255,255,255)")
+        XCTAssertEqual(color.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
+        XCTAssertEqual(color.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
+        XCTAssertEqual(color.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
+        XCTAssertEqual(color.colorCode(type: .cssKeyword), "white")
         
-        XCTAssertEqual(NSColor(colorCode: "#ffffff")?.colorCode(type: .cssKeyword), "white")
+        let codeColor = try XCTUnwrap(NSColor(colorCode: "#ffffff"))
+        XCTAssertEqual(codeColor.colorCode(type: .cssKeyword), "white")
     }
     
     
-    func testBlack() {
+    func testBlack() throws {
         
-        let color = NSColor.black.usingColorSpace(.genericRGB)
+        let color = NSColor.black.usingColorSpace(.genericRGB)!
         
-        XCTAssertEqual(color?.colorCode(type: .hex), "#000000")
-        XCTAssertEqual(color?.colorCode(type: .shortHex), "#000")
-        XCTAssertEqual(color?.colorCode(type: .cssRGB), "rgb(0,0,0)")
-        XCTAssertEqual(color?.colorCode(type: .cssRGBa), "rgba(0,0,0,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssHSL), "hsl(0,0%,0%)")
-        XCTAssertEqual(color?.colorCode(type: .cssHSLa), "hsla(0,0%,0%,1)")
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "black")
+        XCTAssertEqual(color.colorCode(type: .hex), "#000000")
+        XCTAssertEqual(color.colorCode(type: .shortHex), "#000")
+        XCTAssertEqual(color.colorCode(type: .cssRGB), "rgb(0,0,0)")
+        XCTAssertEqual(color.colorCode(type: .cssRGBa), "rgba(0,0,0,1)")
+        XCTAssertEqual(color.colorCode(type: .cssHSL), "hsl(0,0%,0%)")
+        XCTAssertEqual(color.colorCode(type: .cssHSLa), "hsla(0,0%,0%,1)")
+        XCTAssertEqual(color.colorCode(type: .cssKeyword), "black")
         
-        XCTAssertEqual(NSColor(colorCode: "#000000")?.colorCode(type: .cssKeyword), "black")
+        let codeColor = try XCTUnwrap(NSColor(colorCode: "#000000"))
+        XCTAssertEqual(codeColor.colorCode(type: .cssKeyword), "black")
     }
     
     
-    func testHSLaColorCode() {
+    func testHSLaColorCode() throws {
         
         let colorCode = "hsla(203,10%,20%,0.3)"
         var type: ColorCodeType?
-        let color = NSColor(colorCode: colorCode, type: &type)
+        let color = try XCTUnwrap(NSColor(colorCode: colorCode, type: &type))
         
         XCTAssertEqual(type, .cssHSLa)
-        XCTAssertEqual(color?.colorCode(type: .cssHSLa), colorCode)
+        XCTAssertEqual(color.colorCode(type: .cssHSLa), colorCode)
     }
     
     
-    func testHexColorCode() {
+    func testHexColorCode() throws {
         
         var type: ColorCodeType?
-        let color = NSColor(colorCode: "#0066aa", type: &type)
+        let color = try XCTUnwrap(NSColor(colorCode: "#0066aa", type: &type))
         
         XCTAssertEqual(type, .hex)
-        XCTAssertEqual(color?.colorCode(type: .hex), "#0066aa")
-        XCTAssertEqual(color?.colorCode(type: .shortHex), "#06a")
+        XCTAssertEqual(color.colorCode(type: .hex), "#0066aa")
+        XCTAssertEqual(color.colorCode(type: .shortHex), "#06a")
     }
     
     
@@ -148,27 +150,29 @@ final class ColorCodeTests: XCTestCase {
     }
     
     
-    func testHex() {
+    func testHex() throws {
         
-        let color = NSColor(hex: 0xFF6600)
+        let color = try XCTUnwrap(NSColor(hex: 0xFF6600))
         
-        XCTAssertEqual(color?.colorCode(type: .hex), "#ff6600")
+        XCTAssertEqual(color.colorCode(type: .hex), "#ff6600")
         XCTAssertNil(NSColor(hex: 0xFFFFFF + 1))
     }
     
     
-    func testKeyword() {
+    func testKeyword() throws {
         
         var type: ColorCodeType?
-        let color = NSColor(colorCode: "MidnightBlue", type: &type)
+        let blue = try XCTUnwrap(NSColor(colorCode: "MidnightBlue", type: &type))
         
         XCTAssertEqual(type, .cssKeyword)
-        XCTAssertEqual(color?.colorCode(type: .cssKeyword), "midnightblue")
-        XCTAssertEqual(color?.colorCode(type: .hex), "#191970")
+        XCTAssertEqual(blue.colorCode(type: .cssKeyword), "midnightblue")
+        XCTAssertEqual(blue.colorCode(type: .hex), "#191970")
         XCTAssertNil(NSColor(colorCode: "foobar"))
         
-        XCTAssertEqual(NSColor(colorCode: "white")?.colorCode(type: .hex), "#ffffff")
-        XCTAssertEqual(NSColor(colorCode: "black")?.colorCode(type: .hex), "#000000")
+        let white = try XCTUnwrap(NSColor(colorCode: "white"))
+        XCTAssertEqual(white.colorCode(type: .hex), "#ffffff")
+        
+        let black = try XCTUnwrap(NSColor(colorCode: "black"))
+        XCTAssertEqual(black.colorCode(type: .hex), "#000000")
     }
-    
 }
