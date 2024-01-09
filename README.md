@@ -60,6 +60,6 @@ color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &
 License
 -----------------------------
 
-© 2014-2023 1024jp.
+© 2014-2024 1024jp.
 
 The source code is distributed under the terms of the __MIT License__. See the bundled [LICENSE](LICENSE) for details.

@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2023 1024jp
+ © 2014-2024 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,18 @@ final class ColorCodeTests: XCTestCase {
         
         XCTAssertNil(NSColor(colorCode: "rgba(255,255,255,.)", type: &type))
         XCTAssertNil(type)
+    }
+    
+    
+    func testInfiniteComponents() {
+        
+        let code = "hsl(0,0%,0%)"
+        let black = NSColor(colorCode: code)!
+        
+        XCTAssert(black.redComponent.isFinite)
+        XCTAssert(black.greenComponent.isNaN)
+        XCTAssert(black.blueComponent.isNaN)
+        XCTAssertEqual(black.colorCode(type: .cssHSL), code)
     }
     
     

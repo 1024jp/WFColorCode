@@ -1,13 +1,20 @@
 CHANGELOG
 ===========
 
+2.9.1
+-----------
+
+### fix
+
+- Fix an issue that `colorCode(type:)` can cause a crash under certain circumstance.
+
+
 2.9.0
 -----------
 
 ### mod
 
 - Bump up supported macOS version to 11.
-
 
 
 2.8.0

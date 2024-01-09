@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2022 1024jp
+ © 2014-2024 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -100,9 +100,9 @@ public extension NSColor {
     /// - Returns: The color code string formatted in the input type.
     func colorCode(type: ColorCodeType) -> String? {
         
-        let r = Int((255 * self.redComponent).rounded())
-        let g = Int((255 * self.greenComponent).rounded())
-        let b = Int((255 * self.blueComponent).rounded())
+        let r = Int((255 * self.redComponent.finite).rounded())
+        let g = Int((255 * self.greenComponent.finite).rounded())
+        let b = Int((255 * self.blueComponent.finite).rounded())
         let alpha = self.alphaComponent
         
         switch type {
@@ -155,5 +155,14 @@ extension NSColor {
         case let .hsb(h, s, b, alpha: alpha):
             self.init(calibratedHue: h, saturation: s, brightness: b, alpha: alpha)
         }
+    }
+}
+
+
+private extension FloatingPoint {
+    
+    var finite: Self {
+        
+        self.isFinite ? self : 0
     }
 }
