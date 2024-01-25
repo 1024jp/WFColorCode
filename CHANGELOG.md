@@ -4,6 +4,11 @@ CHANGELOG
 2.10.0
 -----------
 
+### new
+
+- Add .hexWithAlpha type.
+
+
 ### mod
 
 - Update code to Swift 5.9

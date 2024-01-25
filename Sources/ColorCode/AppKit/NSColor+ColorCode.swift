@@ -108,6 +108,10 @@ public extension NSColor {
         switch type {
         case .hex:
             return String(format: "#%02x%02x%02x", r, g, b)
+                
+        case .hexWithAlpha:
+            let alpha = Int((255 * alpha).rounded())
+            return String(format: "#%02x%02x%02x%02x", r, g, b, alpha)
             
         case .shortHex:
             return String(format: "#%1x%1x%1x", r / 16, g / 16, b / 16)

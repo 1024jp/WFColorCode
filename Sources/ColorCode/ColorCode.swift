@@ -34,6 +34,9 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`
     case hex = 1
     
+    /// 8-digit hexadecimal color code with # symbol. For example: `#ffffffaa`
+    case hexWithAlpha = 8
+    
     /// 3-digit hexadecimal color code with # symbol. For example: `#fff`
     case shortHex
     
@@ -76,7 +79,10 @@ extension ColorComponents {
     ///
     /// - Parameters:
     ///   - hex: The 6-digit hexadecimal color code.
-    init?(hex: Int) {
+    ///   - alpha: The alpha channel between `0.0` and `1.0`.
+    init?(hex: Int, alpha: Double = 1) {
+        
+        assert((0...1).contains(alpha))
         
         guard (0...0xFFFFFF).contains(hex) else {
             return nil
@@ -86,7 +92,7 @@ extension ColorComponents {
         let g = (hex >> 8) & 0xff
         let b = (hex) & 0xff
         
-        self = .rgb(Double(r) / 255, Double(g) / 255, Double(b) / 255)
+        self = .rgb(Double(r) / 255, Double(g) / 255, Double(b) / 255, alpha: alpha)
     }
     
     
@@ -108,6 +114,8 @@ extension ColorComponents {
                     let pattern: String = switch type {
                     case .hex:
                         "^#[0-9a-fA-F]{6}$"
+                    case .hexWithAlpha:
+                        "^#[0-9a-fA-F]{8}$"
                     case .shortHex:
                         "^#[0-9a-fA-F]{3}$"
                     case .cssRGB:
@@ -135,13 +143,18 @@ extension ColorComponents {
         case .hex:
             let hex = Int(code.dropFirst(), radix: 16)!
             self.init(hex: hex)
-            
+                
         case .shortHex:
             let hex = Int(code.dropFirst(), radix: 16)!
             let r = (hex >> 8) & 0xff
             let g = (hex >> 4) & 0xff
             let b = (hex) & 0xff
             self = .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
+                
+        case .hexWithAlpha:
+            let hex = Int(String(code.dropFirst().prefix(6)), radix: 16)!
+            let a = Int(String(code.suffix(2)), radix: 16)! & 0xff
+            self.init(hex: hex, alpha: Double(a) / 255)
             
         case .cssRGB:
             guard

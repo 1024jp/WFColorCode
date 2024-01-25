@@ -19,13 +19,14 @@ WFColorCode supports the following color code styles.
 ```swift
 /// color code type
 enum ColorCodeType: Int {
-    case hex        // #ffffff
-    case shortHex   // #fff
-    case cssRGB     // rgb(255,255,255)
-    case cssRGBa    // rgba(255,255,255,1)
-    case cssHSL     // hsl(0,0%,100%)
-    case cssHSLa    // hsla(0,0%,100%,1)
-    case cssKeyword // White
+    case hex          // #ffffff
+    case hexWithAlpha // #ffffffff
+    case shortHex     // #fff
+    case cssRGB       // rgb(255,255,255)
+    case cssRGBa      // rgba(255,255,255,1)
+    case cssHSL       // hsl(0,0%,100%)
+    case cssHSLa      // hsla(0,0%,100%,1)
+    case cssKeyword   // White
 };
 ```
 
