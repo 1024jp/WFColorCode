@@ -16,6 +16,8 @@ jobs:
       run: |
         swiftlint
     - name: Test SwiftPM
+      env:
+        DEVELOPER_DIR: /Applications/Xcode_15.2.app
       run: |
         swift build
         swift test 2>&1 | xcpretty -c
