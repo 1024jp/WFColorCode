@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2022 1024jp
+ © 2014-2024 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -105,24 +105,22 @@ extension ColorComponents {
         // detect code type
         guard let (detectedType, result) = ColorCodeType.allCases.lazy
                 .compactMap({ type -> (ColorCodeType, NSTextCheckingResult)? in
-                    let pattern: String = {
-                        switch type {
-                        case .hex:
-                            return "^#[0-9a-fA-F]{6}$"
-                        case .shortHex:
-                            return "^#[0-9a-fA-F]{3}$"
-                        case .cssRGB:
-                            return "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$"
-                        case .cssRGBa:
-                            return "^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$"
-                        case .cssHSL:
-                            return "^hsl\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\\)$"
-                        case .cssHSLa:
-                            return "^hsla\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\\)$"
-                        case .cssKeyword:
-                            return "^[a-zA-Z]+$"
-                        }
-                    }()
+                    let pattern: String = switch type {
+                    case .hex:
+                        "^#[0-9a-fA-F]{6}$"
+                    case .shortHex:
+                        "^#[0-9a-fA-F]{3}$"
+                    case .cssRGB:
+                        "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$"
+                    case .cssRGBa:
+                        "^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$"
+                    case .cssHSL:
+                        "^hsl\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\\)$"
+                    case .cssHSLa:
+                        "^hsla\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\\)$"
+                    case .cssKeyword:
+                        "^[a-zA-Z]+$"
+                    }
                     let regex = try! NSRegularExpression(pattern: pattern)
                     
                     guard let match = regex.firstMatch(in: code, range: NSRange(0..<code.utf16.count)) else {
