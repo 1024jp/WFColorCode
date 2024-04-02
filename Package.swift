@@ -10,7 +10,10 @@ let package = Package(
         .library(name: "ColorCode", targets: ["ColorCode"]),
     ],
     targets: [
-        .target(name: "ColorCode"),
-        .testTarget(name: "ColorCodeTests", dependencies: ["ColorCode"]),
+        .target(name: "ColorCode",
+                swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]),
+        .testTarget(name: "ColorCodeTests",
+                    dependencies: ["ColorCode"],
+                    swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]),
     ]
 )
