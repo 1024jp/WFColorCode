@@ -7,6 +7,7 @@ CHANGELOG
 ### mod
 
 - Update to Swift 6.0.
+- Migrate unit test to Swift Testing.
 
 
 2.10.0

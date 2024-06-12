@@ -28,188 +28,189 @@
  THE SOFTWARE.
  */
 
-import XCTest
+import Testing
 import ColorCode
+import Numerics
+import AppKit.NSColor
 
-final class ColorCodeTests: XCTestCase {
+struct ColorCodeTests {
     
-    func testCaseIteration() {
+    @Test func testCaseIteration() {
         
-        XCTAssertEqual(ColorCodeType.allCases, 
-                       [.hex, .hexWithAlpha, .shortHex, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword])
+        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword])
     }
     
     
-    func testColorCreation() {
+    @Test func testColorCreation() {
         
         let whiteColor = NSColor.white.usingColorSpace(.genericRGB)!
         var type: ColorCodeType?
         
-        XCTAssertEqual(NSColor(colorCode: "#ffffff", type: &type), whiteColor)
-        XCTAssertEqual(type, .hex)
+        #expect(NSColor(colorCode: "#ffffff", type: &type) == whiteColor)
+        #expect(type == .hex)
         
-        XCTAssertEqual(NSColor(colorCode: "#ffffffff", type: &type), whiteColor)
-        XCTAssertEqual(type, .hexWithAlpha)
+        #expect(NSColor(colorCode: "#ffffffff", type: &type) == whiteColor)
+        #expect(type == .hexWithAlpha)
         
-        XCTAssertEqual(NSColor(colorCode: "#fff", type: &type), whiteColor)
-        XCTAssertEqual(type, .shortHex)
+        #expect(NSColor(colorCode: "#fff", type: &type) == whiteColor)
+        #expect(type == .shortHex)
         
-        XCTAssertEqual(NSColor(colorCode: "rgb(255,255,255)", type: &type), whiteColor)
-        XCTAssertEqual(type, .cssRGB)
+        #expect(NSColor(colorCode: "rgb(255,255,255)", type: &type) == whiteColor)
+        #expect(type == .cssRGB)
         
-        XCTAssertEqual(NSColor(colorCode: "rgba(255,255,255,1)", type: &type), whiteColor)
-        XCTAssertEqual(type, .cssRGBa)
+        #expect(NSColor(colorCode: "rgba(255,255,255,1)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
         
-        XCTAssertEqual(NSColor(colorCode: "hsl(0,0%,100%)", type: &type), whiteColor)
-        XCTAssertEqual(type, .cssHSL)
+        #expect(NSColor(colorCode: "hsl(0,0%,100%)", type: &type) == whiteColor)
+        #expect(type == .cssHSL)
         
-        XCTAssertEqual(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type), whiteColor)
-        XCTAssertEqual(type, .cssHSLa)
+        #expect(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
         
-        XCTAssertEqual(NSColor(colorCode: "white", type: &type), whiteColor)
-        XCTAssertEqual(type, .cssKeyword)
+        #expect(NSColor(colorCode: "white", type: &type) == whiteColor)
+        #expect(type == .cssKeyword)
         
-        XCTAssertNil(NSColor(colorCode: "", type: &type))
-        XCTAssertNil(type)
+        #expect(NSColor(colorCode: "", type: &type) == nil)
+        #expect(type == nil)
         
-        XCTAssertNil(NSColor(colorCode: "foobar", type: &type))
-        XCTAssertNil(type)
+        #expect(NSColor(colorCode: "foobar", type: &type) == nil)
+        #expect(type == nil)
         
-        XCTAssertNil(NSColor(colorCode: "rgba(255,255,255,.)", type: &type))
-        XCTAssertNil(type)
+        #expect(NSColor(colorCode: "rgba(255,255,255,.)", type: &type) == nil)
+        #expect(type == nil)
     }
     
     
-    func testInfiniteComponents() {
+    @Test func testInfiniteComponents() throws {
         
         let code = "hsl(0,0%,0%)"
-        let black = NSColor(colorCode: code)!
+        let black = try #require(NSColor(colorCode: code))
         
-        XCTAssert(black.redComponent.isFinite)
-        XCTAssert(black.greenComponent.isNaN)
-        XCTAssert(black.blueComponent.isNaN)
-        XCTAssertEqual(black.colorCode(type: .cssHSL), code)
+        #expect(black.redComponent.isFinite)
+        #expect(black.greenComponent.isNaN)
+        #expect(black.blueComponent.isNaN)
+        #expect(black.colorCode(type: .cssHSL) == code)
     }
     
     
-    func testWhite() throws {
+    @Test func testWhite() throws {
         
         let color = NSColor.white.usingColorSpace(.genericRGB)!
         
-        XCTAssertEqual(color.colorCode(type: .hex), "#ffffff")
-        XCTAssertEqual(color.colorCode(type: .hexWithAlpha), "#ffffffff")
-        XCTAssertEqual(color.colorCode(type: .shortHex), "#fff")
-        XCTAssertEqual(color.colorCode(type: .cssRGB), "rgb(255,255,255)")
-        XCTAssertEqual(color.colorCode(type: .cssRGBa), "rgba(255,255,255,1)")
-        XCTAssertEqual(color.colorCode(type: .cssHSL), "hsl(0,0%,100%)")
-        XCTAssertEqual(color.colorCode(type: .cssHSLa), "hsla(0,0%,100%,1)")
-        XCTAssertEqual(color.colorCode(type: .cssKeyword), "white")
+        #expect(color.colorCode(type: .hex) == "#ffffff")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#ffffffff")
+        #expect(color.colorCode(type: .shortHex) == "#fff")
+        #expect(color.colorCode(type: .cssRGB) == "rgb(255,255,255)")
+        #expect(color.colorCode(type: .cssRGBa) == "rgba(255,255,255,1)")
+        #expect(color.colorCode(type: .cssHSL) == "hsl(0,0%,100%)")
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(0,0%,100%,1)")
+        #expect(color.colorCode(type: .cssKeyword) == "white")
         
-        let codeColor = try XCTUnwrap(NSColor(colorCode: "#ffffff"))
-        XCTAssertEqual(codeColor.colorCode(type: .cssKeyword), "white")
+        let codeColor = try #require(NSColor(colorCode: "#ffffff"))
+        #expect(codeColor.colorCode(type: .cssKeyword) == "white")
     }
     
     
-    func testBlack() throws {
+    @Test func testBlack() throws {
         
         let color = NSColor.black.usingColorSpace(.genericRGB)!
         
-        XCTAssertEqual(color.colorCode(type: .hex), "#000000")
-        XCTAssertEqual(color.colorCode(type: .hexWithAlpha), "#000000ff")
-        XCTAssertEqual(color.colorCode(type: .shortHex), "#000")
-        XCTAssertEqual(color.colorCode(type: .cssRGB), "rgb(0,0,0)")
-        XCTAssertEqual(color.colorCode(type: .cssRGBa), "rgba(0,0,0,1)")
-        XCTAssertEqual(color.colorCode(type: .cssHSL), "hsl(0,0%,0%)")
-        XCTAssertEqual(color.colorCode(type: .cssHSLa), "hsla(0,0%,0%,1)")
-        XCTAssertEqual(color.colorCode(type: .cssKeyword), "black")
+        #expect(color.colorCode(type: .hex) == "#000000")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#000000ff")
+        #expect(color.colorCode(type: .shortHex) == "#000")
+        #expect(color.colorCode(type: .cssRGB) == "rgb(0,0,0)")
+        #expect(color.colorCode(type: .cssRGBa) == "rgba(0,0,0,1)")
+        #expect(color.colorCode(type: .cssHSL) == "hsl(0,0%,0%)")
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(0,0%,0%,1)")
+        #expect(color.colorCode(type: .cssKeyword) == "black")
         
-        let codeColor = try XCTUnwrap(NSColor(colorCode: "#000000"))
-        XCTAssertEqual(codeColor.colorCode(type: .cssKeyword), "black")
+        let codeColor = try #require(NSColor(colorCode: "#000000"))
+        #expect(codeColor.colorCode(type: .cssKeyword) == "black")
     }
     
     
-    func testHSLaColorCode() throws {
+    @Test func testHSLaColorCode() throws {
         
         let colorCode = "hsla(203,10%,20%,0.3)"
         var type: ColorCodeType?
-        let color = try XCTUnwrap(NSColor(colorCode: colorCode, type: &type))
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
         
-        XCTAssertEqual(type, .cssHSLa)
-        XCTAssertEqual(color.colorCode(type: .cssHSLa), colorCode)
+        #expect(type == .cssHSLa)
+        #expect(color.colorCode(type: .cssHSLa) == colorCode)
     }
     
     
-    func testHexColorCode() throws {
+    @Test func testHexColorCode() throws {
         
         var type: ColorCodeType?
-        let color = try XCTUnwrap(NSColor(colorCode: "#0066aa", type: &type))
+        let color = try #require(NSColor(colorCode: "#0066aa", type: &type))
         
-        XCTAssertEqual(type, .hex)
-        XCTAssertEqual(color.colorCode(type: .hex), "#0066aa")
-        XCTAssertEqual(color.colorCode(type: .hexWithAlpha), "#0066aaff")
-        XCTAssertEqual(color.colorCode(type: .shortHex), "#06a")
+        #expect(type == .hex)
+        #expect(color.colorCode(type: .hex) == "#0066aa")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#0066aaff")
+        #expect(color.colorCode(type: .shortHex) == "#06a")
     }
     
     
-    func testHSL() {
+    @Test func testHSL() {
+        
+        let color = NSColor(deviceHue: 0.1, saturation: 0.2, lightness: 0.3, alpha: 0.4)
         
         var hue: CGFloat = 0
         var saturation: CGFloat = 0
         var lightness: CGFloat = 0
         var alpha: CGFloat = 0
-        let color = NSColor(deviceHue: 0.1, saturation: 0.2, lightness: 0.3, alpha: 0.4)
-        
         color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &alpha)
         
-        XCTAssertEqual(hue, 0.1, accuracy: 3)
-        XCTAssertEqual(saturation, 0.2, accuracy: 3)
-        XCTAssertEqual(lightness, 0.3, accuracy: 3)
-        XCTAssertEqual(alpha, 0.4, accuracy: 3)
+        #expect(hue.isApproximatelyEqual(to: 0.1))
+        #expect(saturation.isApproximatelyEqual(to: 0.2))
+        #expect(lightness.isApproximatelyEqual(to: 0.3))
+        #expect(alpha.isApproximatelyEqual(to: 0.4))
     }
     
     
-    func testColorSpace() {
+    @Test(arguments: [NSColorSpace.genericRGB, NSColorSpace.deviceRGB])
+    func testColorSpace(_ colorSpace: NSColorSpace) {
         
-        XCTAssertEqual(NSColor.white.usingColorSpace(.genericRGB)!.hslSaturationComponent, 0)
-        XCTAssertEqual(NSColor.white.usingColorSpace(.deviceRGB)!.hslSaturationComponent, 0)
+        #expect(NSColor.white.usingColorSpace(colorSpace)!.hslSaturationComponent == 0)
     }
     
     
-    func testHex() throws {
+    @Test func testHex() throws {
         
-        let color = try XCTUnwrap(NSColor(hex: 0xFF6600))
+        let color = try #require(NSColor(hex: 0xFF6600))
         
-        XCTAssertEqual(color.colorCode(type: .hex), "#ff6600")
-        XCTAssertNil(NSColor(hex: 0xFFFFFF + 1))
+        #expect(color.colorCode(type: .hex) == "#ff6600")
+        #expect(NSColor(hex: 0xFFFFFF + 1) == nil)
     }
     
     
-    func testHexWithAlpha() throws {
+    @Test func testHexWithAlpha() throws {
         
         let colorCode = "#ff660080"
         var type: ColorCodeType?
-        let color = try XCTUnwrap(NSColor(colorCode: colorCode, type: &type))
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
         
-        XCTAssertEqual(type, .hexWithAlpha)
-        XCTAssertEqual(color.alphaComponent, 0.5, accuracy: 0.01)
-        XCTAssertEqual(color.colorCode(type: .hexWithAlpha), colorCode)
+        #expect(type == .hexWithAlpha)
+        #expect(color.alphaComponent.isApproximatelyEqual(to: 0.5, absoluteTolerance: 0.01))
+        #expect(color.colorCode(type: .hexWithAlpha) == colorCode)
     }
     
     
-    func testKeyword() throws {
+    @Test func testKeyword() throws {
         
         var type: ColorCodeType?
-        let blue = try XCTUnwrap(NSColor(colorCode: "MidnightBlue", type: &type))
+        let blue = try #require(NSColor(colorCode: "MidnightBlue", type: &type))
         
-        XCTAssertEqual(type, .cssKeyword)
-        XCTAssertEqual(blue.colorCode(type: .cssKeyword), "midnightblue")
-        XCTAssertEqual(blue.colorCode(type: .hex), "#191970")
-        XCTAssertNil(NSColor(colorCode: "foobar"))
+        #expect(type == .cssKeyword)
+        #expect(blue.colorCode(type: .cssKeyword) == "midnightblue")
+        #expect(blue.colorCode(type: .hex) == "#191970")
+        #expect(NSColor(colorCode: "foobar") == nil)
         
-        let white = try XCTUnwrap(NSColor(colorCode: "white"))
-        XCTAssertEqual(white.colorCode(type: .hex), "#ffffff")
+        let white = try #require(NSColor(colorCode: "white"))
+        #expect(white.colorCode(type: .hex) == "#ffffff")
         
-        let black = try XCTUnwrap(NSColor(colorCode: "black"))
-        XCTAssertEqual(black.colorCode(type: .hex), "#000000")
+        let black = try #require(NSColor(colorCode: "black"))
+        #expect(black.colorCode(type: .hex) == "#000000")
     }
 }
