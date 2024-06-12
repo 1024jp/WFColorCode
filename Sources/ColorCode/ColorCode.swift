@@ -108,107 +108,91 @@ extension ColorComponents {
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        // detect code type
-        guard let (detectedType, result) = ColorCodeType.allCases.lazy
-                .compactMap({ type -> (ColorCodeType, NSTextCheckingResult)? in
-                    let pattern: String = switch type {
-                    case .hex:
-                        "^#[0-9a-fA-F]{6}$"
-                    case .hexWithAlpha:
-                        "^#[0-9a-fA-F]{8}$"
-                    case .shortHex:
-                        "^#[0-9a-fA-F]{3}$"
-                    case .cssRGB:
-                        "^rgb\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\\)$"
-                    case .cssRGBa:
-                        "^rgba\\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\\)$"
-                    case .cssHSL:
-                        "^hsl\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\\)$"
-                    case .cssHSLa:
-                        "^hsla\\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\\)$"
-                    case .cssKeyword:
-                        "^[a-zA-Z]+$"
-                    }
-                    let regex = try! NSRegularExpression(pattern: pattern)
-                    
-                    guard let match = regex.firstMatch(in: code, range: NSRange(0..<code.utf16.count)) else {
-                        return nil
-                    }
-                    return (type, match)
-                    
-                }).first else { return nil }
-        
-        // create color from result
-        switch detectedType {
-        case .hex:
-            let hex = Int(code.dropFirst(), radix: 16)!
-            self.init(hex: hex)
-                
-        case .shortHex:
-            let hex = Int(code.dropFirst(), radix: 16)!
-            let r = (hex >> 8) & 0xff
-            let g = (hex >> 4) & 0xff
-            let b = (hex) & 0xff
-            self = .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
-                
-        case .hexWithAlpha:
-            let hex = Int(String(code.dropFirst().prefix(6)), radix: 16)!
-            let a = Int(String(code.suffix(2)), radix: 16)! & 0xff
-            self.init(hex: hex, alpha: Double(a) / 255)
-            
-        case .cssRGB:
-            guard
-                let r = result.double(in: code, at: 1),
-                let g = result.double(in: code, at: 2),
-                let b = result.double(in: code, at: 3)
-            else { return nil }
-            self = .rgb(r / 255, g / 255, b / 255)
-            
-        case .cssRGBa:
-            guard
-                let r = result.double(in: code, at: 1),
-                let g = result.double(in: code, at: 2),
-                let b = result.double(in: code, at: 3),
-                let a = result.double(in: code, at: 4)
-            else { return nil }
-            self = .rgb(r / 255, g / 255, b / 255, alpha: a)
-            
-        case .cssHSL:
-            guard
-                let h = result.double(in: code, at: 1),
-                let s = result.double(in: code, at: 2),
-                let l = result.double(in: code, at: 3)
-            else { return nil }
-            self = .hsl(h / 360, s / 100, l / 100)
-            
-        case .cssHSLa:
-            guard
-                let h = result.double(in: code, at: 1),
-                let s = result.double(in: code, at: 2),
-                let l = result.double(in: code, at: 3),
-                let a = result.double(in: code, at: 4)
-            else { return nil }
-            self = .hsl(h / 360, s / 100, l / 100, alpha: a)
-            
-        case .cssKeyword:
-            guard
-                let color = KeywordColor(keyword: code)
-            else { return nil }
-            self.init(hex: color.value)
-        }
+        guard let (detectedType, components) = ColorCodeType.allCases.lazy
+            .compactMap({ type -> (ColorCodeType, ColorComponents)? in
+                guard let components = type.colorComponents(code: code) else { return nil }
+                return (type, components)
+            }).first else { return nil }
         
         type = detectedType
+        self = components
     }
 }
 
 
-
-private extension NSTextCheckingResult {
+private extension ColorCodeType {
     
-    func double(in string: String, at index: Int) -> Double? {
+    func colorComponents(code: String) -> ColorComponents? {
         
-        let range = Range(self.range(at: index), in: string)!
-        
-        return Double(string[range])
+        switch self {
+            case .hex:
+                guard
+                    let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})/),
+                    let hex = Int(match.1, radix: 16)
+                else { return nil }
+                return ColorComponents(hex: hex)
+                
+            case .hexWithAlpha:
+                guard
+                    let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})([0-9a-fA-F]{2})/),
+                    let hex = Int(match.1, radix: 16),
+                    let a = Int(match.2, radix: 16)
+                else { return nil }
+                return ColorComponents(hex: hex, alpha: Double(a) / 255)
+                
+            case .shortHex:
+                guard
+                    let match = code.wholeMatch(of: /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/),
+                    let r = Int(match.1, radix: 16),
+                    let g = Int(match.2, radix: 16),
+                    let b = Int(match.3, radix: 16)
+                else { return nil }
+                return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
+                
+            case .cssRGB:
+                guard 
+                    let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
+                        let r = Double(match.1),
+                        let g = Double(match.2),
+                        let b = Double(match.3)
+                else { return nil }
+                return .rgb(r / 255, g / 255, b / 255)
+                
+            case .cssRGBa:
+                guard
+                    let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\)/),
+                    let r = Double(match.1),
+                    let g = Double(match.2),
+                    let b = Double(match.3),
+                    let a = Double(match.4)
+                else { return nil }
+                return .rgb(r / 255, g / 255, b / 255, alpha: a)
+                
+            case .cssHSL:
+                guard 
+                    let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
+                        let h = Double(match.1),
+                        let s = Double(match.2),
+                        let l = Double(match.3)
+                else { return nil }
+                return .hsl(h / 360, s / 100, l / 100)
+                
+            case .cssHSLa:
+                guard
+                    let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\)/),
+                    let h = Double(match.1),
+                    let s = Double(match.2),
+                    let l = Double(match.3),
+                    let a = Double(match.4)
+                else { return nil }
+                return .hsl(h / 360, s / 100, l / 100, alpha: a)
+                
+            case .cssKeyword:
+                guard
+                    code.wholeMatch(of: /[a-zA-Z]+/) != nil,
+                    let color = KeywordColor(keyword: code)
+                else { return nil }
+                return ColorComponents(hex: color.value)
+        }
     }
 }
