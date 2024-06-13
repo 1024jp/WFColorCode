@@ -5,7 +5,9 @@ on: [push, pull_request]
 jobs:
   macOS:
     name: Test on macOS
-    runs-on: macos-13
+    runs-on: macos-14
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.0-beta.app
     steps:
     - name: Show environments
       run: |
@@ -16,8 +18,6 @@ jobs:
       run: |
         swiftlint
     - name: Test SwiftPM
-      env:
-        DEVELOPER_DIR: /Applications/Xcode_15.2.app
       run: |
         swift build
-        swift test 2>&1 | xcpretty -c
+        swift test
