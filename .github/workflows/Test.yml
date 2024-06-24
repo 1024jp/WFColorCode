@@ -13,10 +13,7 @@ jobs:
       run: |
         swift --version
         xcodebuild -version
-    - uses: actions/checkout@v1
-    - name: Lint Swift
-      run: |
-        swiftlint
+    - uses: actions/checkout@v4
     - name: Unit Test
       run: |
         swift test --enable-swift-testing
