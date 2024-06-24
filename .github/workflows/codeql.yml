@@ -1,0 +1,44 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '30 13 * * 5'
+
+env:
+  CODEQL_ENABLE_EXPERIMENTAL_FEATURES_SWIFT: true
+  DEVELOPER_DIR: /Applications/Xcode_16.0.app
+  
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: macos-14
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['swift']
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+
+    - run: swift build
+      if: matrix.language == 'swift'
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
