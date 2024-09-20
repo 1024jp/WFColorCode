@@ -19,5 +19,12 @@ let package = Package(
             .product(name: "Numerics", package: "swift-numerics"),
         ])
     ],
-    swiftLanguageVersions: [.v6]
+    swiftLanguageModes: [.v6]
 )
+
+
+for target in package.targets {
+    target.swiftSettings = [
+        .enableUpcomingFeature("ExistentialAny"),
+    ]
+}
