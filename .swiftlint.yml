@@ -2,7 +2,6 @@ excluded:
   - .build
   
 opt_in_rules:
-  - attributes
   - closure_end_indentation
   - closure_spacing
   - conditional_returns_on_newline
@@ -27,7 +26,6 @@ opt_in_rules:
 disabled_rules:
   - force_unwrapping
   - force_try
-  - implicit_return
 
 trailing_comma:
   mandatory_comma: true
@@ -40,7 +38,7 @@ vertical_whitespace:
 
 line_length: 200
 function_body_length: 75
-cyclomatic_complexity: 22
+cyclomatic_complexity: 20
 
 identifier_name:
   min_length:

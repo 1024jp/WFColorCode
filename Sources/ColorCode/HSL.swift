@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2022 1024jp
+ © 2014-2024 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -49,5 +49,5 @@ func hsbSaturation<Value: BinaryFloatingPoint>(saturation: Value, lightness: Val
 /// - Returns: A brightness value in HSB color space.
 func hsbBrightness<Value: BinaryFloatingPoint>(saturation: Value, lightness: Value) -> Value {
     
-    return lightness + saturation * min(lightness, 1 - lightness)
+    lightness + saturation * min(lightness, 1 - lightness)
 }

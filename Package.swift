@@ -11,6 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0"),
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: Version(0, 57, 0)),
     ],
     targets: [
         .target(name: "ColorCode"),
@@ -23,6 +24,9 @@ let package = Package(
 
 
 for target in package.targets {
+    target.plugins = [
+        .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+    ]
     target.swiftSettings = [
         .enableUpcomingFeature("ExistentialAny"),
     ]

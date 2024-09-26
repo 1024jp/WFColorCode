@@ -110,8 +110,11 @@ extension ColorComponents {
         
         guard let (detectedType, components) = ColorCodeType.allCases.lazy
             .compactMap({ type -> (ColorCodeType, ColorComponents)? in
-                guard let components = type.colorComponents(code: code) else { return nil }
-                return (type, components)
+                if let components = type.colorComponents(code: code) {
+                    (type, components)
+                } else {
+                    nil
+                }
             }).first else { return nil }
         
         type = detectedType
@@ -125,74 +128,74 @@ private extension ColorCodeType {
     func colorComponents(code: String) -> ColorComponents? {
         
         switch self {
-            case .hex:
-                guard
-                    let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})/),
-                    let hex = Int(match.1, radix: 16)
-                else { return nil }
-                return ColorComponents(hex: hex)
-                
-            case .hexWithAlpha:
-                guard
-                    let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})([0-9a-fA-F]{2})/),
-                    let hex = Int(match.1, radix: 16),
-                    let a = Int(match.2, radix: 16)
-                else { return nil }
-                return ColorComponents(hex: hex, alpha: Double(a) / 255)
-                
-            case .shortHex:
-                guard
-                    let match = code.wholeMatch(of: /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/),
-                    let r = Int(match.1, radix: 16),
-                    let g = Int(match.2, radix: 16),
-                    let b = Int(match.3, radix: 16)
-                else { return nil }
-                return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
-                
-            case .cssRGB:
-                guard
-                    let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
-                    let r = Double(match.1),
-                    let g = Double(match.2),
-                    let b = Double(match.3)
-                else { return nil }
-                return .rgb(r / 255, g / 255, b / 255)
-                
-            case .cssRGBa:
-                guard
-                    let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\)/),
-                    let r = Double(match.1),
-                    let g = Double(match.2),
-                    let b = Double(match.3),
-                    let a = Double(match.4)
-                else { return nil }
-                return .rgb(r / 255, g / 255, b / 255, alpha: a)
-                
-            case .cssHSL:
-                guard
-                    let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
-                    let h = Double(match.1),
-                    let s = Double(match.2),
-                    let l = Double(match.3)
-                else { return nil }
-                return .hsl(h / 360, s / 100, l / 100)
-                
-            case .cssHSLa:
-                guard
-                    let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\)/),
-                    let h = Double(match.1),
-                    let s = Double(match.2),
-                    let l = Double(match.3),
-                    let a = Double(match.4)
-                else { return nil }
-                return .hsl(h / 360, s / 100, l / 100, alpha: a)
-                
-            case .cssKeyword:
-                guard
-                    code.wholeMatch(of: /[a-zA-Z]+/) != nil,
-                    let color = KeywordColor(keyword: code)
-                else { return nil }
-                return ColorComponents(hex: color.value)
+        case .hex:
+            guard
+                let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})/),
+                let hex = Int(match.1, radix: 16)
+            else { return nil }
+            return ColorComponents(hex: hex)
+            
+        case .hexWithAlpha:
+            guard
+                let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})([0-9a-fA-F]{2})/),
+                let hex = Int(match.1, radix: 16),
+                let a = Int(match.2, radix: 16)
+            else { return nil }
+            return ColorComponents(hex: hex, alpha: Double(a) / 255)
+            
+        case .shortHex:
+            guard
+                let match = code.wholeMatch(of: /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/),
+                let r = Int(match.1, radix: 16),
+                let g = Int(match.2, radix: 16),
+                let b = Int(match.3, radix: 16)
+            else { return nil }
+            return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
+            
+        case .cssRGB:
+            guard
+                let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
+                let r = Double(match.1),
+                let g = Double(match.2),
+                let b = Double(match.3)
+            else { return nil }
+            return .rgb(r / 255, g / 255, b / 255)
+            
+        case .cssRGBa:
+            guard
+                let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\)/),
+                let r = Double(match.1),
+                let g = Double(match.2),
+                let b = Double(match.3),
+                let a = Double(match.4)
+            else { return nil }
+            return .rgb(r / 255, g / 255, b / 255, alpha: a)
+            
+        case .cssHSL:
+            guard
+                let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
+                let h = Double(match.1),
+                let s = Double(match.2),
+                let l = Double(match.3)
+            else { return nil }
+            return .hsl(h / 360, s / 100, l / 100)
+            
+        case .cssHSLa:
+            guard
+                let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\)/),
+                let h = Double(match.1),
+                let s = Double(match.2),
+                let l = Double(match.3),
+                let a = Double(match.4)
+            else { return nil }
+            return .hsl(h / 360, s / 100, l / 100, alpha: a)
+            
+        case .cssKeyword:
+            guard
+                code.wholeMatch(of: /[a-zA-Z]+/) != nil,
+                let color = KeywordColor(keyword: code)
+            else { return nil }
+            return ColorComponents(hex: color.value)
         }
     }
 }
