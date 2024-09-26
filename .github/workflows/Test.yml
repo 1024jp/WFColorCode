@@ -12,8 +12,7 @@ jobs:
     - name: Show environments
       run: |
         swift --version
-        xcodebuild -version
     - uses: actions/checkout@v4
     - name: Unit Test
       run: |
-        swift test --enable-swift-testing
+        swift test
