@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "ColorCode", targets: ["ColorCode"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-numerics", from: Version(1, 0, 2)),
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: Version(0, 57, 0)),
     ],
     targets: [
