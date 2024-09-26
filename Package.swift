@@ -18,8 +18,7 @@ let package = Package(
             "ColorCode",
             .product(name: "Numerics", package: "swift-numerics"),
         ])
-    ],
-    swiftLanguageModes: [.v6]
+    ]
 )
 
 
