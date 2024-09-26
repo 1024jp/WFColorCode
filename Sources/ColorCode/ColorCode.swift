@@ -150,11 +150,11 @@ private extension ColorCodeType {
                 return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
                 
             case .cssRGB:
-                guard 
+                guard
                     let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
-                        let r = Double(match.1),
-                        let g = Double(match.2),
-                        let b = Double(match.3)
+                    let r = Double(match.1),
+                    let g = Double(match.2),
+                    let b = Double(match.3)
                 else { return nil }
                 return .rgb(r / 255, g / 255, b / 255)
                 
@@ -169,11 +169,11 @@ private extension ColorCodeType {
                 return .rgb(r / 255, g / 255, b / 255, alpha: a)
                 
             case .cssHSL:
-                guard 
+                guard
                     let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
-                        let h = Double(match.1),
-                        let s = Double(match.2),
-                        let l = Double(match.3)
+                    let h = Double(match.1),
+                    let s = Double(match.2),
+                    let l = Double(match.3)
                 else { return nil }
                 return .hsl(h / 360, s / 100, l / 100)
                 
