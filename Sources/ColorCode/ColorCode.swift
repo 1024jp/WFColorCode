@@ -27,8 +27,6 @@
  THE SOFTWARE.
  */
 
-import Foundation
-
 public enum ColorCodeType: Int, CaseIterable, Sendable {
     
     /// 6-digit hexadecimal color code with # symbol. For example: `#ffffff`

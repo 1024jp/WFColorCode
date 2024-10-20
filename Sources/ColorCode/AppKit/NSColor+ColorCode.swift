@@ -27,7 +27,6 @@
  THE SOFTWARE.
  */
 
-import Foundation
 import AppKit.NSColor
 
 /// This extension on NSColor allows creating NSColor instance from a CSS color code string, or a color code string from an NSColor instance.
