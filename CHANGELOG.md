@@ -1,6 +1,14 @@
 CHANGELOG
 ===========
 
+3.0.1
+-----------
+
+- ### mod
+
+- Migrate deprecated APIs.
+
+
 3.0.0
 -----------
 
