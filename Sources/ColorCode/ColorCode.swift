@@ -198,11 +198,11 @@ private extension ColorCodeType {
             return .rgb(r, g, b)
             
         case .cssRGBa:
-            if let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\)/),
+            if let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3})(?: *, *([0-9.]+))? *\)/),
                let r = Double(match.1),
                let g = Double(match.2),
                let b = Double(match.3),
-               let a = Double(match.4),
+               let a = optionalAlphaComponent(match.4),
                (0.0...255.0).contains(r),
                (0.0...255.0).contains(g),
                (0.0...255.0).contains(b),
@@ -212,11 +212,11 @@ private extension ColorCodeType {
             }
             
             guard
-                let match = code.wholeMatch(of: /rgba?\( *([0-9.]+%?) +([0-9.]+%?) +([0-9.]+%?) *\/ *([0-9.]+%?) *\)/),
+                let match = code.wholeMatch(of: /rgba?\( *([0-9.]+%?) +([0-9.]+%?) +([0-9.]+%?)(?: *\/ *([0-9.]+%?))? *\)/),
                 let r = rgbComponent(match.1),
                 let g = rgbComponent(match.2),
                 let b = rgbComponent(match.3),
-                let a = alphaComponent(match.4),
+                let a = optionalAlphaComponent(match.4),
                 (0.0...1.0).contains(a)
             else { return nil }
             return .rgb(r, g, b, alpha: a)
@@ -245,11 +245,11 @@ private extension ColorCodeType {
             return .hsl(h / 360, s / 100, l / 100)
             
         case .cssHSLa:
-            if let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\)/),
+            if let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)%(?: *, *([0-9.]+))? *\)/),
                let h = Double(match.1),
                let s = Double(match.2),
                let l = Double(match.3),
-               let a = Double(match.4),
+               let a = optionalAlphaComponent(match.4),
                (0.0...360.0).contains(h),
                (0.0...100.0).contains(s),
                (0.0...100.0).contains(l),
@@ -259,11 +259,11 @@ private extension ColorCodeType {
             }
             
             guard
-                let match = code.wholeMatch(of: /hsla?\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\/ *([0-9.]+%?) *\)/),
+                let match = code.wholeMatch(of: /hsla?\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?)(?: *\/ *([0-9.]+%?))? *\)/),
                 let h = Double(match.1),
                 let s = percentageComponent(match.2),
                 let l = percentageComponent(match.3),
-                let a = alphaComponent(match.4),
+                let a = optionalAlphaComponent(match.4),
                 (0.0...360.0).contains(h),
                 (0.0...100.0).contains(s),
                 (0.0...100.0).contains(l),
@@ -368,4 +368,18 @@ private func alphaComponent(_ value: some StringProtocol) -> Double? {
     }
     
     return Double(value)
+}
+
+
+/// Returns the alpha value of the given optional CSS alpha component, or `1.0` if omitted.
+///
+/// - Parameter value: The optional alpha component string as a number or percentage.
+/// - Returns: The alpha value between `0.0` and `1.0`.
+private func optionalAlphaComponent<Value: StringProtocol>(_ value: Value?) -> Double? {
+    
+    if let value {
+        alphaComponent(value)
+    } else {
+        1
+    }
 }

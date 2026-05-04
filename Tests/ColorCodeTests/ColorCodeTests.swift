@@ -71,7 +71,13 @@ struct ColorCodeTests {
         #expect(NSColor(colorCode: "rgb(255 255 255)", type: &type) == whiteColor)
         #expect(type == .cssRGB)
         
+        #expect(NSColor(colorCode: "rgba(255,255,255)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
+        
         #expect(NSColor(colorCode: "rgba(255,255,255,1)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
+        
+        #expect(NSColor(colorCode: "rgba(255 255 255)", type: &type) == whiteColor)
         #expect(type == .cssRGBa)
         
         #expect(NSColor(colorCode: "rgb(255 255 255 / 1)", type: &type) == whiteColor)
@@ -83,7 +89,13 @@ struct ColorCodeTests {
         #expect(NSColor(colorCode: "hsl(0 0% 100%)", type: &type) == whiteColor)
         #expect(type == .cssHSL)
         
+        #expect(NSColor(colorCode: "hsla(0,0%,100%)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
+        
         #expect(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
+        
+        #expect(NSColor(colorCode: "hsla(0 0% 100%)", type: &type) == whiteColor)
         #expect(type == .cssHSLa)
         
         #expect(NSColor(colorCode: "hsl(0 0% 100% / 1)", type: &type) == whiteColor)
@@ -113,19 +125,25 @@ struct ColorCodeTests {
         "rgb(256,0,0)",
         "rgb(0,256,0)",
         "rgb(0,0,256)",
+        "rgba(256,0,0)",
         "rgba(255,255,255,1.1)",
+        "rgba(256 0 0)",
         "hsl(361,0%,0%)",
         "hsl(0,101%,0%)",
         "hsl(0,0%,101%)",
+        "hsla(361,0%,0%)",
         "hsla(0,0%,100%,1.1)",
+        "hsla(361 0% 0%)",
         "rgb(101% 0% 0%)",
         "rgb(0% 101% 0%)",
         "rgb(0% 0% 101%)",
         "rgb(255 255 255 / 101%)",
+        "rgba(255 255 255 / 101%)",
         "hsl(361 0% 0%)",
         "hsl(0 101 0)",
         "hsl(0 0 101)",
         "hsl(0 0% 100% / 101%)",
+        "hsla(0 0% 100% / 101%)",
         "hwb(0 101% 0%)",
         "hwb(0 0% 101%)",
         "hwb(0 0% 100% / 101%)",

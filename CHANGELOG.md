@@ -10,6 +10,7 @@
 - Support CSS `hwb()` color codes.
 - Support 4-digit hexadecimal color codes with alpha channel.
 - Support space-separated CSS `rgb()` and `hsl()` color codes.
+- Support CSS `rgba()` and `hsla()` color codes without alpha values.
 
 
 ### Changed
