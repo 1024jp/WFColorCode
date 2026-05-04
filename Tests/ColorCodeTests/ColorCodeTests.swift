@@ -37,13 +37,13 @@ struct ColorCodeTests {
     
     @Test func testCaseIteration() {
         
-        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha])
+        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha])
     }
     
     
     @Test func testTypeGroups() {
         
-        #expect(ColorCodeType.hexTypes == [.hex, .hexWithAlpha, .shortHex])
+        #expect(ColorCodeType.hexTypes == [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha])
         #expect(ColorCodeType.cssTypes == [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha])
     }
     
@@ -61,6 +61,9 @@ struct ColorCodeTests {
         
         #expect(NSColor(colorCode: "#fff", type: &type) == whiteColor)
         #expect(type == .shortHex)
+        
+        #expect(NSColor(colorCode: "#ffff", type: &type) == whiteColor)
+        #expect(type == .shortHexWithAlpha)
         
         #expect(NSColor(colorCode: "rgb(255,255,255)", type: &type) == whiteColor)
         #expect(type == .cssRGB)
@@ -136,6 +139,7 @@ struct ColorCodeTests {
         #expect(color.colorCode(type: .hex) == "#ffffff")
         #expect(color.colorCode(type: .hexWithAlpha) == "#ffffffff")
         #expect(color.colorCode(type: .shortHex) == "#fff")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#ffff")
         #expect(color.colorCode(type: .cssRGB) == "rgb(255,255,255)")
         #expect(color.colorCode(type: .cssRGBa) == "rgba(255,255,255,1)")
         #expect(color.colorCode(type: .cssHSL) == "hsl(0,0%,100%)")
@@ -154,6 +158,7 @@ struct ColorCodeTests {
         #expect(color.colorCode(type: .hex) == "#000000")
         #expect(color.colorCode(type: .hexWithAlpha) == "#000000ff")
         #expect(color.colorCode(type: .shortHex) == "#000")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#000f")
         #expect(color.colorCode(type: .cssRGB) == "rgb(0,0,0)")
         #expect(color.colorCode(type: .cssRGBa) == "rgba(0,0,0,1)")
         #expect(color.colorCode(type: .cssHSL) == "hsl(0,0%,0%)")
@@ -220,9 +225,27 @@ struct ColorCodeTests {
         #expect(color.colorCode(type: .hex) == "#0066aa")
         #expect(color.colorCode(type: .hexWithAlpha) == "#0066aaff")
         #expect(color.colorCode(type: .shortHex) == "#06a")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#06af")
         
         let lossyColor = try #require(NSColor(colorCode: "#123456"))
         #expect(lossyColor.colorCode(type: .shortHex) == nil)
+        #expect(lossyColor.colorCode(type: .shortHexWithAlpha) == nil)
+    }
+    
+    
+    @Test func testShortHexWithAlphaColorCode() throws {
+        
+        let colorCode = "#f60c"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .shortHexWithAlpha)
+        #expect(color.colorCode(type: .hex) == "#ff6600")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#ff6600cc")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == colorCode)
+        
+        let lossyColor = try #require(NSColor(colorCode: "#ff660080"))
+        #expect(lossyColor.colorCode(type: .shortHexWithAlpha) == nil)
     }
     
     

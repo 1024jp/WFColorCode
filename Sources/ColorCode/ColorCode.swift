@@ -40,6 +40,9 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     /// 3-digit hexadecimal color code with # symbol. For example: `#fff`
     case shortHex
     
+    /// 4-digit hexadecimal color code with # symbol. For example: `#fffa`
+    case shortHexWithAlpha
+    
     /// CSS style color code in RGB. For example: `rgb(255,255,255)`
     case cssRGB
     
@@ -62,7 +65,7 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     case cssHWBWithAlpha
     
     
-    public static let hexTypes: [Self] = [.hex, .hexWithAlpha, .shortHex]
+    public static let hexTypes: [Self] = [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha]
     public static let cssTypes: [Self] = [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha]
 }
 
@@ -163,6 +166,16 @@ private extension ColorCodeType {
                 let b = Int(match.3, radix: 16)
             else { return nil }
             return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
+            
+        case .shortHexWithAlpha:
+            guard
+                let match = code.wholeMatch(of: /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/),
+                let r = Int(match.1, radix: 16),
+                let g = Int(match.2, radix: 16),
+                let b = Int(match.3, radix: 16),
+                let a = Int(match.4, radix: 16)
+            else { return nil }
+            return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15, alpha: Double(a) / 15)
             
         case .cssRGB:
             guard

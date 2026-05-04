@@ -116,6 +116,18 @@ public extension NSColor {
             
             return unsafe String(format: "#%1x%1x%1x", r / 17, g / 17, b / 17)
             
+        case .shortHexWithAlpha:
+            let alpha = Int((255 * alpha).rounded())
+            
+            guard
+                r.isMultiple(of: 17),
+                g.isMultiple(of: 17),
+                b.isMultiple(of: 17),
+                alpha.isMultiple(of: 17)
+            else { return nil }
+            
+            return unsafe String(format: "#%1x%1x%1x%1x", r / 17, g / 17, b / 17, alpha / 17)
+            
         case .cssRGB:
             return unsafe String(format: "rgb(%d,%d,%d)", r, g, b)
             
