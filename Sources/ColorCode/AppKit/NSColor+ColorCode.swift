@@ -101,20 +101,20 @@ public extension NSColor {
         
         switch type {
         case .hex:
-            return String(format: "#%02x%02x%02x", r, g, b)
+            return unsafe String(format: "#%02x%02x%02x", r, g, b)
                 
         case .hexWithAlpha:
             let alpha = Int((255 * alpha).rounded())
-            return String(format: "#%02x%02x%02x%02x", r, g, b, alpha)
+            return unsafe String(format: "#%02x%02x%02x%02x", r, g, b, alpha)
             
         case .shortHex:
-            return String(format: "#%1x%1x%1x", r / 16, g / 16, b / 16)
+            return unsafe String(format: "#%1x%1x%1x", r / 16, g / 16, b / 16)
             
         case .cssRGB:
-            return String(format: "rgb(%d,%d,%d)", r, g, b)
+            return unsafe String(format: "rgb(%d,%d,%d)", r, g, b)
             
         case .cssRGBa:
-            return String(format: "rgba(%d,%d,%d,%g)", r, g, b, alpha)
+            return unsafe String(format: "rgba(%d,%d,%d,%g)", r, g, b, alpha)
             
         case .cssHSL, .cssHSLa:
             let hue = self.hueComponent
@@ -126,9 +126,9 @@ public extension NSColor {
             let l = Int((100 * lightness).rounded())
             
             if type == .cssHSLa {
-                return String(format: "hsla(%d,%d%%,%d%%,%g)", h, s, l, alpha)
+                return unsafe String(format: "hsla(%d,%d%%,%d%%,%g)", h, s, l, alpha)
             }
-            return String(format: "hsl(%d,%d%%,%d%%)", h, s, l)
+            return unsafe String(format: "hsl(%d,%d%%,%d%%)", h, s, l)
             
         case .cssKeyword:
             let hex = (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff)

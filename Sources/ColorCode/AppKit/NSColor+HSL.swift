@@ -81,10 +81,10 @@ public extension NSColor {
     ///   - alpha: Upon return, contains the alpha component of the color object.
     func getHue(hue: UnsafeMutablePointer<CGFloat>?, saturation: UnsafeMutablePointer<CGFloat>?, lightness: UnsafeMutablePointer<CGFloat>?, alpha: UnsafeMutablePointer<CGFloat>?) {
         
-        hue?.pointee = self.hueComponent
-        saturation?.pointee = self.hslSaturationComponent
-        lightness?.pointee = self.lightnessComponent
-        alpha?.pointee = self.alphaComponent
+        unsafe hue?.pointee = self.hueComponent
+        unsafe saturation?.pointee = self.hslSaturationComponent
+        unsafe lightness?.pointee = self.lightnessComponent
+        unsafe alpha?.pointee = self.alphaComponent
     }
     
     

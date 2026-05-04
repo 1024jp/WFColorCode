@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2024 1024jp
+ © 2014-2026 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -160,7 +160,7 @@ struct ColorCodeTests {
         var saturation: CGFloat = 0
         var lightness: CGFloat = 0
         var alpha: CGFloat = 0
-        color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &alpha)
+        unsafe color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &alpha)
         
         #expect(hue.isApproximatelyEqual(to: 0.1))
         #expect(saturation.isApproximatelyEqual(to: 0.2))
