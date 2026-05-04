@@ -1,0 +1,394 @@
+//
+//  NSColorTests.swift
+//
+//  ColorCode
+//  https://github.com/1024jp/WFColorCode
+//
+//  Created by 1024jp on 2014-09-02.
+//
+//  ---------------------------------------------------------------------------
+//
+//  The MIT License (MIT)
+//
+//  © 2014-2026 1024jp
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
+import Testing
+import ColorCode
+import Numerics
+import AppKit.NSColor
+
+struct NSColorTests {
+    
+    @Test func testColorCreation() {
+        
+        let whiteColor = NSColor.white.usingColorSpace(.genericRGB)!
+        var type: ColorCodeType?
+        
+        #expect(NSColor(colorCode: "#ffffff", type: &type) == whiteColor)
+        #expect(type == .hex)
+        
+        #expect(NSColor(colorCode: "#ffffffff", type: &type) == whiteColor)
+        #expect(type == .hexWithAlpha)
+        
+        #expect(NSColor(colorCode: "#fff", type: &type) == whiteColor)
+        #expect(type == .shortHex)
+        
+        #expect(NSColor(colorCode: "#ffff", type: &type) == whiteColor)
+        #expect(type == .shortHexWithAlpha)
+        
+        #expect(NSColor(colorCode: "rgb(255,255,255)", type: &type) == whiteColor)
+        #expect(type == .cssRGB)
+        
+        #expect(NSColor(colorCode: "rgb(255 255 255)", type: &type) == whiteColor)
+        #expect(type == .cssRGB)
+        
+        #expect(NSColor(colorCode: "rgba(255,255,255)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
+        
+        #expect(NSColor(colorCode: "rgba(255,255,255,1)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
+        
+        #expect(NSColor(colorCode: "rgba(255 255 255)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
+        
+        #expect(NSColor(colorCode: "rgb(255 255 255 / 1)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
+        
+        #expect(NSColor(colorCode: "hsl(0,0%,100%)", type: &type) == whiteColor)
+        #expect(type == .cssHSL)
+        
+        #expect(NSColor(colorCode: "hsl(0 0% 100%)", type: &type) == whiteColor)
+        #expect(type == .cssHSL)
+        
+        #expect(NSColor(colorCode: "hsla(0,0%,100%)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
+        
+        #expect(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
+        
+        #expect(NSColor(colorCode: "hsla(0 0% 100%)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
+        
+        #expect(NSColor(colorCode: "hsl(0 0% 100% / 1)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
+        
+        #expect(NSColor(colorCode: "hwb(0 100% 0%)", type: &type) == whiteColor)
+        #expect(type == .cssHWB)
+        
+        #expect(NSColor(colorCode: "hwb(0 100% 0% / 1)", type: &type) == whiteColor)
+        #expect(type == .cssHWBWithAlpha)
+        
+        #expect(NSColor(colorCode: "white", type: &type) == whiteColor)
+        #expect(type == .cssKeyword)
+        
+        #expect(NSColor(colorCode: "", type: &type) == nil)
+        #expect(type == nil)
+        
+        #expect(NSColor(colorCode: "foobar", type: &type) == nil)
+        #expect(type == nil)
+        
+        #expect(NSColor(colorCode: "rgba(255,255,255,.)", type: &type) == nil)
+        #expect(type == nil)
+    }
+    
+    
+    @Test(arguments: [
+        "rgb(256,0,0)",
+        "rgb(0,256,0)",
+        "rgb(0,0,256)",
+        "rgba(256,0,0)",
+        "rgba(255,255,255,1.1)",
+        "rgba(256 0 0)",
+        "hsl(361,0%,0%)",
+        "hsl(0,101%,0%)",
+        "hsl(0,0%,101%)",
+        "hsla(361,0%,0%)",
+        "hsla(0,0%,100%,1.1)",
+        "hsla(361 0% 0%)",
+        "rgb(101% 0% 0%)",
+        "rgb(0% 101% 0%)",
+        "rgb(0% 0% 101%)",
+        "rgb(255 255 255 / 101%)",
+        "rgba(255 255 255 / 101%)",
+        "hsl(361 0% 0%)",
+        "hsl(0 101 0)",
+        "hsl(0 0 101)",
+        "hsl(0 0% 100% / 101%)",
+        "hsla(0 0% 100% / 101%)",
+        "hwb(0 101% 0%)",
+        "hwb(0 0% 101%)",
+        "hwb(0 0% 100% / 101%)",
+        "hwb(0,0%,100%)",
+    ])
+    func testOutOfRangeCSSColorComponents(_ colorCode: String) {
+        
+        var type: ColorCodeType?
+        
+        #expect(NSColor(colorCode: colorCode, type: &type) == nil)
+        #expect(type == nil)
+    }
+    
+    
+    @Test func testBlackHSLComponents() throws {
+        
+        let code = "hsl(0,0%,0%)"
+        let black = try #require(NSColor(colorCode: code))
+        
+        #expect(black.redComponent == 0)
+        #expect(black.greenComponent == 0)
+        #expect(black.blueComponent == 0)
+        #expect(black.colorCode(type: .cssHSL) == code)
+    }
+    
+    
+    @Test func testWhite() throws {
+        
+        let color = NSColor.white.usingColorSpace(.genericRGB)!
+        
+        #expect(color.colorCode(type: .hex) == "#ffffff")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#ffffffff")
+        #expect(color.colorCode(type: .shortHex) == "#fff")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#ffff")
+        #expect(color.colorCode(type: .cssRGB) == "rgb(255,255,255)")
+        #expect(color.colorCode(type: .cssRGBa) == "rgba(255,255,255,1)")
+        #expect(color.colorCode(type: .cssHSL) == "hsl(0,0%,100%)")
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(0,0%,100%,1)")
+        #expect(color.colorCode(type: .cssKeyword) == "white")
+        
+        let codeColor = try #require(NSColor(colorCode: "#ffffff"))
+        #expect(codeColor.colorCode(type: .cssKeyword) == "white")
+    }
+    
+    
+    @Test func testBlack() throws {
+        
+        let color = NSColor.black.usingColorSpace(.genericRGB)!
+        
+        #expect(color.colorCode(type: .hex) == "#000000")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#000000ff")
+        #expect(color.colorCode(type: .shortHex) == "#000")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#000f")
+        #expect(color.colorCode(type: .cssRGB) == "rgb(0,0,0)")
+        #expect(color.colorCode(type: .cssRGBa) == "rgba(0,0,0,1)")
+        #expect(color.colorCode(type: .cssHSL) == "hsl(0,0%,0%)")
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(0,0%,0%,1)")
+        #expect(color.colorCode(type: .cssKeyword) == "black")
+        
+        let codeColor = try #require(NSColor(colorCode: "#000000"))
+        #expect(codeColor.colorCode(type: .cssKeyword) == "black")
+    }
+    
+    
+    @Test func testNaNAlphaColorCode() {
+        
+        let color = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: Double.nan)
+        
+        #expect(color.colorCode(type: .hexWithAlpha) == "#00000000")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#0000")
+        #expect(color.colorCode(type: .cssRGBa) == "rgba(0,0,0,0)")
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(0,0%,0%,0)")
+        #expect(color.colorCode(type: .cssHWBWithAlpha) == "hwb(0 0% 100% / 0)")
+    }
+    
+    
+    @Test func testHSLaColorCode() throws {
+        
+        let colorCode = "hsla(203,10%,20%,0.3)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssHSLa)
+        #expect(color.colorCode(type: .cssHSLa) == colorCode)
+    }
+    
+    
+    @Test func testModernRGBColorCode() throws {
+        
+        let colorCode = "rgb(100% 40% 0% / 50%)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssRGBa)
+        #expect(color.colorCode(type: .hex) == "#ff6600")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#ff660080")
+    }
+    
+    
+    @Test func testModernHSLColorCode() throws {
+        
+        let colorCode = "hsl(203 10 20 / 30%)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssHSLa)
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(203,10%,20%,0.3)")
+    }
+    
+    
+    @Test func testHWBColorCode() throws {
+        
+        let colorCode = "hwb(150 20% 10%)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssHWB)
+        #expect(color.colorCode(type: .hex) == "#33e68c")
+        #expect(color.colorCode(type: .cssHWB) == colorCode)
+    }
+    
+    
+    @Test func testHWBColorCodeWithAlpha() throws {
+        
+        let colorCode = "hwb(150 20% 10% / .5)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssHWBWithAlpha)
+        #expect(color.alphaComponent == 0.5)
+        #expect(color.colorCode(type: .cssHWBWithAlpha) == "hwb(150 20% 10% / 0.5)")
+    }
+    
+    
+    @Test func testAchromaticHWBColorCode() throws {
+        
+        let color = try #require(NSColor(colorCode: "hwb(45 40% 80%)"))
+        
+        #expect(color.redComponent.isApproximatelyEqual(to: 1 / 3))
+        #expect(color.greenComponent.isApproximatelyEqual(to: 1 / 3))
+        #expect(color.blueComponent.isApproximatelyEqual(to: 1 / 3))
+        #expect(color.colorCode(type: .cssHWB) == "hwb(0 33% 67%)")
+    }
+    
+    
+    @Test func testHexColorCode() throws {
+        
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: "#0066aa", type: &type))
+        
+        #expect(type == .hex)
+        #expect(color.colorCode(type: .hex) == "#0066aa")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#0066aaff")
+        #expect(color.colorCode(type: .shortHex) == "#06a")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#06af")
+        
+        let lossyColor = try #require(NSColor(colorCode: "#123456"))
+        #expect(lossyColor.colorCode(type: .shortHex) == nil)
+        #expect(lossyColor.colorCode(type: .shortHexWithAlpha) == nil)
+    }
+    
+    
+    @Test func testShortHexWithAlphaColorCode() throws {
+        
+        let colorCode = "#f60c"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .shortHexWithAlpha)
+        #expect(color.colorCode(type: .hex) == "#ff6600")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#ff6600cc")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == colorCode)
+        
+        let lossyColor = try #require(NSColor(colorCode: "#ff660080"))
+        #expect(lossyColor.colorCode(type: .shortHexWithAlpha) == nil)
+    }
+    
+    
+    @Test func testHSL() throws {
+        
+        let color = NSColor(deviceHue: 0.1, saturation: 0.2, lightness: 0.3, alpha: 0.4)
+        let components = try #require(color.hslComponents)
+        
+        #expect(components.hue.isApproximatelyEqual(to: 0.1))
+        #expect(components.saturation.isApproximatelyEqual(to: 0.2))
+        #expect(components.lightness.isApproximatelyEqual(to: 0.3))
+        #expect(components.alpha.isApproximatelyEqual(to: 0.4))
+    }
+    
+    
+    @Test(arguments: [NSColorSpace.genericRGB, NSColorSpace.deviceRGB])
+    func testColorSpace(_ colorSpace: NSColorSpace) {
+        
+        #expect(NSColor.white.usingColorSpace(colorSpace)!.hslSaturationComponent == 0)
+    }
+    
+    
+    @Test func testHex() throws {
+        
+        let color = try #require(NSColor(hex: 0xFF6600))
+        
+        #expect(color.colorCode(type: .hex) == "#ff6600")
+        #expect(NSColor(hex: -1) == nil)
+        #expect(NSColor(hex: 0xFFFFFF + 1) == nil)
+    }
+    
+    
+    @Test func testHexWithAlpha() throws {
+        
+        let colorCode = "#ff660080"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .hexWithAlpha)
+        #expect(color.alphaComponent.isApproximatelyEqual(to: 0.5, absoluteTolerance: 0.01))
+        #expect(color.colorCode(type: .hexWithAlpha) == colorCode)
+    }
+    
+    
+    @Test func testKeyword() throws {
+        
+        var type: ColorCodeType?
+        let blue = try #require(NSColor(colorCode: "MidnightBlue", type: &type))
+        
+        #expect(type == .cssKeyword)
+        #expect(blue.colorCode(type: .cssKeyword) == "midnightblue")
+        #expect(blue.colorCode(type: .hex) == "#191970")
+        #expect(NSColor(colorCode: "foobar") == nil)
+        
+        let white = try #require(NSColor(colorCode: "white"))
+        #expect(white.colorCode(type: .hex) == "#ffffff")
+        
+        let black = try #require(NSColor(colorCode: "black"))
+        #expect(black.colorCode(type: .hex) == "#000000")
+    }
+    
+    
+    @Test func testGreyAliases() throws {
+        
+        let aliases = [
+            (keyword: "darkslategrey", value: 0x2F4F4F, hex: "#2f4f4f"),
+            (keyword: "dimgrey", value: 0x696969, hex: "#696969"),
+            (keyword: "slategrey", value: 0x708090, hex: "#708090"),
+            (keyword: "lightslategrey", value: 0x778899, hex: "#778899"),
+            (keyword: "grey", value: 0x808080, hex: "#808080"),
+            (keyword: "darkgrey", value: 0xA9A9A9, hex: "#a9a9a9"),
+            (keyword: "lightgrey", value: 0xD3D3D3, hex: "#d3d3d3"),
+        ]
+        
+        for alias in aliases {
+            let keywordColor = try #require(KeywordColor(keyword: alias.keyword))
+            #expect(keywordColor.value == alias.value)
+            
+            let color = try #require(NSColor(colorCode: alias.keyword))
+            #expect(color.colorCode(type: .hex) == alias.hex)
+        }
+    }
+}

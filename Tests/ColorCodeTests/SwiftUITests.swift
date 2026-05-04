@@ -1,10 +1,10 @@
 //
-//  KeywordColorTests.swift
+//  SwiftUITests.swift
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
 //
-//  Created by 1024jp on 2022-06-31.
+//  Created by 1024jp on 2026-05-04.
 //
 //  ---------------------------------------------------------------------------
 //
@@ -33,21 +33,18 @@
 
 import Testing
 import ColorCode
+import SwiftUI
 
-struct KeywordColorTests {
+struct SwiftUITests {
     
-    @Test func testInitialization() throws {
+    @Test func testColorCreation() {
         
-        let keyword = "midnightblue"
-        let value = 0x191970
+        var type: ColorCodeType?
         
-        let keywordColor = try #require(KeywordColor(keyword: keyword))
-        #expect(keywordColor.value == value)
+        #expect(Color(colorCode: "#ffffff", type: &type) != nil)
+        #expect(type == .hex)
         
-        let valueColor = try #require(KeywordColor(value: value))
-        #expect(valueColor.keyword == keyword)
-        
-        #expect(KeywordColor(value: -1) == nil)
-        #expect(KeywordColor(value: 0xFFFFFF + 1) == nil)
+        #expect(Color(hex: 0xFF6600) != nil)
+        #expect(Color(colorCode: "foobar") == nil)
     }
 }
