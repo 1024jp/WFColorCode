@@ -107,87 +107,7 @@ public extension NSColor {
     /// - Returns: The color code string formatted in the input type.
     func colorCode(type: ColorCodeType) -> String? {
         
-        let r = Int((255 * self.redComponent.finite).rounded())
-        let g = Int((255 * self.greenComponent.finite).rounded())
-        let b = Int((255 * self.blueComponent.finite).rounded())
-        let alpha = self.alphaComponent.finite
-        
-        switch type {
-        case .hex:
-            return "#\(r.twoDigitHexString)\(g.twoDigitHexString)\(b.twoDigitHexString)"
-                
-        case .hexWithAlpha:
-            let alpha = Int((255 * alpha).rounded())
-            return "#\(r.twoDigitHexString)\(g.twoDigitHexString)\(b.twoDigitHexString)\(alpha.twoDigitHexString)"
-            
-        case .shortHex:
-            guard
-                r.isMultiple(of: 17),
-                g.isMultiple(of: 17),
-                b.isMultiple(of: 17)
-            else { return nil }
-            
-            let red = String(r / 17, radix: 16)
-            let green = String(g / 17, radix: 16)
-            let blue = String(b / 17, radix: 16)
-            
-            return "#\(red)\(green)\(blue)"
-            
-        case .shortHexWithAlpha:
-            let alpha = Int((255 * alpha).rounded())
-            
-            guard
-                r.isMultiple(of: 17),
-                g.isMultiple(of: 17),
-                b.isMultiple(of: 17),
-                alpha.isMultiple(of: 17)
-            else { return nil }
-            
-            let red = String(r / 17, radix: 16)
-            let green = String(g / 17, radix: 16)
-            let blue = String(b / 17, radix: 16)
-            let alphaDigit = String(alpha / 17, radix: 16)
-            
-            return "#\(red)\(green)\(blue)\(alphaDigit)"
-            
-        case .cssRGB:
-            return "rgb(\(r),\(g),\(b))"
-            
-        case .cssRGBa:
-            return "rgba(\(r),\(g),\(b),\(alpha.cssAlphaString))"
-            
-        case .cssHSL, .cssHSLa:
-            let hue = self.hueComponent
-            let saturation = self.hslSaturationComponent
-            let lightness = self.lightnessComponent
-            
-            let h = (saturation > 0) ? Int((360 * hue).rounded()) : 0
-            let s = Int((100 * saturation).rounded())
-            let l = Int((100 * lightness).rounded())
-            
-            if type == .cssHSLa {
-                return "hsla(\(h),\(s)%,\(l)%,\(alpha.cssAlphaString))"
-            }
-            return "hsl(\(h),\(s)%,\(l)%)"
-            
-        case .cssHWB, .cssHWBWithAlpha:
-            let components = hwbComponents(red: self.redComponent.finite,
-                                           green: self.greenComponent.finite,
-                                           blue: self.blueComponent.finite)
-            
-            let h = Int((360 * components.hue).rounded())
-            let w = Int((100 * components.whiteness).rounded())
-            let b = Int((100 * components.blackness).rounded())
-            
-            if type == .cssHWBWithAlpha {
-                return "hwb(\(h) \(w)% \(b)% / \(alpha.cssAlphaString))"
-            }
-            return "hwb(\(h) \(w)% \(b)%)"
-            
-        case .cssKeyword:
-            let hex = (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff)
-            return KeywordColor(value: hex)?.keyword
-        }
+        self.rgb.finite.colorCode(type: type)
     }
 }
 
@@ -204,46 +124,19 @@ extension NSColor {
             self.init(calibratedHue: h, saturation: s, lightness: l, alpha: alpha)
             
         case let .hwb(h, w, b, alpha: alpha):
-            let rgb = rgbComponents(hue: h, whiteness: w, blackness: b)
+            let rgb = HWB(hue: h, whiteness: w, blackness: b).rgb
             self.init(calibratedRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: alpha)
             
         case let .hsb(h, s, b, alpha: alpha):
             self.init(calibratedHue: h, saturation: s, brightness: b, alpha: alpha)
         }
     }
-}
-
-
-private extension FloatingPoint {
     
-    var finite: Self {
+    
+    var rgb: RGB {
         
-        self.isFinite ? self : 0
+        RGB(red: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: self.alphaComponent)
     }
 }
 
-
-// MARK: Formatters
-
-private extension CGFloat {
-    
-    /// The value formatted as a CSS alpha component.
-    var cssAlphaString: String {
-        
-        Double(self).formatted(.number
-            .precision(.fractionLength(0...2))
-            .locale(Locale(identifier: "en_US_POSIX")))
-    }
-}
-
-
-private extension Int {
-    
-    /// The the value formatted as a two-digit lowercase hexadecimal string.
-    var twoDigitHexString: String {
-        
-        let string = String(self, radix: 16)
-        return (string.count == 1) ? "0" + string : string
-    }
-}
 #endif

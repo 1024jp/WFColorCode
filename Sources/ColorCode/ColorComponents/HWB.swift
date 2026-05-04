@@ -1,5 +1,5 @@
 //
-//  HSLTests.swift
+//  HWB.swift
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
@@ -31,24 +31,48 @@
 //  THE SOFTWARE.
 //
 
-import Numerics
-import Testing
-@testable import ColorCode
-
-struct HSLTests {
+struct HWB {
     
-    @Test func testHSB() {
+    var hue: Double
+    var whiteness: Double
+    var blackness: Double
+    var alpha: Double = 1
+    
+    
+    /// The correspondent RGB components.
+    var rgb: RGB {
         
-        let hsb1 = HSL(hue: 0.5, saturation: 0.5, lightness: 0.25).hsb
-        #expect(hsb1.brightness.isApproximatelyEqual(to: 0.375))
-        #expect(hsb1.saturation.isApproximatelyEqual(to: 2.0 / 3.0))
+        if self.whiteness + self.blackness >= 1 {
+            let gray = self.whiteness / (self.whiteness + self.blackness)
+            return RGB(red: gray, green: gray, blue: gray, alpha: self.alpha)
+        }
         
-        let hsb2 = HSL(hue: 0.5, saturation: 0, lightness: 0.5).hsb
-        #expect(hsb2.brightness.isApproximatelyEqual(to: 0.5))
-        #expect(hsb2.saturation.isApproximatelyEqual(to: 0))
+        func channel(_ value: Double) -> Double {
+            
+            let k = (value + self.hue * 12).truncatingRemainder(dividingBy: 12)
+            let a: Double = 0.5
+            
+            return 0.5 - a * max(-1, min(k - 3, 9 - k, 1))
+        }
         
-        let hsb3 = HSL(hue: 0.5, saturation: 1, lightness: 1).hsb
-        #expect(hsb3.brightness.isApproximatelyEqual(to: 1))
-        #expect(hsb3.saturation.isApproximatelyEqual(to: 0))
+        let factor = 1 - self.whiteness - self.blackness
+        
+        return RGB(red: channel(0) * factor + self.whiteness,
+                   green: channel(8) * factor + self.whiteness,
+                   blue: channel(4) * factor + self.whiteness,
+                   alpha: self.alpha)
+    }
+}
+
+
+extension RGB {
+    
+    /// The correspondent HWB components.
+    var hwb: HWB {
+        
+        let maxValue = max(self.red, self.green, self.blue)
+        let minValue = min(self.red, self.green, self.blue)
+        
+        return HWB(hue: self.hue, whiteness: minValue, blackness: 1 - maxValue, alpha: self.alpha)
     }
 }

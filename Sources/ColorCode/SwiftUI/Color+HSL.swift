@@ -47,9 +47,8 @@ public extension Color {
     ///   - opacity: The opacity value of the color object.
     init(hue: Double, saturation: Double, lightness: Double, opacity: Double = 1.0) {
         
-        self.init(hue: hue,
-                  saturation: hsbSaturation(saturation: saturation, lightness: lightness),
-                  brightness: hsbBrightness(saturation: saturation, lightness: lightness),
-                  opacity: opacity)
+        let hsb = HSL(hue: hue, saturation: saturation, lightness: lightness).hsb
+        
+        self.init(hue: hsb.hue, saturation: hsb.saturation, brightness: hsb.brightness, opacity: opacity)
     }
 }

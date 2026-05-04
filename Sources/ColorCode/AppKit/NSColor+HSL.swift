@@ -48,10 +48,9 @@ public extension NSColor {
     ///   - alpha: The opacity value of the color object.
     convenience init(deviceHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat = 1.0) {
         
-        self.init(deviceHue: hue,
-                  saturation: hsbSaturation(saturation: saturation, lightness: lightness),
-                  brightness: hsbBrightness(saturation: saturation, lightness: lightness),
-                  alpha: alpha)
+        let hsb = HSL(hue: hue, saturation: saturation, lightness: lightness).hsb
+        
+        self.init(deviceHue: hsb.hue, saturation: hsb.saturation, brightness: hsb.brightness, alpha: alpha)
     }
     
     
@@ -66,10 +65,9 @@ public extension NSColor {
     ///   - alpha: The opacity value of the color object.
     convenience init(calibratedHue hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat = 1.0) {
         
-        self.init(calibratedHue: hue,
-                  saturation: hsbSaturation(saturation: saturation, lightness: lightness),
-                  brightness: hsbBrightness(saturation: saturation, lightness: lightness),
-                  alpha: alpha)
+        let hsb = HSL(hue: hue, saturation: saturation, lightness: lightness).hsb
+        
+        self.init(calibratedHue: hsb.hue, saturation: hsb.saturation, brightness: hsb.brightness, alpha: alpha)
     }
     
     
@@ -87,10 +85,12 @@ public extension NSColor {
     @available(*, deprecated, renamed: "hslComponents")
     func getHue(hue: UnsafeMutablePointer<CGFloat>?, saturation: UnsafeMutablePointer<CGFloat>?, lightness: UnsafeMutablePointer<CGFloat>?, alpha: UnsafeMutablePointer<CGFloat>?) {
         
-        unsafe hue?.pointee = self.hueComponent
-        unsafe saturation?.pointee = self.hslSaturationComponent
-        unsafe lightness?.pointee = self.lightnessComponent
-        unsafe alpha?.pointee = self.alphaComponent
+        let hsl = self.hsb.hsl
+        
+        unsafe hue?.pointee = hsl.hue
+        unsafe saturation?.pointee = hsl.saturation
+        unsafe lightness?.pointee = hsl.lightness
+        unsafe alpha?.pointee = hsl.alpha
     }
     
     
@@ -110,7 +110,9 @@ public extension NSColor {
             return nil
         }
         
-        return (color.hueComponent, color.hslSaturationComponent, color.lightnessComponent, color.alphaComponent)
+        let hsl = color.hsb.hsl
+        
+        return (CGFloat(hsl.hue), CGFloat(hsl.saturation), CGFloat(hsl.lightness), CGFloat(hsl.alpha))
     }
     
     
@@ -120,15 +122,7 @@ public extension NSColor {
     /// `NSColorSpace.deviceRGB` color space. Sending it to other objects raises an exception.
     var hslSaturationComponent: CGFloat {
         
-        let maxValue = max(self.redComponent, self.greenComponent, self.blueComponent)
-        let minValue = min(self.redComponent, self.greenComponent, self.blueComponent)
-        let diff = maxValue - minValue
-        
-        guard diff > 0.00001 else {
-            return 0
-        }
-        
-        return diff / (1 - abs((maxValue + minValue) - 1))
+        self.hsb.hsl.saturation
     }
     
     
@@ -138,10 +132,13 @@ public extension NSColor {
     /// `NSColorSpace.deviceRGB` color space. Sending it to other objects raises an exception.
     var lightnessComponent: CGFloat {
         
-        let maxValue = max(self.redComponent, self.greenComponent, self.blueComponent)
-        let minValue = min(self.redComponent, self.greenComponent, self.blueComponent)
+        self.hsb.hsl.lightness
+    }
+    
+    
+    private var hsb: HSB {
         
-        return (maxValue + minValue) / 2
+        HSB(hue: self.hueComponent, saturation: self.saturationComponent, brightness: self.brightnessComponent, alpha: self.alphaComponent)
     }
 }
 #endif

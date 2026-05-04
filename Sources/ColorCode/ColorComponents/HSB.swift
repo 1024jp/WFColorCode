@@ -1,10 +1,11 @@
 //
-//  HSL.swift
+//  HSB.swift
+//  ColorCode
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
 //
-//  Created by 1024jp on 2021-05-08.
+//  Created by 1024jp on 2026-05-05.
 //
 //  ---------------------------------------------------------------------------
 //
@@ -31,31 +32,10 @@
 //  THE SOFTWARE.
 //
 
-/// Calculate the correspondent saturation in HSB color space from the saturation and lightness in HSL color space.
-/// 
-/// - Parameters:
-///   - saturation: The saturation value in HSL color space.
-///   - lightness: The lightness value in HSL color space.
-/// - Returns: A saturation value in HSB color space.
-func hsbSaturation(saturation: Double, lightness: Double) -> Double {
+struct HSB {
     
-    let brightness = hsbBrightness(saturation: saturation, lightness: lightness)
-    
-    guard !brightness.isZero else {
-        return 0
-    }
-    
-    return 2 * (1 - lightness / brightness)
-}
-
-
-/// Calculate the correspondent brightness in HSB color space from the saturation and lightness in HSL color space.
-///
-/// - Parameters:
-///   - saturation: The saturation value in HSL color space.
-///   - lightness: The lightness value in HSL color space.
-/// - Returns: A brightness value in HSB color space.
-func hsbBrightness(saturation: Double, lightness: Double) -> Double {
-    
-    lightness + saturation * min(lightness, 1 - lightness)
+    var hue: Double
+    var saturation: Double
+    var brightness: Double
+    var alpha: Double = 1
 }

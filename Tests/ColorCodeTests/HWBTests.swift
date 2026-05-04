@@ -39,47 +39,46 @@ struct HWBTests {
     
     @Test func testRGBComponents() {
         
-        expectComponents(rgbComponents(hue: 0, whiteness: 0, blackness: 0),
-                         equals: (red: 1, green: 0, blue: 0))
-        expectComponents(rgbComponents(hue: 1.0 / 3.0, whiteness: 0, blackness: 0),
-                         equals: (red: 0, green: 1, blue: 0))
-        expectComponents(rgbComponents(hue: 2.0 / 3.0, whiteness: 0, blackness: 0),
-                         equals: (red: 0, green: 0, blue: 1))
-        expectComponents(rgbComponents(hue: 150.0 / 360.0, whiteness: 0.2, blackness: 0.1),
-                         equals: (red: 0.2, green: 0.9, blue: 0.55))
+        expectComponents(HWB(hue: 0, whiteness: 0, blackness: 0).rgb,
+                         equals: RGB(red: 1, green: 0, blue: 0))
+        expectComponents(HWB(hue: 1.0 / 3.0, whiteness: 0, blackness: 0).rgb,
+                         equals: RGB(red: 0, green: 1, blue: 0))
+        expectComponents(HWB(hue: 2.0 / 3.0, whiteness: 0, blackness: 0).rgb,
+                         equals: RGB(red: 0, green: 0, blue: 1))
+        expectComponents(HWB(hue: 150.0 / 360.0, whiteness: 0.2, blackness: 0.1).rgb,
+                         equals: RGB(red: 0.2, green: 0.9, blue: 0.55))
     }
     
     
     @Test func testRGBComponentsWithAchromaticHWB() {
         
-        expectComponents(rgbComponents(hue: 0.5, whiteness: 0.4, blackness: 0.8),
-                         equals: (red: 1.0 / 3.0, green: 1.0 / 3.0, blue: 1.0 / 3.0))
+        expectComponents(HWB(hue: 0.5, whiteness: 0.4, blackness: 0.8).rgb,
+                         equals: RGB(red: 1.0 / 3.0, green: 1.0 / 3.0, blue: 1.0 / 3.0))
     }
     
     
     @Test func testHWBComponents() {
         
-        expectComponents(hwbComponents(red: 1, green: 0, blue: 0),
-                         equals: (hue: 0, whiteness: 0, blackness: 0))
-        expectComponents(hwbComponents(red: 0, green: 1, blue: 0),
-                         equals: (hue: 1.0 / 3.0, whiteness: 0, blackness: 0))
-        expectComponents(hwbComponents(red: 0, green: 0, blue: 1),
-                         equals: (hue: 2.0 / 3.0, whiteness: 0, blackness: 0))
-        expectComponents(hwbComponents(red: 1, green: 0, blue: 0.5),
-                         equals: (hue: 11.0 / 12.0, whiteness: 0, blackness: 0))
+        expectComponents(RGB(red: 1, green: 0, blue: 0).hwb,
+                         equals: HWB(hue: 0, whiteness: 0, blackness: 0))
+        expectComponents(RGB(red: 0, green: 1, blue: 0).hwb,
+                         equals: HWB(hue: 1.0 / 3.0, whiteness: 0, blackness: 0))
+        expectComponents(RGB(red: 0, green: 0, blue: 1).hwb,
+                         equals: HWB(hue: 2.0 / 3.0, whiteness: 0, blackness: 0))
+        expectComponents(RGB(red: 1, green: 0, blue: 0.5).hwb,
+                         equals: HWB(hue: 11.0 / 12.0, whiteness: 0, blackness: 0))
     }
     
     
     @Test func testHWBComponentsWithAchromaticRGB() {
         
-        expectComponents(hwbComponents(red: 1.0 / 3.0, green: 1.0 / 3.0, blue: 1.0 / 3.0),
-                         equals: (hue: 0, whiteness: 1.0 / 3.0, blackness: 2.0 / 3.0))
+        expectComponents(RGB(red: 1.0 / 3.0, green: 1.0 / 3.0, blue: 1.0 / 3.0).hwb,
+                         equals: HWB(hue: 0, whiteness: 1.0 / 3.0, blackness: 2.0 / 3.0))
     }
 }
 
 
-private func expectComponents(_ components: (red: Double, green: Double, blue: Double),
-                              equals expectedComponents: (red: Double, green: Double, blue: Double)) {
+private func expectComponents(_ components: RGB, equals expectedComponents: RGB) {
     
     #expect(components.red.isApproximatelyEqual(to: expectedComponents.red))
     #expect(components.green.isApproximatelyEqual(to: expectedComponents.green))
@@ -87,8 +86,7 @@ private func expectComponents(_ components: (red: Double, green: Double, blue: D
 }
 
 
-private func expectComponents(_ components: (hue: Double, whiteness: Double, blackness: Double),
-                              equals expectedComponents: (hue: Double, whiteness: Double, blackness: Double)) {
+private func expectComponents(_ components: HWB, equals expectedComponents: HWB) {
     
     #expect(components.hue.isApproximatelyEqual(to: expectedComponents.hue))
     #expect(components.whiteness.isApproximatelyEqual(to: expectedComponents.whiteness))

@@ -1,10 +1,11 @@
 //
-//  HSLTests.swift
+//  RGB.swift
+//  ColorCode
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
 //
-//  Created by 1024jp on 2026-05-04.
+//  Created by 1024jp on 2026-05-05.
 //
 //  ---------------------------------------------------------------------------
 //
@@ -31,24 +32,60 @@
 //  THE SOFTWARE.
 //
 
-import Numerics
-import Testing
-@testable import ColorCode
-
-struct HSLTests {
+struct RGB {
     
-    @Test func testHSB() {
+    var red: Double
+    var green: Double
+    var blue: Double
+    var alpha: Double = 1
+    
+    
+    var finite: Self {
         
-        let hsb1 = HSL(hue: 0.5, saturation: 0.5, lightness: 0.25).hsb
-        #expect(hsb1.brightness.isApproximatelyEqual(to: 0.375))
-        #expect(hsb1.saturation.isApproximatelyEqual(to: 2.0 / 3.0))
+        Self(red: self.red.finite, green: self.green.finite, blue: self.blue.finite, alpha: self.alpha.finite)
+    }
+    
+    
+    var hue: Double {
         
-        let hsb2 = HSL(hue: 0.5, saturation: 0, lightness: 0.5).hsb
-        #expect(hsb2.brightness.isApproximatelyEqual(to: 0.5))
-        #expect(hsb2.saturation.isApproximatelyEqual(to: 0))
+        let maxValue = max(self.red, self.green, self.blue)
+        let minValue = min(self.red, self.green, self.blue)
+        let diff = maxValue - minValue
         
-        let hsb3 = HSL(hue: 0.5, saturation: 1, lightness: 1).hsb
-        #expect(hsb3.brightness.isApproximatelyEqual(to: 1))
-        #expect(hsb3.saturation.isApproximatelyEqual(to: 0))
+        guard diff > 0 else {
+            return 0
+        }
+        
+        var hue: Double = switch maxValue {
+        case self.red:
+            (self.green - self.blue) / diff + (self.green < self.blue ? 6 : 0)
+        case self.green:
+            (self.blue - self.red) / diff + 2
+        default:
+            (self.red - self.green) / diff + 4
+        }
+        
+        hue /= 6
+        
+        return (hue >= 1) ? hue - 1 : hue
+    }
+    
+    
+    var hexValue: Int {
+        
+        let r = Int((255 * self.red).rounded())
+        let g = Int((255 * self.green).rounded())
+        let b = Int((255 * self.blue).rounded())
+        
+        return (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff)
+    }
+}
+
+
+private extension FloatingPoint {
+    
+    var finite: Self {
+        
+        self.isFinite ? self : 0
     }
 }
