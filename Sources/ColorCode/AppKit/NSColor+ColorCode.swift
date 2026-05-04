@@ -184,7 +184,7 @@ public extension NSColor {
 
 extension NSColor {
     
-    internal convenience init(components: ColorComponents) {
+    convenience init(components: ColorComponents) {
         
         switch components {
         case let .rgb(r, g, b, alpha: alpha):
