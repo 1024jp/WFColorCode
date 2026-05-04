@@ -99,9 +99,10 @@ public extension NSColor {
     /// This property returns `nil` if the receiver is not in an RGB color space and cannot be converted to the `NSColorSpace.genericRGB` color space.
     var hslComponents: (hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat)? {
         
-        let color: NSColor? = if self.colorSpace == .genericRGB || self.colorSpace == .deviceRGB {
+        let color: NSColor? = switch self.colorSpace {
+        case .genericRGB, .deviceRGB:
             self
-        } else {
+        default:
             self.usingColorSpace(.genericRGB)
         }
         
