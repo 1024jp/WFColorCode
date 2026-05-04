@@ -74,11 +74,6 @@ extension RGB {
     /// - Returns: The formatted hexadecimal color code.
     func hex(withAlpha: Bool = false) -> String {
         
-        let r = Int((255 * self.red).rounded())
-        let g = Int((255 * self.green).rounded())
-        let b = Int((255 * self.blue).rounded())
-        let alpha = Int((255 * self.alpha).rounded())
-        
         // The value formatted as a two-digit lowercase hexadecimal string.
         func twoDigitHex(_ value: Int) -> String {
             
@@ -86,9 +81,10 @@ extension RGB {
             return (string.count == 1) ? "0" + string : string
         }
         
-        return withAlpha
-            ? "#\(twoDigitHex(r))\(twoDigitHex(g))\(twoDigitHex(b))\(twoDigitHex(alpha))"
-            : "#\(twoDigitHex(r))\(twoDigitHex(g))\(twoDigitHex(b))"
+        let bytes = self.byteComponents
+        let colorBytes = withAlpha ? bytes : bytes.dropLast()
+
+        return "#" + colorBytes.map(twoDigitHex).joined()
     }
     
     
@@ -98,31 +94,13 @@ extension RGB {
     /// - Returns: The formatted shorthand hexadecimal color code, or `nil` if the color cannot be represented in shorthand form.
     func shortHex(withAlpha: Bool = false) -> String? {
         
-        let r = Int((255 * self.red).rounded())
-        let g = Int((255 * self.green).rounded())
-        let b = Int((255 * self.blue).rounded())
-        let alpha = Int((255 * self.alpha).rounded())
+        let bytes = withAlpha ? self.byteComponents : self.byteComponents.dropLast()
         
-        guard
-            r.isMultiple(of: 17),
-            g.isMultiple(of: 17),
-            b.isMultiple(of: 17)
-        else { return nil }
-        
-        let red = String(r / 17, radix: 16)
-        let green = String(g / 17, radix: 16)
-        let blue = String(b / 17, radix: 16)
-        
-        if withAlpha {
-            guard alpha.isMultiple(of: 17) else {
-                return nil
-            }
-            let alphaDigit = String(alpha / 17, radix: 16)
-            
-            return "#\(red)\(green)\(blue)\(alphaDigit)"
-        } else {
-            return "#\(red)\(green)\(blue)"
+        guard bytes.allSatisfy({ $0.isMultiple(of: 17) }) else {
+            return nil
         }
+        
+        return "#" + bytes.map { String($0 / 17, radix: 16) }.joined()
     }
     
     
@@ -132,13 +110,14 @@ extension RGB {
     /// - Returns: The formatted CSS RGB color code.
     func cssFormat(withAlpha: Bool = false) -> String {
         
-        let r = Int((255 * self.red).rounded())
-        let g = Int((255 * self.green).rounded())
-        let b = Int((255 * self.blue).rounded())
+        let bytes = self.byteComponents
+        let red = bytes[0]
+        let green = bytes[1]
+        let blue = bytes[2]
         
         return withAlpha
-            ? "rgba(\(r),\(g),\(b),\(self.alpha.cssAlphaString))"
-            : "rgb(\(r),\(g),\(b))"
+            ? "rgba(\(red),\(green),\(blue),\(self.alpha.cssAlphaString))"
+            : "rgb(\(red),\(green),\(blue))"
     }
 }
 

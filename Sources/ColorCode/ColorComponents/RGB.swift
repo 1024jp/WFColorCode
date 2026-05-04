@@ -49,6 +49,13 @@ struct RGB: ColorComponents {
     }
     
     
+    /// The RGBA component values rounded to 8-bit integers.
+    var byteComponents: [Int] {
+        
+        self.components.map { Int((255 * $0).rounded()) }
+    }
+
+
     /// The hue component corresponding to the RGB components.
     var hue: Double {
         
@@ -78,11 +85,7 @@ struct RGB: ColorComponents {
     /// The 6-digit hexadecimal color value.
     var hexValue: Int {
         
-        let r = Int((255 * self.red).rounded())
-        let g = Int((255 * self.green).rounded())
-        let b = Int((255 * self.blue).rounded())
-        
-        return (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff)
+        self.byteComponents.prefix(3).reduce(0) { ($0 << 8) | ($1 & 0xff) }
     }
 }
 
