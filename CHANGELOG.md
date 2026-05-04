@@ -1,24 +1,28 @@
 CHANGELOG
 ===========
 
-3.1.0
+4.0.0 (unreleased)
 -----------
 
-### new
+### Added
 
 - Add `hexTypes` and `cssTypes` static properties to `ColorCodeType`.
 - Add `hslComponents` to `NSColor` to read HSL values without pointer arguments.
 
 
-### mod
+### Changed
 
 - Update to Swift 6.3.
 - Bump up supported macOS version to 15.
-- Deprecate `getHue(hue:saturation:lightness:alpha:)` in favor of `hslComponents`.
 - Return `nil` for out-of-range hexadecimal color inputs instead of asserting.
 
 
-### fix
+### Deprecated
+
+- Deprecate `getHue(hue:saturation:lightness:alpha:)` in favor of `hslComponents`.
+
+
+### Fixed
 
 - Create black colors from HSL color codes without NaN components.
 - Make `ColorCodeType` raw values follow the case order.
