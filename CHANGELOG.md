@@ -1,6 +1,6 @@
 # Change Log
 
-4.0.1 (unreleased)
+4.0.1 (2026-05-04)
 --------------------------
 
 ### Breaking Changes
