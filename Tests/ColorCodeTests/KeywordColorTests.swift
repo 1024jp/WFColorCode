@@ -44,6 +44,9 @@ struct KeywordColorTests {
         
         let valueColor = try #require(KeywordColor(value: value))
         #expect(valueColor.keyword == keyword)
+        
+        #expect(KeywordColor(value: -1) == nil)
+        #expect(KeywordColor(value: 0xFFFFFF + 1) == nil)
     }
     
     

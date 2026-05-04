@@ -85,9 +85,10 @@ extension ColorComponents {
     ///   - alpha: The alpha channel between `0.0` and `1.0`.
     init?(hex: Int, alpha: Double = 1) {
         
-        assert((0...1).contains(alpha))
-        
-        guard (0...0xFFFFFF).contains(hex) else {
+        guard
+            (0...0xFFFFFF).contains(hex),
+            (0...1).contains(alpha)
+        else {
             return nil
         }
         

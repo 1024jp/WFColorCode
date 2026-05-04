@@ -34,9 +34,8 @@ public extension KeywordColor {
     /// - Parameter value: The 6-digit hexadecimal color value.
     init?(value: Int) {
         
-        assert((0x0...0xFFFFFF).contains(value))
-        
         guard
+            (0x0...0xFFFFFF).contains(value),
             let color = Self.stylesheetColors.first(where: { $0.value == value })
         else { return nil }
         

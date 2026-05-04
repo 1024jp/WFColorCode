@@ -186,6 +186,7 @@ struct ColorCodeTests {
         let color = try #require(NSColor(hex: 0xFF6600))
         
         #expect(color.colorCode(type: .hex) == "#ff6600")
+        #expect(NSColor(hex: -1) == nil)
         #expect(NSColor(hex: 0xFFFFFF + 1) == nil)
     }
     

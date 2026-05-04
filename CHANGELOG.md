@@ -15,6 +15,7 @@ CHANGELOG
 - Update to Swift 6.3.
 - Bump up supported macOS version to 15.
 - Deprecate `getHue(hue:saturation:lightness:alpha:)` in favor of `hslComponents`.
+- Return `nil` for out-of-range hexadecimal color inputs instead of asserting.
 
 
 ### fix
