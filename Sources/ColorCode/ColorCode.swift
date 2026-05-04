@@ -35,7 +35,7 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     case hex = 1
     
     /// 8-digit hexadecimal color code with # symbol. For example: `#ffffffaa`
-    case hexWithAlpha = 8
+    case hexWithAlpha
     
     /// 3-digit hexadecimal color code with # symbol. For example: `#fff`
     case shortHex

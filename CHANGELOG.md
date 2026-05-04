@@ -12,6 +12,7 @@ CHANGELOG
 
 ### fix
 
+- Make `ColorCodeType` raw values follow the case order.
 - Recognize CSS color keyword aliases that use the "grey" spelling.
 
 
