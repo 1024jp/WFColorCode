@@ -79,6 +79,7 @@ public extension NSColor {
     ///   - saturation: Upon return, contains the saturation component of the color object.
     ///   - lightness: Upon return, contains the saturation lightness of the color object.
     ///   - alpha: Upon return, contains the alpha component of the color object.
+    @available(*, deprecated, renamed: "hslComponents")
     func getHue(hue: UnsafeMutablePointer<CGFloat>?, saturation: UnsafeMutablePointer<CGFloat>?, lightness: UnsafeMutablePointer<CGFloat>?, alpha: UnsafeMutablePointer<CGFloat>?) {
         
         unsafe hue?.pointee = self.hueComponent
