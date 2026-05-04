@@ -164,6 +164,8 @@ struct NSColorTests {
         #expect(color.alphaComponent == 0.5)
         #expect(color.colorCode(type: .cssHWBWithAlpha) == "hwb(150 20% 10% / 0.5)")
     }
+    
+    
     @Test func testHexColorCode() throws {
         
         var type: ColorCodeType?

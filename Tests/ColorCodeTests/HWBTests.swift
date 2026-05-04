@@ -48,6 +48,7 @@ struct HWBTests {
     @Test func testRGBComponentsWithAchromaticHWB() {
         
         #expect(HWB(hue: 0.5, whiteness: 0.4, blackness: 0.8).rgb ~== RGB(red: 1.0 / 3.0, green: 1.0 / 3.0, blue: 1.0 / 3.0))
+        #expect(HWB(hue: 0.5, whiteness: 0.4, blackness: 0.8, alpha: 0.25).rgb ~== RGB(red: 1.0 / 3.0, green: 1.0 / 3.0, blue: 1.0 / 3.0, alpha: 0.25))
     }
     
     

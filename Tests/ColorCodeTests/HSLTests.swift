@@ -37,7 +37,7 @@ import Testing
 
 struct HSLTests {
     
-    @Test func testHSB() {
+    @Test func testHSBComponents() {
         
         let hsb1 = HSL(hue: 0.5, saturation: 0.5, lightness: 0.25).hsb
         #expect(hsb1.brightness.isApproximatelyEqual(to: 0.375))
