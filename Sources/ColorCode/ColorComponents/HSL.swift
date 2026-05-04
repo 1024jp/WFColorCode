@@ -37,6 +37,8 @@ struct HSL {
     var saturation: Double
     var lightness: Double
     var alpha: Double = 1
+    
+    var components: [Double] { [self.hue, self.saturation, self.lightness, self.alpha] }
 }
 
 

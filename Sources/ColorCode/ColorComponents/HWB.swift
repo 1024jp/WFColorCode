@@ -38,6 +38,8 @@ struct HWB {
     var blackness: Double
     var alpha: Double = 1
     
+    var components: [Double] { [self.hue, self.whiteness, self.blackness, self.alpha] }
+    
     
     /// The correspondent RGB components.
     var rgb: RGB {

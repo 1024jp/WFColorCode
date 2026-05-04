@@ -38,4 +38,6 @@ struct HSB {
     var saturation: Double
     var brightness: Double
     var alpha: Double = 1
+    
+    var components: [Double] { [self.hue, self.saturation, self.brightness, self.alpha] }
 }

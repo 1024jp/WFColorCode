@@ -39,6 +39,8 @@ struct RGB {
     var blue: Double
     var alpha: Double = 1
     
+    var components: [Double] { [self.red, self.green, self.blue, self.alpha] }
+    
     
     var finite: Self {
         
