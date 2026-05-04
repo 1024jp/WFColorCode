@@ -26,6 +26,8 @@ enum ColorCodeType: Int {
 };
 ```
 
+When creating colors from color code strings, CSS function color codes also accept the modern space-separated syntax, such as `rgb(255 255 255 / 0.5)` and `hsl(0 0% 100% / 0.5)`. Generated color code strings continue to use the legacy comma-separated syntax, such as `rgba(255,255,255,0.5)` and `hsla(0,0%,100%,0.5)`.
+
 ### Example
 
 Import `ColorCode` to use.

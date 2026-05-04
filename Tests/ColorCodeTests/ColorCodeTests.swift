@@ -68,13 +68,25 @@ struct ColorCodeTests {
         #expect(NSColor(colorCode: "rgb(255,255,255)", type: &type) == whiteColor)
         #expect(type == .cssRGB)
         
+        #expect(NSColor(colorCode: "rgb(255 255 255)", type: &type) == whiteColor)
+        #expect(type == .cssRGB)
+        
         #expect(NSColor(colorCode: "rgba(255,255,255,1)", type: &type) == whiteColor)
+        #expect(type == .cssRGBa)
+        
+        #expect(NSColor(colorCode: "rgb(255 255 255 / 1)", type: &type) == whiteColor)
         #expect(type == .cssRGBa)
         
         #expect(NSColor(colorCode: "hsl(0,0%,100%)", type: &type) == whiteColor)
         #expect(type == .cssHSL)
         
+        #expect(NSColor(colorCode: "hsl(0 0% 100%)", type: &type) == whiteColor)
+        #expect(type == .cssHSL)
+        
         #expect(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type) == whiteColor)
+        #expect(type == .cssHSLa)
+        
+        #expect(NSColor(colorCode: "hsl(0 0% 100% / 1)", type: &type) == whiteColor)
         #expect(type == .cssHSLa)
         
         #expect(NSColor(colorCode: "hwb(0 100% 0%)", type: &type) == whiteColor)
@@ -106,6 +118,14 @@ struct ColorCodeTests {
         "hsl(0,101%,0%)",
         "hsl(0,0%,101%)",
         "hsla(0,0%,100%,1.1)",
+        "rgb(101% 0% 0%)",
+        "rgb(0% 101% 0%)",
+        "rgb(0% 0% 101%)",
+        "rgb(255 255 255 / 101%)",
+        "hsl(361 0% 0%)",
+        "hsl(0 101 0)",
+        "hsl(0 0 101)",
+        "hsl(0 0% 100% / 101%)",
         "hwb(0 101% 0%)",
         "hwb(0 0% 101%)",
         "hwb(0 0% 100% / 101%)",
@@ -178,6 +198,29 @@ struct ColorCodeTests {
         
         #expect(type == .cssHSLa)
         #expect(color.colorCode(type: .cssHSLa) == colorCode)
+    }
+    
+    
+    @Test func testModernRGBColorCode() throws {
+        
+        let colorCode = "rgb(100% 40% 0% / 50%)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssRGBa)
+        #expect(color.colorCode(type: .hex) == "#ff6600")
+        #expect(color.colorCode(type: .hexWithAlpha) == "#ff660080")
+    }
+    
+    
+    @Test func testModernHSLColorCode() throws {
+        
+        let colorCode = "hsl(203 10 20 / 30%)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssHSLa)
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(203,10%,20%,0.3)")
     }
     
     

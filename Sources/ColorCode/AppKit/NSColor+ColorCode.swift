@@ -34,6 +34,8 @@ public extension NSColor {
     
     /// Initialize with the given color code. Or returns `nil` if color code is invalid.
     ///
+    /// Modern space-separated CSS function syntax is accepted only when creating colors from color code strings.
+    ///
     /// Example usage:
     /// ```
     /// var type: ColorCodeType?
@@ -42,7 +44,7 @@ public extension NSColor {
     /// ```
     ///
     /// - Parameters:
-    ///   - colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    ///   - colorCode: The CSS color code string. The given code as hex or CSS keyword is case insensitive.
     ///   - type: Upon return, contains the detected color code type.
     convenience init?(colorCode: String, type: inout ColorCodeType?) {
         
@@ -56,7 +58,9 @@ public extension NSColor {
     
     /// Initialize with the given color code. Or returns `nil` if color code is invalid.
     ///
-    /// - Parameter colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    /// Modern space-separated CSS function syntax is accepted only when creating colors from color code strings.
+    ///
+    /// - Parameter colorCode: The CSS color code string. The given code as hex or CSS keyword is case insensitive.
     convenience init?(colorCode: String) {
         
         var type: ColorCodeType?
@@ -86,6 +90,9 @@ public extension NSColor {
     
     
     /// Returns the receiver’s color code in desired type.
+    ///
+    /// CSS function color codes are formatted in the legacy comma-separated syntax.
+    /// Modern space-separated syntax is accepted only when creating colors from color code strings.
     ///
     /// This method works only with objects representing colors in the `NSColorSpaceName.calibratedRGB` or
     /// `NSColorSpaceName.deviceRGB` color space. Sending it to other objects raises an exception.

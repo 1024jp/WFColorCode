@@ -178,37 +178,66 @@ private extension ColorCodeType {
             return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15, alpha: Double(a) / 15)
             
         case .cssRGB:
+            if let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
+               let r = Double(match.1),
+               let g = Double(match.2),
+               let b = Double(match.3),
+               (0.0...255.0).contains(r),
+               (0.0...255.0).contains(g),
+               (0.0...255.0).contains(b)
+            {
+                return .rgb(r / 255, g / 255, b / 255)
+            }
+            
             guard
-                let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
-                let r = Double(match.1),
-                let g = Double(match.2),
-                let b = Double(match.3),
-                (0.0...255.0).contains(r),
-                (0.0...255.0).contains(g),
-                (0.0...255.0).contains(b)
+                let match = code.wholeMatch(of: /rgb\( *([0-9.]+%?) +([0-9.]+%?) +([0-9.]+%?) *\)/),
+                let r = rgbComponent(match.1),
+                let g = rgbComponent(match.2),
+                let b = rgbComponent(match.3)
             else { return nil }
-            return .rgb(r / 255, g / 255, b / 255)
+            return .rgb(r, g, b)
             
         case .cssRGBa:
+            if let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\)/),
+               let r = Double(match.1),
+               let g = Double(match.2),
+               let b = Double(match.3),
+               let a = Double(match.4),
+               (0.0...255.0).contains(r),
+               (0.0...255.0).contains(g),
+               (0.0...255.0).contains(b),
+               (0.0...1.0).contains(a)
+            {
+                return .rgb(r / 255, g / 255, b / 255, alpha: a)
+            }
+            
             guard
-                let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9.]+) *\)/),
-                let r = Double(match.1),
-                let g = Double(match.2),
-                let b = Double(match.3),
-                let a = Double(match.4),
-                (0.0...255.0).contains(r),
-                (0.0...255.0).contains(g),
-                (0.0...255.0).contains(b),
+                let match = code.wholeMatch(of: /rgba?\( *([0-9.]+%?) +([0-9.]+%?) +([0-9.]+%?) *\/ *([0-9.]+%?) *\)/),
+                let r = rgbComponent(match.1),
+                let g = rgbComponent(match.2),
+                let b = rgbComponent(match.3),
+                let a = alphaComponent(match.4),
                 (0.0...1.0).contains(a)
             else { return nil }
-            return .rgb(r / 255, g / 255, b / 255, alpha: a)
+            return .rgb(r, g, b, alpha: a)
             
         case .cssHSL:
+            if let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
+               let h = Double(match.1),
+               let s = Double(match.2),
+               let l = Double(match.3),
+               (0.0...360.0).contains(h),
+               (0.0...100.0).contains(s),
+               (0.0...100.0).contains(l)
+            {
+                return .hsl(h / 360, s / 100, l / 100)
+            }
+            
             guard
-                let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
+                let match = code.wholeMatch(of: /hsl\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\)/),
                 let h = Double(match.1),
-                let s = Double(match.2),
-                let l = Double(match.3),
+                let s = percentageComponent(match.2),
+                let l = percentageComponent(match.3),
                 (0.0...360.0).contains(h),
                 (0.0...100.0).contains(s),
                 (0.0...100.0).contains(l)
@@ -216,12 +245,25 @@ private extension ColorCodeType {
             return .hsl(h / 360, s / 100, l / 100)
             
         case .cssHSLa:
+            if let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\)/),
+               let h = Double(match.1),
+               let s = Double(match.2),
+               let l = Double(match.3),
+               let a = Double(match.4),
+               (0.0...360.0).contains(h),
+               (0.0...100.0).contains(s),
+               (0.0...100.0).contains(l),
+               (0.0...1.0).contains(a)
+            {
+                return .hsl(h / 360, s / 100, l / 100, alpha: a)
+            }
+            
             guard
-                let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *, *([0-9.]+) *\)/),
+                let match = code.wholeMatch(of: /hsla?\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\/ *([0-9.]+%?) *\)/),
                 let h = Double(match.1),
-                let s = Double(match.2),
-                let l = Double(match.3),
-                let a = Double(match.4),
+                let s = percentageComponent(match.2),
+                let l = percentageComponent(match.3),
+                let a = alphaComponent(match.4),
                 (0.0...360.0).contains(h),
                 (0.0...100.0).contains(s),
                 (0.0...100.0).contains(l),
@@ -276,6 +318,36 @@ private func percentageComponent(_ value: some StringProtocol) -> Double? {
     let number = value.hasSuffix("%") ? String(value.dropLast()) : value
     
     return Double(number)
+}
+
+
+/// Returns the RGB value of the given CSS RGB component.
+///
+/// - Parameter value: The RGB component string as a number or percentage.
+/// - Returns: The RGB value between `0.0` and `1.0`.
+private func rgbComponent(_ value: some StringProtocol) -> Double? {
+    
+    let value = String(value)
+    
+    if value.hasSuffix("%") {
+        guard
+            let component = Double(value.dropLast()),
+            (0.0...100.0).contains(component)
+        else {
+            return nil
+        }
+        
+        return component / 100
+    }
+    
+    guard
+        let component = Double(value),
+        (0.0...255.0).contains(component)
+    else {
+        return nil
+    }
+    
+    return component / 255
 }
 
 

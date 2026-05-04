@@ -9,6 +9,7 @@
 - Add `hslComponents` to `NSColor` for reading HSL values without pointer arguments.
 - Support CSS `hwb()` color codes.
 - Support 4-digit hexadecimal color codes with alpha channel.
+- Support space-separated CSS `rgb()` and `hsl()` color codes.
 
 
 ### Changed

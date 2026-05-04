@@ -30,9 +30,13 @@
 public import SwiftUI
 
 /// This extension on Color allows creating Color instance from a CSS color code string.
+///
+/// Modern space-separated CSS function syntax is accepted when creating colors from color code strings.
 public extension Color {
     
     /// Initialize with the given color code. Or returns `nil` if color code is invalid.
+    ///
+    /// Modern space-separated CSS function syntax is accepted when creating colors from color code strings.
     ///
     /// Example usage:
     /// ```
@@ -41,7 +45,7 @@ public extension Color {
     /// ```
     ///
     /// - Parameters:
-    ///   - colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    ///   - colorCode: The CSS color code string. The given code as hex or CSS keyword is case insensitive.
     ///   - type: Upon return, contains the detected color code type.
     init?(colorCode: String, type: inout ColorCodeType?) {
         
@@ -55,7 +59,9 @@ public extension Color {
     
     /// Initialize with the given color code. Or returns `nil` if color code is invalid.
     ///
-    /// - Parameter colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    /// Modern space-separated CSS function syntax is accepted when creating colors from color code strings.
+    ///
+    /// - Parameter colorCode: The CSS color code string. The given code as hex or CSS keyword is case insensitive.
     init?(colorCode: String) {
         
         var type: ColorCodeType?
