@@ -1,20 +1,19 @@
-CHANGELOG
-===========
+# Change Log
 
 4.0.0 (unreleased)
------------
+--------------------------
 
 ### Added
 
 - Add `hexTypes` and `cssTypes` static properties to `ColorCodeType`.
-- Add `hslComponents` to `NSColor` to read HSL values without pointer arguments.
+- Add `hslComponents` to `NSColor` for reading HSL values without pointer arguments.
 
 
 ### Changed
 
-- Update to Swift 6.3.
-- Bump up supported macOS version to 15.
-- Return `nil` for out-of-range hexadecimal color inputs instead of asserting.
+- Update code for Swift 6.3.
+- Raise the minimum supported macOS version to 15.
+- Return `nil` for out-of-range hexadecimal color values instead of asserting.
 
 
 ### Deprecated
@@ -24,234 +23,276 @@ CHANGELOG
 
 ### Fixed
 
-- Create black colors from HSL color codes without NaN components.
-- Make `ColorCodeType` raw values follow the case order.
-- Return `nil` instead of lossy short hex color codes.
+- Create black colors from HSL color codes without producing NaN components.
+- Align `ColorCodeType` raw values with the case order.
+- Return `nil` instead of lossy short hexadecimal color codes.
 - Recognize CSS color keyword aliases that use the "grey" spelling.
 
 
-3.0.1
------------
+3.0.1 (2024-10-20)
+--------------------------
 
-- ### mod
+### Changed
 
-- Migrate deprecated APIs.
+- Migrate away from deprecated APIs.
 
 
-3.0.0
------------
+3.0.0 (2024-06-13)
+--------------------------
 
-### mod
+### Changed
 
-- Update to Swift 6.0.
-- Migrate unit test to Swift Testing.
+- Update code for Swift 6.0.
+- Migrate unit tests to Swift Testing.
 
 
-2.10.0
------------
+2.10.0 (2024-01-25)
+--------------------------
 
-### new
+### Added
 
-- Add .hexWithAlpha type.
+- Add the `.hexWithAlpha` color code type.
 
 
-### mod
+### Changed
 
-- Update code to Swift 5.9
+- Update code for Swift 5.9.
 
 
-2.9.1
------------
+2.9.1 (2024-01-09)
+--------------------------
 
-### fix
+### Fixed
 
-- Fix an issue that `colorCode(type:)` can cause a crash under certain circumstance.
+- Fix a crash that could occur when calling `colorCode(type:)` in certain circumstances.
 
 
-2.9.0
------------
+2.9.0 (2022-09-23)
+--------------------------
 
-### mod
+### Changed
 
-- Bump up supported macOS version to 11.
+- Raise the minimum supported macOS version to 11.
 
 
-2.8.0
------------
+2.8.0 (2022-05-31)
+--------------------------
 
-### new
+### Added
 
-- Add KeywordColor struct.
+- Add the `KeywordColor` struct.
 
-### mod
 
-- Change the stylesheet keywords from the upper camel case to the lower case.
-- Deprecate NSColor.stylesheetKeywordColors (Use KeywordColor.stylesheetColors instead).
+### Changed
 
+- Change stylesheet keywords from UpperCamelCase to lowercase.
 
-2.7.1
------------
 
-### fix
+### Deprecated
 
-- Fix an issue in SwiftUI.Color that the alpha value was ignored when specified the color in hex.
+- Deprecate `NSColor.stylesheetKeywordColors` in favor of `KeywordColor.stylesheetColors`.
 
 
-2.7.0
------------
+2.7.1 (2022-02-04)
+--------------------------
 
-### new
+### Fixed
 
-- Support SwiftUI Color creation.
+- Fix an issue where `SwiftUI.Color` ignored the alpha value in hexadecimal color codes.
 
 
-2.6.1
------------
+2.7.0 (2021-05-08)
+--------------------------
 
-### mod
+### Added
 
-- Bump up supported macOS version to 10.10.
-- Improve Package.swift declaration.
+- Support creating SwiftUI `Color` values.
 
 
-2.6.0
------------
+2.6.1 (2020-02-27)
+--------------------------
 
-### mod
+### Changed
 
-- Make alpha value in NSColor init omittable.
-- Make sure the detected inout `type` paramater is set to `nil` when NSColor creation with a color code failed.
+- Raise the minimum supported macOS version to 10.10.
+- Improve the Package.swift declaration.
 
 
-### fix
+2.6.0 (2019-11-21)
+--------------------------
 
-- Fix an issue where NSColor initialization with a color code could crash when just `.` is passed as a float number.
+### Changed
 
+- Make the alpha value optional when initializing `NSColor`.
+- Set the detected `type` inout parameter to `nil` when creating an `NSColor` from a color code fails.
 
-2.5.0
------------
 
-### fix
+### Fixed
 
-- fix Package.swift
+- Fix a crash when initializing `NSColor` from a color code containing `.` as a floating-point value.
 
 
-2.4.0
------------
+2.5.0 (2019-06-05)
+--------------------------
 
-### mod
+### Fixed
 
-- Update code to Swift 5.0.
+- Fix Package.swift.
 
 
-2.3.0
------------
+2.4.0 (2019-03-26)
+--------------------------
 
-### mod
+### Changed
 
-- Update code to Swift 4.2.
+- Update code for Swift 5.0.
 
 
-2.2.1
------------
+2.3.0 (2018-09-14)
+--------------------------
 
-### fix
+### Changed
 
-- fix ColorCodeType enum number.
+- Update code for Swift 4.2.
 
-2.2.0
------------
 
-### mod
+2.2.1 (2018-04-25)
+--------------------------
 
-- remove .invalid case from ColorCodeType.
+### Fixed
 
+- Fix `ColorCodeType` enum raw values.
 
-2.1.3
------------
-### mod
-- Update Xcode to 9.3.
 
+2.2.0 (2018-04-25)
+--------------------------
 
-2.1.2
------------
-### mod
-- Tweak code
+### Changed
 
-### fix
-- Fix swift package manager
+- Remove the `.invalid` case from `ColorCodeType`.
 
 
-2.1.0
------------
-### mod
-- Update Xcode to 9.1.
+2.1.3 (2018-03-30)
+--------------------------
 
+### Changed
 
-2.0.4
------------
-### mod
-- Update Xcode to 8.2.
+- Update the project for Xcode 9.3.
 
 
-2.0.1
------------
-### mod
-- Update Swift to 3.0.1.
+2.1.2 (2017-11-15)
+--------------------------
 
+### Changed
 
-2.0.0
------------
-### new
-- Migrate to Swift
-- Become a framework
-- Change target OS to OS X 10.9 or higher.
+- Tweak the implementation.
 
+### Fixed
 
-1.3.0
------------
-### new
-- Support Objective-C generics of Xcode 7
+- Fix Swift Package Manager support.
 
 
-1.2.0
------------
-### new
-- Add `WFColorCodeCSSKeyword` color code type.
-- Add `colorWithHex:alpha:` and `stylesheetKeywordColors` class methods.
+2.1.0 (2017-11-06)
+--------------------------
 
-### mod
+### Changed
+
+- Update the project for Xcode 9.1.
+
+
+2.0.4 (2017-07-10)
+--------------------------
+
+### Changed
+
+- Update the project for Xcode 8.2.
+
+
+2.0.1 (2016-10-28)
+--------------------------
+
+### Changed
+
+- Update code for Swift 3.0.1.
+
+
+2.0.0 (2016-09-10)
+--------------------------
+
+### Added
+
+- Migrate the codebase to Swift.
+- Provide `ColorCode` as a framework.
+- Raise the minimum supported OS X version to 10.9.
+
+
+1.3.0 (2015-09-10)
+--------------------------
+
+### Added
+
+- Support Objective-C generics in Xcode 7.
+
+
+1.2.0 (2015-09-03)
+--------------------------
+
+### Added
+
+- Add the `WFColorCodeCSSKeyword` color code type.
+- Add the `colorWithHex:alpha:` and `stylesheetKeywordColors` class methods.
+
+
+### Changed
+
 - Return `instancetype` instead of `NSColor`.
 
 
-1.1.4
------------
-### mod
+1.1.4 (2015-09-03)
+--------------------------
+
+### Changed
+
 - Add more documentation.
 
 
-1.1.3
------------
-### fix
-- A trivial fix for nullability annotations.
+1.1.3 (2015-05-11)
+--------------------------
+
+### Fixed
+
+- Fix nullability annotations.
 
 
-1.1.2
------------
-### mod
-- Add nullability to methods.
+1.1.2 (2015-05-11)
+--------------------------
+
+### Changed
+
+- Add nullability annotations to methods.
 
 
-1.1.1
------------
-### mod
-- Use `NSCalibratedRGBColorSpace` instead of `NSDeviceRGBColorSpace` for NSColor creation
+1.1.1 (2014-09-12)
+--------------------------
+
+### Changed
+
+- Use `NSCalibratedRGBColorSpace` instead of `NSDeviceRGBColorSpace` when creating `NSColor` instances.
 
 
-1.1
------------
-### new
-- New methods `hslSaturationComponent` and `lightnessComponent`
+1.1 (2014-09-07)
+--------------------------
 
-### mod
-- Add detailed doc comments
+### Added
+
+- Add the `hslSaturationComponent` and `lightnessComponent` methods.
+
+### Changed
+
+- Add detailed documentation comments.
+
+
+1.0 (2014-09-03)
+--------------------------
+
+- Initial release.
