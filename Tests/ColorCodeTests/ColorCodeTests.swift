@@ -88,6 +88,25 @@ struct ColorCodeTests {
     }
     
     
+    @Test(arguments: [
+        "rgb(256,0,0)",
+        "rgb(0,256,0)",
+        "rgb(0,0,256)",
+        "rgba(255,255,255,1.1)",
+        "hsl(361,0%,0%)",
+        "hsl(0,101%,0%)",
+        "hsl(0,0%,101%)",
+        "hsla(0,0%,100%,1.1)",
+    ])
+    func testOutOfRangeCSSColorComponents(_ colorCode: String) {
+        
+        var type: ColorCodeType?
+        
+        #expect(NSColor(colorCode: colorCode, type: &type) == nil)
+        #expect(type == nil)
+    }
+    
+    
     @Test func testBlackHSLComponents() throws {
         
         let code = "hsl(0,0%,0%)"

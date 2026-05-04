@@ -161,7 +161,10 @@ private extension ColorCodeType {
                 let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
                 let r = Double(match.1),
                 let g = Double(match.2),
-                let b = Double(match.3)
+                let b = Double(match.3),
+                (0.0...255.0).contains(r),
+                (0.0...255.0).contains(g),
+                (0.0...255.0).contains(b)
             else { return nil }
             return .rgb(r / 255, g / 255, b / 255)
             
@@ -171,7 +174,11 @@ private extension ColorCodeType {
                 let r = Double(match.1),
                 let g = Double(match.2),
                 let b = Double(match.3),
-                let a = Double(match.4)
+                let a = Double(match.4),
+                (0.0...255.0).contains(r),
+                (0.0...255.0).contains(g),
+                (0.0...255.0).contains(b),
+                (0.0...1.0).contains(a)
             else { return nil }
             return .rgb(r / 255, g / 255, b / 255, alpha: a)
             
@@ -180,7 +187,10 @@ private extension ColorCodeType {
                 let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
                 let h = Double(match.1),
                 let s = Double(match.2),
-                let l = Double(match.3)
+                let l = Double(match.3),
+                (0.0...360.0).contains(h),
+                (0.0...100.0).contains(s),
+                (0.0...100.0).contains(l)
             else { return nil }
             return .hsl(h / 360, s / 100, l / 100)
             
@@ -190,7 +200,11 @@ private extension ColorCodeType {
                 let h = Double(match.1),
                 let s = Double(match.2),
                 let l = Double(match.3),
-                let a = Double(match.4)
+                let a = Double(match.4),
+                (0.0...360.0).contains(h),
+                (0.0...100.0).contains(s),
+                (0.0...100.0).contains(l),
+                (0.0...1.0).contains(a)
             else { return nil }
             return .hsl(h / 360, s / 100, l / 100, alpha: a)
             

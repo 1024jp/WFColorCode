@@ -14,6 +14,7 @@
 - Update code for Swift 6.3.
 - Raise the minimum supported macOS version to 15.
 - Return `nil` for out-of-range hexadecimal color values instead of asserting.
+- Return `nil` for CSS color codes with out-of-range numeric components.
 
 
 ### Deprecated
