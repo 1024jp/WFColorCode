@@ -84,72 +84,68 @@ extension ColorCodeType {
         
         switch self {
         case .hex:
-            Self.hexColorComponents(code: code)
+            RGB(hex: code).map { .rgb($0) }
         case .hexWithAlpha:
-            Self.hexWithAlphaColorComponents(code: code)
+            RGB(hexWithAlpha: code).map { .rgb($0) }
         case .shortHex:
-            Self.shortHexColorComponents(code: code)
+            RGB(shortHex: code).map { .rgb($0) }
         case .shortHexWithAlpha:
-            Self.shortHexWithAlphaColorComponents(code: code)
+            RGB(shortHexWithAlpha: code).map { .rgb($0) }
         case .cssRGB:
-            Self.cssRGBColorComponents(code: code)
+            RGB(css: code).map { .rgb($0) }
         case .cssRGBa:
-            Self.cssRGBaColorComponents(code: code)
+            RGB(cssWithAlpha: code).map { .rgb($0) }
         case .cssHSL:
-            Self.cssHSLColorComponents(code: code)
+            HSL(css: code).map { .hsl($0) }
         case .cssHSLa:
-            Self.cssHSLaColorComponents(code: code)
+            HSL(cssWithAlpha: code).map { .hsl($0) }
         case .cssHWB:
-            Self.cssHWBColorComponents(code: code)
+            HWB(css: code).map { .hwb($0) }
         case .cssHWBWithAlpha:
-            Self.cssHWBWithAlphaColorComponents(code: code)
+            HWB(cssWithAlpha: code).map { .hwb($0) }
         case .cssKeyword:
-            Self.cssKeywordColorComponents(code: code)
+            RGB(cssKeyword: code).map { .rgb($0) }
         }
     }
 }
 
 
-extension ColorCodeType {
+extension RGB {
     
-    /// Returns the color components parsed from a 6-digit hex color code.
+    /// Initializes by parsing from a 6-digit hex color code.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func hexColorComponents(code: String) -> ColorComponents? {
+    init?(hex code: String) {
         
         guard
             let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})/),
-            let hex = Int(match.1, radix: 16),
-            let rgb = RGB(hex: hex)
+            let hex = Int(match.1, radix: 16)
         else { return nil }
         
-        return .rgb(rgb)
+        self.init(hex: hex)
     }
     
     
-    /// Returns the color components parsed from an 8-digit hex color code.
+    /// Initializes by parsing from an 8-digit hex color code.
     ///
     /// - Parameter code: The color code string to parse.
     /// - Returns: The parsed color components.
-    static func hexWithAlphaColorComponents(code: String) -> ColorComponents? {
+    init?(hexWithAlpha code: String) {
         
         guard
             let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})([0-9a-fA-F]{2})/),
             let hex = Int(match.1, radix: 16),
-            let a = Int(match.2, radix: 16),
-            let rgb = RGB(hex: hex, alpha: Double(a) / 255)
+            let alpha = Int(match.2, radix: 16)
         else { return nil }
         
-        return .rgb(rgb)
+        self.init(hex: hex, alpha: Double(alpha) / 255)
     }
     
     
-    /// Returns the color components parsed from a 3-digit hex color code.
+    /// Initializes by parsing from a 3-digit hex color code.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func shortHexColorComponents(code: String) -> ColorComponents? {
+    init?(shortHex code: String) {
         
         guard
             let match = code.wholeMatch(of: /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/),
@@ -158,49 +154,42 @@ extension ColorCodeType {
             let b = Int(match.3, radix: 16)
         else { return nil }
         
-        let rgb = RGB(red: Double(r) / 15, green: Double(g) / 15, blue: Double(b) / 15)
-        
-        return .rgb(rgb)
+        self.init(red: Double(r) / 15, green: Double(g) / 15, blue: Double(b) / 15)
     }
     
     
-    /// Returns the color components parsed from a 4-digit hex color code.
+    /// Initializes by parsing from a 4-digit hex color code.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func shortHexWithAlphaColorComponents(code: String) -> ColorComponents? {
+    init?(shortHexWithAlpha code: String) {
         
         guard
             let match = code.wholeMatch(of: /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/),
             let r = Int(match.1, radix: 16),
             let g = Int(match.2, radix: 16),
             let b = Int(match.3, radix: 16),
-            let a = Int(match.4, radix: 16)
+            let alpha = Int(match.4, radix: 16)
         else { return nil }
         
-        let rgb = RGB(red: Double(r) / 15, green: Double(g) / 15, blue: Double(b) / 15, alpha: Double(a) / 15)
-        
-        return .rgb(rgb)
+        self.init(red: Double(r) / 15, green: Double(g) / 15, blue: Double(b) / 15, alpha: Double(alpha) / 15)
     }
     
     
-    /// Returns the color components parsed from a CSS RGB color code without alpha.
+    /// Initializes by parsing from a CSS RGB color code without alpha.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func cssRGBColorComponents(code: String) -> ColorComponents? {
+    init?(css code: String) {
         
         if let match = code.wholeMatch(of: /rgb\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3}) *\)/),
            let r = Double(match.1),
            let g = Double(match.2),
            let b = Double(match.3),
-           (0.0...255.0).contains(r),
-           (0.0...255.0).contains(g),
-           (0.0...255.0).contains(b)
+           (0...255).contains(r),
+           (0...255).contains(g),
+           (0...255).contains(b)
         {
-            let rgb = RGB(red: r / 255, green: g / 255, blue: b / 255)
-            
-            return .rgb(rgb)
+            self.init(red: r / 255, green: g / 255, blue: b / 255)
+            return
         }
         
         guard
@@ -210,31 +199,27 @@ extension ColorCodeType {
             let b = Self.rgbComponent(match.3)
         else { return nil }
         
-        let rgb = RGB(red: r, green: g, blue: b)
-        
-        return .rgb(rgb)
+        self.init(red: r, green: g, blue: b)
     }
     
     
-    /// Returns the color components parsed from a CSS RGB color code with alpha.
+    /// Initializes by parsing from a CSS RGB color code with alpha.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func cssRGBaColorComponents(code: String) -> ColorComponents? {
+    init?(cssWithAlpha code: String) {
         
         if let match = code.wholeMatch(of: /rgba\( *([0-9]{1,3}) *, *([0-9]{1,3}) *, *([0-9]{1,3})(?: *, *([0-9.]+))? *\)/),
            let r = Double(match.1),
            let g = Double(match.2),
            let b = Double(match.3),
-           let a = Self.optionalAlphaComponent(match.4),
-           (0.0...255.0).contains(r),
-           (0.0...255.0).contains(g),
-           (0.0...255.0).contains(b),
-           (0.0...1.0).contains(a)
+           let a = optionalAlphaComponent(match.4),
+           (0...255).contains(r),
+           (0...255).contains(g),
+           (0...255).contains(b),
+           (0...1).contains(a)
         {
-            let rgb = RGB(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
-            
-            return .rgb(rgb)
+            self.init(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
+            return
         }
         
         guard
@@ -242,162 +227,25 @@ extension ColorCodeType {
             let r = Self.rgbComponent(match.1),
             let g = Self.rgbComponent(match.2),
             let b = Self.rgbComponent(match.3),
-            let a = Self.optionalAlphaComponent(match.4),
+            let a = optionalAlphaComponent(match.4),
             (0.0...1.0).contains(a)
         else { return nil }
         
-        let rgb = RGB(red: r, green: g, blue: b, alpha: a)
-        
-        return .rgb(rgb)
+        self.init(red: r, green: g, blue: b, alpha: a)
     }
     
     
-    /// Returns the color components parsed from a CSS HSL color code without alpha.
+    /// Initializes by parsing from a CSS keyword.
     ///
-    /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func cssHSLColorComponents(code: String) -> ColorComponents? {
-        
-        if let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
-           let h = Double(match.1),
-           let s = Double(match.2),
-           let l = Double(match.3),
-           (0.0...360.0).contains(h),
-           (0.0...100.0).contains(s),
-           (0.0...100.0).contains(l)
-        {
-            let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100)
-            
-            return .hsl(hsl)
-        }
+    /// - Parameter keyword: The color code string to parse.
+    init?(cssKeyword keyword: String) {
         
         guard
-            let match = code.wholeMatch(of: /hsl\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\)/),
-            let h = Double(match.1),
-            let s = Self.percentageComponent(match.2),
-            let l = Self.percentageComponent(match.3),
-            (0.0...360.0).contains(h),
-            (0.0...100.0).contains(s),
-            (0.0...100.0).contains(l)
+            keyword.wholeMatch(of: /[a-zA-Z]+/) != nil,
+            let color = KeywordColor(keyword: keyword)
         else { return nil }
         
-        let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100)
-        
-        return .hsl(hsl)
-    }
-    
-    
-    /// Returns the color components parsed from a CSS HSL color code with alpha.
-    ///
-    /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func cssHSLaColorComponents(code: String) -> ColorComponents? {
-        
-        if let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)%(?: *, *([0-9.]+))? *\)/),
-           let h = Double(match.1),
-           let s = Double(match.2),
-           let l = Double(match.3),
-           let a = Self.optionalAlphaComponent(match.4),
-           (0.0...360.0).contains(h),
-           (0.0...100.0).contains(s),
-           (0.0...100.0).contains(l),
-           (0.0...1.0).contains(a)
-        {
-            let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100, alpha: a)
-            
-            return .hsl(hsl)
-        }
-        
-        guard
-            let match = code.wholeMatch(of: /hsla?\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?)(?: *\/ *([0-9.]+%?))? *\)/),
-            let h = Double(match.1),
-            let s = Self.percentageComponent(match.2),
-            let l = Self.percentageComponent(match.3),
-            let a = Self.optionalAlphaComponent(match.4),
-            (0.0...360.0).contains(h),
-            (0.0...100.0).contains(s),
-            (0.0...100.0).contains(l),
-            (0.0...1.0).contains(a)
-        else { return nil }
-        
-        let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100, alpha: a)
-        
-        return .hsl(hsl)
-    }
-    
-    
-    /// Returns the color components parsed from a CSS HWB color code without alpha.
-    ///
-    /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func cssHWBColorComponents(code: String) -> ColorComponents? {
-        
-        guard
-            let match = code.wholeMatch(of: /hwb\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\)/),
-            let h = Double(match.1),
-            let w = Self.percentageComponent(match.2),
-            let b = Self.percentageComponent(match.3),
-            (0.0...360.0).contains(h),
-            (0.0...100.0).contains(w),
-            (0.0...100.0).contains(b)
-        else { return nil }
-        
-        let hwb = HWB(hue: h / 360, whiteness: w / 100, blackness: b / 100)
-        
-        return .hwb(hwb)
-    }
-    
-    
-    /// Returns the color components parsed from a CSS HWB color code with alpha.
-    ///
-    /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func cssHWBWithAlphaColorComponents(code: String) -> ColorComponents? {
-        
-        guard
-            let match = code.wholeMatch(of: /hwb\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\/ *([0-9.]+%?) *\)/),
-            let h = Double(match.1),
-            let w = Self.percentageComponent(match.2),
-            let b = Self.percentageComponent(match.3),
-            let a = Self.alphaComponent(match.4),
-            (0.0...360.0).contains(h),
-            (0.0...100.0).contains(w),
-            (0.0...100.0).contains(b),
-            (0.0...1.0).contains(a)
-        else { return nil }
-        
-        let hwb = HWB(hue: h / 360, whiteness: w / 100, blackness: b / 100, alpha: a)
-        
-        return .hwb(hwb)
-    }
-    
-    
-    /// Returns the color components parsed from a CSS keyword.
-    ///
-    /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
-    static func cssKeywordColorComponents(code: String) -> ColorComponents? {
-        
-        guard
-            code.wholeMatch(of: /[a-zA-Z]+/) != nil,
-            let color = KeywordColor(keyword: code),
-            let rgb = RGB(hex: color.value)
-        else { return nil }
-        
-        return .rgb(rgb)
-    }
-    
-    
-    /// Returns the numeric value of the given percentage component.
-    ///
-    /// - Parameter value: The component string with or without the percent sign.
-    /// - Returns: The numeric percentage value.
-    static func percentageComponent(_ value: some StringProtocol) -> Double? {
-        
-        let value = String(value)
-        let number = value.hasSuffix("%") ? String(value.dropLast()) : value
-        
-        return Double(number)
+        self.init(hex: color.value)
     }
     
     
@@ -429,38 +277,165 @@ extension ColorCodeType {
         
         return component / 255
     }
+}
+
+
+extension HSL {
     
-    
-    /// Returns the alpha value of the given CSS alpha component.
+    /// Initializes by parsing from a CSS HSL color code without alpha.
     ///
-    /// - Parameter value: The alpha component string as a number or percentage.
-    /// - Returns: The alpha value between `0.0` and `1.0`.
-    static func alphaComponent(_ value: some StringProtocol) -> Double? {
+    /// - Parameter code: The color code string to parse.
+    /// - Returns: The parsed color components.
+    init?(css code: String) {
         
-        let value = String(value)
-        
-        if value.hasSuffix("%") {
-            guard let alpha = Double(value.dropLast()) else {
-                return nil
-            }
-            
-            return alpha / 100
+        if let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
+           let h = Double(match.1),
+           let s = Double(match.2),
+           let l = Double(match.3),
+           (0.0...360.0).contains(h),
+           (0.0...100.0).contains(s),
+           (0.0...100.0).contains(l)
+        {
+            self.init(hue: h / 360, saturation: s / 100, lightness: l / 100)
+            return
         }
         
-        return Double(value)
+        guard
+            let match = code.wholeMatch(of: /hsl\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\)/),
+            let h = Double(match.1),
+            let s = percentageComponent(match.2),
+            let l = percentageComponent(match.3),
+            (0.0...360.0).contains(h),
+            (0.0...100.0).contains(s),
+            (0.0...100.0).contains(l)
+        else { return nil }
+        
+        self.init(hue: h / 360, saturation: s / 100, lightness: l / 100)
     }
     
     
-    /// Returns the alpha value of the given optional CSS alpha component, or `1.0` if omitted.
+    /// Initializes by parsing from a CSS HSL color code with alpha.
     ///
-    /// - Parameter value: The optional alpha component string as a number or percentage.
-    /// - Returns: The alpha value between `0.0` and `1.0`.
-    static func optionalAlphaComponent<Value: StringProtocol>(_ value: Value?) -> Double? {
+    /// - Parameter code: The color code string to parse.
+    /// - Returns: The parsed color components.
+    init?(cssWithAlpha code: String) {
         
-        if let value {
-            Self.alphaComponent(value)
-        } else {
-            1
+        if let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)%(?: *, *([0-9.]+))? *\)/),
+           let h = Double(match.1),
+           let s = Double(match.2),
+           let l = Double(match.3),
+           let a = optionalAlphaComponent(match.4),
+           (0.0...360.0).contains(h),
+           (0.0...100.0).contains(s),
+           (0.0...100.0).contains(l),
+           (0.0...1.0).contains(a)
+        {
+            self.init(hue: h / 360, saturation: s / 100, lightness: l / 100, alpha: a)
+            return
         }
+        
+        guard
+            let match = code.wholeMatch(of: /hsla?\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?)(?: *\/ *([0-9.]+%?))? *\)/),
+            let h = Double(match.1),
+            let s = percentageComponent(match.2),
+            let l = percentageComponent(match.3),
+            let a = optionalAlphaComponent(match.4),
+            (0.0...360.0).contains(h),
+            (0.0...100.0).contains(s),
+            (0.0...100.0).contains(l),
+            (0.0...1.0).contains(a)
+        else { return nil }
+        
+        self.init(hue: h / 360, saturation: s / 100, lightness: l / 100, alpha: a)
+    }
+}
+
+
+extension HWB {
+    
+    /// Initializes by parsing from a CSS HWB color code with alpha.
+    ///
+    /// - Parameter code: The color code string to parse.
+    init?(css code: String) {
+        
+        guard
+            let match = code.wholeMatch(of: /hwb\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\)/),
+            let h = Double(match.1),
+            let w = percentageComponent(match.2),
+            let b = percentageComponent(match.3),
+            (0.0...360.0).contains(h),
+            (0.0...100.0).contains(w),
+            (0.0...100.0).contains(b)
+        else { return nil }
+        
+        self.init(hue: h / 360, whiteness: w / 100, blackness: b / 100)
+    }
+    
+    
+    /// Initializes by parsing from a CSS HWB color code with alpha.
+    ///
+    /// - Parameter code: The color code string to parse.
+    init?(cssWithAlpha code: String) {
+        
+        guard
+            let match = code.wholeMatch(of: /hwb\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\/ *([0-9.]+%?) *\)/),
+            let h = Double(match.1),
+            let w = percentageComponent(match.2),
+            let b = percentageComponent(match.3),
+            let a = alphaComponent(match.4),
+            (0.0...360.0).contains(h),
+            (0.0...100.0).contains(w),
+            (0.0...100.0).contains(b),
+            (0.0...1.0).contains(a)
+        else { return nil }
+        
+        self.init(hue: h / 360, whiteness: w / 100, blackness: b / 100, alpha: a)
+    }
+}
+
+
+/// Returns the numeric value of the given percentage component.
+///
+/// - Parameter value: The component string with or without the percent sign.
+/// - Returns: The numeric percentage value.
+private func percentageComponent(_ value: some StringProtocol) -> Double? {
+    
+    let value = String(value)
+    let number = value.hasSuffix("%") ? String(value.dropLast()) : value
+    
+    return Double(number)
+}
+
+
+/// Returns the alpha value of the given CSS alpha component.
+///
+/// - Parameter value: The alpha component string as a number or percentage.
+/// - Returns: The alpha value between `0.0` and `1.0`.
+private func alphaComponent(_ value: some StringProtocol) -> Double? {
+    
+    let value = String(value)
+    
+    if value.hasSuffix("%") {
+        guard let alpha = Double(value.dropLast()) else {
+            return nil
+        }
+        
+        return alpha / 100
+    }
+    
+    return Double(value)
+}
+
+
+/// Returns the alpha value of the given optional CSS alpha component, or `1.0` if omitted.
+///
+/// - Parameter value: The optional alpha component string as a number or percentage.
+/// - Returns: The alpha value between `0.0` and `1.0`.
+private func optionalAlphaComponent<Value: StringProtocol>(_ value: Value?) -> Double? {
+    
+    if let value {
+        alphaComponent(value)
+    } else {
+        1
     }
 }
