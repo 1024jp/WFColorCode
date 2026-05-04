@@ -26,6 +26,7 @@ opt_in_rules:
 disabled_rules:
   - force_unwrapping
   - force_try
+  - opening_brace
 
 trailing_comma:
   mandatory_comma: true
