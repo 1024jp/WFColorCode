@@ -10,6 +10,11 @@ CHANGELOG
 - Bump up supported macOS version to 15.
 
 
+### fix
+
+- Recognize CSS color keyword aliases that use the "grey" spelling.
+
+
 3.0.1
 -----------
 

@@ -7,7 +7,7 @@
 /*
  The MIT License (MIT)
  
- © 2022-2024 1024jp
+ © 2022-2026 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@
 
 import Testing
 import ColorCode
+import AppKit.NSColor
 
 struct KeywordColorTests {
     
@@ -43,5 +44,27 @@ struct KeywordColorTests {
         
         let valueColor = try #require(KeywordColor(value: value))
         #expect(valueColor.keyword == keyword)
+    }
+    
+    
+    @Test func testGreyAliases() throws {
+        
+        let aliases = [
+            (keyword: "darkslategrey", value: 0x2F4F4F, hex: "#2f4f4f"),
+            (keyword: "dimgrey", value: 0x696969, hex: "#696969"),
+            (keyword: "slategrey", value: 0x708090, hex: "#708090"),
+            (keyword: "lightslategrey", value: 0x778899, hex: "#778899"),
+            (keyword: "grey", value: 0x808080, hex: "#808080"),
+            (keyword: "darkgrey", value: 0xA9A9A9, hex: "#a9a9a9"),
+            (keyword: "lightgrey", value: 0xD3D3D3, hex: "#d3d3d3"),
+        ]
+        
+        for alias in aliases {
+            let keywordColor = try #require(KeywordColor(keyword: alias.keyword))
+            #expect(keywordColor.value == alias.value)
+            
+            let color = try #require(NSColor(colorCode: alias.keyword))
+            #expect(color.colorCode(type: .hex) == alias.hex)
+        }
     }
 }

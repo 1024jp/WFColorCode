@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2023 1024jp
+ © 2014-2026 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -123,6 +123,7 @@ public struct KeywordColor: Sendable {
         Self(value: 0x228B22, keyword: "forestgreen", version: .css3),
         Self(value: 0x2E8B57, keyword: "seagreen", version: .css3),
         Self(value: 0x2F4F4F, keyword: "darkslategray", version: .css3),
+        Self(value: 0x2F4F4F, keyword: "darkslategrey", version: .css3),
         Self(value: 0x32CD32, keyword: "limegreen", version: .css3),
         Self(value: 0x3CB371, keyword: "mediumseagreen", version: .css3),
         Self(value: 0x40E0D0, keyword: "turquoise", version: .css3),
@@ -136,14 +137,18 @@ public struct KeywordColor: Sendable {
         Self(value: 0x6495ED, keyword: "cornflowerblue", version: .css3),
         Self(value: 0x66CDAA, keyword: "mediumaquamarine", version: .css3),
         Self(value: 0x696969, keyword: "dimgray", version: .css3),
+        Self(value: 0x696969, keyword: "dimgrey", version: .css3),
         Self(value: 0x6A5ACD, keyword: "slateblue", version: .css3),
         Self(value: 0x6B8E23, keyword: "olivedrab", version: .css3),
         Self(value: 0x708090, keyword: "slategray", version: .css3),
+        Self(value: 0x708090, keyword: "slategrey", version: .css3),
         Self(value: 0x778899, keyword: "lightslategray", version: .css3),
+        Self(value: 0x778899, keyword: "lightslategrey", version: .css3),
         Self(value: 0x7B68EE, keyword: "mediumslateblue", version: .css3),
         Self(value: 0x7CFC00, keyword: "lawngreen", version: .css3),
         Self(value: 0x7FFF00, keyword: "chartreuse", version: .css3),
         Self(value: 0x7FFFD4, keyword: "aquamarine", version: .css3),
+        Self(value: 0x808080, keyword: "grey", version: .css3),
         Self(value: 0x87CEEB, keyword: "skyblue", version: .css3),
         Self(value: 0x87CEFA, keyword: "lightskyblue", version: .css3),
         Self(value: 0x8A2BE2, keyword: "blueviolet", version: .css3),
@@ -160,6 +165,7 @@ public struct KeywordColor: Sendable {
         Self(value: 0xA0522D, keyword: "sienna", version: .css3),
         Self(value: 0xA52A2A, keyword: "brown", version: .css3),
         Self(value: 0xA9A9A9, keyword: "darkgray", version: .css3),
+        Self(value: 0xA9A9A9, keyword: "darkgrey", version: .css3),
         Self(value: 0xADD8E6, keyword: "lightblue", version: .css3),
         Self(value: 0xADFF2F, keyword: "greenyellow", version: .css3),
         Self(value: 0xAFEEEE, keyword: "paleturquoise", version: .css3),
@@ -176,6 +182,7 @@ public struct KeywordColor: Sendable {
         Self(value: 0xD2691E, keyword: "chocolate", version: .css3),
         Self(value: 0xD2B48C, keyword: "tan", version: .css3),
         Self(value: 0xD3D3D3, keyword: "lightgray", version: .css3),
+        Self(value: 0xD3D3D3, keyword: "lightgrey", version: .css3),
         Self(value: 0xD8BFD8, keyword: "thistle", version: .css3),
         Self(value: 0xDA70D6, keyword: "orchid", version: .css3),
         Self(value: 0xDAA520, keyword: "goldenrod", version: .css3),
