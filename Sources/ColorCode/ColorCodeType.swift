@@ -110,7 +110,7 @@ extension ColorCodeType {
 }
 
 
-private extension ColorCodeType {
+extension ColorCodeType {
     
     /// Returns the color components parsed from a 6-digit hex color code.
     ///

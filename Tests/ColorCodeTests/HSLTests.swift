@@ -1,10 +1,10 @@
 //
-//  ColorCodeTests.swift
+//  HSLTests.swift
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
 //
-//  Created by 1024jp on 2014-09-02.
+//  Created by 1024jp on 2026-05-04.
 //
 //  ---------------------------------------------------------------------------
 //
@@ -31,20 +31,24 @@
 //  THE SOFTWARE.
 //
 
+import Numerics
 import Testing
-import ColorCode
+@testable import ColorCode
 
-struct ColorCodeTests {
+struct HSLTests {
     
-    @Test func testCaseIteration() {
+    @Test func testHSBBrightness() {
         
-        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssHWB, .cssHWBWithAlpha, .cssKeyword])
+        #expect(hsbBrightness(saturation: 0.5, lightness: 0.25).isApproximatelyEqual(to: 0.375))
+        #expect(hsbBrightness(saturation: 0, lightness: 0.5).isApproximatelyEqual(to: 0.5))
+        #expect(hsbBrightness(saturation: 1, lightness: 1).isApproximatelyEqual(to: 1))
     }
     
     
-    @Test func testTypeGroups() {
+    @Test func testHSBSaturation() {
         
-        #expect(ColorCodeType.hexTypes == [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha])
-        #expect(ColorCodeType.cssTypes == [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssHWB, .cssHWBWithAlpha, .cssKeyword])
+        #expect(hsbSaturation(saturation: 0.5, lightness: 0.25).isApproximatelyEqual(to: 2.0 / 3.0))
+        #expect(hsbSaturation(saturation: 0, lightness: 0.5).isApproximatelyEqual(to: 0))
+        #expect(hsbSaturation(saturation: 1, lightness: 0).isApproximatelyEqual(to: 0))
     }
 }

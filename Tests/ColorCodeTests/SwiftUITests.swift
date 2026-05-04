@@ -32,6 +32,8 @@
 //
 
 #if canImport(SwiftUI)
+import CoreGraphics
+import Numerics
 import Testing
 import ColorCode
 import SwiftUI
@@ -47,6 +49,19 @@ struct SwiftUITests {
         
         #expect(Color(hex: 0xFF6600) != nil)
         #expect(Color(colorCode: "foobar") == nil)
+    }
+    
+    
+    @Test func testHSLColorCreation() throws {
+        
+        let color = Color(hue: 0.5, saturation: 1, lightness: 1, opacity: 0.4)
+        let components = try #require(color.cgColor?.components)
+        
+        try #require(components.count == 4)
+        #expect(components[0] == 1)
+        #expect(components[1] == 1)
+        #expect(components[2] == 1)
+        #expect(components[3].isApproximatelyEqual(to: 0.4, absoluteTolerance: 0.000_001))
     }
 }
 #endif
