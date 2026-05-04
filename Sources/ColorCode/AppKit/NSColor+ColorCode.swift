@@ -182,7 +182,6 @@ public extension NSColor {
 }
 
 
-
 extension NSColor {
     
     internal convenience init(components: ColorComponents) {

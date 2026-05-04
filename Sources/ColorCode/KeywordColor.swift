@@ -63,7 +63,6 @@ public extension KeywordColor {
 }
 
 
-
 /// The named color defined in the 6-digit RGB hexadecimal value.
 public struct KeywordColor: Sendable {
     

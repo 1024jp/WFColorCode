@@ -35,7 +35,7 @@ trailing_whitespace:
   ignores_empty_lines: true
 
 vertical_whitespace:
-  max_empty_lines: 3
+  max_empty_lines: 2
 
 file_length: 500
 line_length: 200
