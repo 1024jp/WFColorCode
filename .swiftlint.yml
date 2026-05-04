@@ -25,7 +25,6 @@ opt_in_rules:
 
 disabled_rules:
   - force_unwrapping
-  - force_try
   - opening_brace
 
 trailing_comma:
@@ -39,7 +38,6 @@ vertical_whitespace:
 
 file_length: 500
 line_length: 200
-function_body_length: 75
 cyclomatic_complexity: 15
 large_tuple:
   warning: 4
