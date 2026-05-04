@@ -17,9 +17,15 @@
 ### Changed
 
 - Update code for Swift 6.3.
-- Raise the minimum supported macOS version to 15.
 - Return `nil` for out-of-range hexadecimal color values instead of asserting.
 - Return `nil` for CSS color codes with out-of-range numeric components.
+
+
+### Breaking Changes
+
+- Raise the minimum supported macOS version to 15.
+- Add `.shortHexWithAlpha`, `.cssHWB`, and `.cssHWBWithAlpha` cases to `ColorCodeType`; apps with exhaustive switches over the enum need updates.
+- Change `ColorCodeType` raw values to match the case order; apps that persist or exchange the raw integer values need migration.
 
 
 ### Deprecated
@@ -30,7 +36,6 @@
 ### Fixed
 
 - Create black colors from HSL color codes without producing NaN components.
-- Align `ColorCodeType` raw values with the case order.
 - Return `nil` instead of lossy short hexadecimal color codes.
 - Recognize CSS color keyword aliases that use the "grey" spelling.
 
