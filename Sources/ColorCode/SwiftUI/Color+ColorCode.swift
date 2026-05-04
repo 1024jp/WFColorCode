@@ -85,11 +85,11 @@ public extension Color {
     ///   - hex: The 6-digit hexadecimal color code.
     init?(hex: Int) {
         
-        guard let components = ColorComponents(hex: hex) else {
+        guard let rgb = RGB(hex: hex) else {
             return nil
         }
         
-        self.init(components: components)
+        self.init(rgb: rgb)
     }
 }
 
@@ -99,18 +99,20 @@ extension Color {
     init(components: ColorComponents) {
         
         switch components {
-        case let .rgb(r, g, b, alpha: alpha):
-            self.init(.sRGB, red: r, green: g, blue: b, opacity: alpha)
-            
-        case let .hsl(h, s, l, alpha: alpha):
-            self.init(hue: h, saturation: s, lightness: l, opacity: alpha)
-            
-        case let .hwb(h, w, b, alpha: alpha):
-            let rgb = HWB(hue: h, whiteness: w, blackness: b).rgb
-            self.init(.sRGB, red: rgb.red, green: rgb.green, blue: rgb.blue, opacity: alpha)
-            
-        case let .hsb(h, s, b, alpha: alpha):
-            self.init(hue: h, saturation: s, brightness: b, opacity: alpha)
+        case let .rgb(rgb):
+            self.init(rgb: rgb)
+        case let .hsl(hsl):
+            self.init(hue: hsl.hue, saturation: hsl.saturation, lightness: hsl.lightness, opacity: hsl.alpha)
+        case let .hwb(hwb):
+            self.init(rgb: hwb.rgb)
+        case let .hsb(hsb):
+            self.init(hue: hsb.hue, saturation: hsb.saturation, brightness: hsb.brightness, opacity: hsb.alpha)
         }
+    }
+    
+    
+    init(rgb: RGB) {
+        
+        self.init(.sRGB, red: rgb.red, green: rgb.green, blue: rgb.blue, opacity: rgb.alpha)
     }
 }

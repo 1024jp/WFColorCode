@@ -120,10 +120,11 @@ extension ColorCodeType {
         
         guard
             let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})/),
-            let hex = Int(match.1, radix: 16)
+            let hex = Int(match.1, radix: 16),
+            let rgb = RGB(hex: hex)
         else { return nil }
         
-        return ColorComponents(hex: hex)
+        return .rgb(rgb)
     }
     
     
@@ -136,10 +137,11 @@ extension ColorCodeType {
         guard
             let match = code.wholeMatch(of: /#([0-9a-fA-F]{6})([0-9a-fA-F]{2})/),
             let hex = Int(match.1, radix: 16),
-            let a = Int(match.2, radix: 16)
+            let a = Int(match.2, radix: 16),
+            let rgb = RGB(hex: hex, alpha: Double(a) / 255)
         else { return nil }
         
-        return ColorComponents(hex: hex, alpha: Double(a) / 255)
+        return .rgb(rgb)
     }
     
     
@@ -156,7 +158,9 @@ extension ColorCodeType {
             let b = Int(match.3, radix: 16)
         else { return nil }
         
-        return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15)
+        let rgb = RGB(red: Double(r) / 15, green: Double(g) / 15, blue: Double(b) / 15)
+        
+        return .rgb(rgb)
     }
     
     
@@ -174,7 +178,9 @@ extension ColorCodeType {
             let a = Int(match.4, radix: 16)
         else { return nil }
         
-        return .rgb(Double(r) / 15, Double(g) / 15, Double(b) / 15, alpha: Double(a) / 15)
+        let rgb = RGB(red: Double(r) / 15, green: Double(g) / 15, blue: Double(b) / 15, alpha: Double(a) / 15)
+        
+        return .rgb(rgb)
     }
     
     
@@ -192,7 +198,9 @@ extension ColorCodeType {
            (0.0...255.0).contains(g),
            (0.0...255.0).contains(b)
         {
-            return .rgb(r / 255, g / 255, b / 255)
+            let rgb = RGB(red: r / 255, green: g / 255, blue: b / 255)
+            
+            return .rgb(rgb)
         }
         
         guard
@@ -202,7 +210,9 @@ extension ColorCodeType {
             let b = Self.rgbComponent(match.3)
         else { return nil }
         
-        return .rgb(r, g, b)
+        let rgb = RGB(red: r, green: g, blue: b)
+        
+        return .rgb(rgb)
     }
     
     
@@ -222,7 +232,9 @@ extension ColorCodeType {
            (0.0...255.0).contains(b),
            (0.0...1.0).contains(a)
         {
-            return .rgb(r / 255, g / 255, b / 255, alpha: a)
+            let rgb = RGB(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
+            
+            return .rgb(rgb)
         }
         
         guard
@@ -234,7 +246,9 @@ extension ColorCodeType {
             (0.0...1.0).contains(a)
         else { return nil }
         
-        return .rgb(r, g, b, alpha: a)
+        let rgb = RGB(red: r, green: g, blue: b, alpha: a)
+        
+        return .rgb(rgb)
     }
     
     
@@ -252,7 +266,9 @@ extension ColorCodeType {
            (0.0...100.0).contains(s),
            (0.0...100.0).contains(l)
         {
-            return .hsl(h / 360, s / 100, l / 100)
+            let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100)
+            
+            return .hsl(hsl)
         }
         
         guard
@@ -265,7 +281,9 @@ extension ColorCodeType {
             (0.0...100.0).contains(l)
         else { return nil }
         
-        return .hsl(h / 360, s / 100, l / 100)
+        let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100)
+        
+        return .hsl(hsl)
     }
     
     
@@ -285,7 +303,9 @@ extension ColorCodeType {
            (0.0...100.0).contains(l),
            (0.0...1.0).contains(a)
         {
-            return .hsl(h / 360, s / 100, l / 100, alpha: a)
+            let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100, alpha: a)
+            
+            return .hsl(hsl)
         }
         
         guard
@@ -300,7 +320,9 @@ extension ColorCodeType {
             (0.0...1.0).contains(a)
         else { return nil }
         
-        return .hsl(h / 360, s / 100, l / 100, alpha: a)
+        let hsl = HSL(hue: h / 360, saturation: s / 100, lightness: l / 100, alpha: a)
+        
+        return .hsl(hsl)
     }
     
     
@@ -320,7 +342,9 @@ extension ColorCodeType {
             (0.0...100.0).contains(b)
         else { return nil }
         
-        return .hwb(h / 360, w / 100, b / 100)
+        let hwb = HWB(hue: h / 360, whiteness: w / 100, blackness: b / 100)
+        
+        return .hwb(hwb)
     }
     
     
@@ -342,7 +366,9 @@ extension ColorCodeType {
             (0.0...1.0).contains(a)
         else { return nil }
         
-        return .hwb(h / 360, w / 100, b / 100, alpha: a)
+        let hwb = HWB(hue: h / 360, whiteness: w / 100, blackness: b / 100, alpha: a)
+        
+        return .hwb(hwb)
     }
     
     
@@ -354,10 +380,11 @@ extension ColorCodeType {
         
         guard
             code.wholeMatch(of: /[a-zA-Z]+/) != nil,
-            let color = KeywordColor(keyword: code)
+            let color = KeywordColor(keyword: code),
+            let rgb = RGB(hex: color.value)
         else { return nil }
         
-        return ColorComponents(hex: color.value)
+        return .rgb(rgb)
     }
     
     

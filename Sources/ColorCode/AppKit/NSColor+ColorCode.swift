@@ -87,11 +87,11 @@ public extension NSColor {
     ///   - hex: The 6-digit hexadecimal color code.
     convenience init?(hex: Int) {
         
-        guard let components = ColorComponents(hex: hex) else {
+        guard let rgb = RGB(hex: hex) else {
             return nil
         }
         
-        self.init(components: components)
+        self.init(rgb: rgb)
     }
     
     
@@ -117,19 +117,21 @@ extension NSColor {
     convenience init(components: ColorComponents) {
         
         switch components {
-        case let .rgb(r, g, b, alpha: alpha):
-            self.init(calibratedRed: r, green: g, blue: b, alpha: alpha)
-            
-        case let .hsl(h, s, l, alpha: alpha):
-            self.init(calibratedHue: h, saturation: s, lightness: l, alpha: alpha)
-            
-        case let .hwb(h, w, b, alpha: alpha):
-            let rgb = HWB(hue: h, whiteness: w, blackness: b).rgb
-            self.init(calibratedRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: alpha)
-            
-        case let .hsb(h, s, b, alpha: alpha):
-            self.init(calibratedHue: h, saturation: s, brightness: b, alpha: alpha)
+        case let .rgb(rgb):
+            self.init(rgb: rgb)
+        case let .hsl(hsl):
+            self.init(calibratedHue: hsl.hue, saturation: hsl.saturation, lightness: hsl.lightness, alpha: hsl.alpha)
+        case let .hwb(hwb):
+            self.init(rgb: hwb.rgb)
+        case let .hsb(hsb):
+            self.init(calibratedHue: hsb.hue, saturation: hsb.saturation, brightness: hsb.brightness, alpha: hsb.alpha)
         }
+    }
+    
+    
+    convenience init(rgb: RGB) {
+        
+        self.init(calibratedRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: rgb.alpha)
     }
     
     

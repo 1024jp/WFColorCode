@@ -36,41 +36,14 @@ import Foundation
 
 enum ColorComponents {
     
-    case rgb(Double, Double, Double, alpha: Double = 1)
-    case hsl(Double, Double, Double, alpha: Double = 1)
-    case hwb(Double, Double, Double, alpha: Double = 1)
-    case hsb(Double, Double, Double, alpha: Double = 1)
+    case rgb(RGB)
+    case hsl(HSL)
+    case hwb(HWB)
+    case hsb(HSB)
 }
 
 
 extension ColorComponents {
-    
-    /// Initialize with the given hex color code. Or returns `nil` if color code is invalid.
-    ///
-    /// Example usage:
-    /// ```
-    /// let redComponents = ColorComponents(hex: 0xFF0000)
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - hex: The 6-digit hexadecimal color code.
-    ///   - alpha: The alpha channel between `0.0` and `1.0`.
-    init?(hex: Int, alpha: Double = 1) {
-        
-        guard
-            (0...0xFFFFFF).contains(hex),
-            (0...1).contains(alpha)
-        else {
-            return nil
-        }
-        
-        let r = (hex >> 16) & 0xff
-        let g = (hex >> 8) & 0xff
-        let b = (hex) & 0xff
-        
-        self = .rgb(Double(r) / 255, Double(g) / 255, Double(b) / 255, alpha: alpha)
-    }
-    
     
     /// Initialize with the given color code. Or returns `nil` if color code is invalid.
     ///

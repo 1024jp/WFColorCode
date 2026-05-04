@@ -82,6 +82,39 @@ struct RGB {
 }
 
 
+extension RGB {
+    
+    /// Initialize with the given hex color code. Or returns `nil` if color code is invalid.
+    ///
+    /// Example usage:
+    /// ```
+    /// let redComponents = ColorComponents(hex: 0xFF0000)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - hex: The 6-digit hexadecimal color code.
+    ///   - alpha: The alpha channel between `0.0` and `1.0`.
+    init?(hex: Int, alpha: Double = 1) {
+        
+        guard
+            (0...0xFFFFFF).contains(hex),
+            (0...1).contains(alpha)
+        else {
+            return nil
+        }
+        
+        let red = (hex >> 16) & 0xff
+        let green = (hex >> 8) & 0xff
+        let blue = (hex) & 0xff
+        
+        self.init(red: Double(red) / 255,
+                  green: Double(green) / 255,
+                  blue: Double(blue) / 255,
+                  alpha: alpha)
+    }
+}
+
+
 private extension FloatingPoint {
     
     var finite: Self {

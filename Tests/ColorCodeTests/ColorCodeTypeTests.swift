@@ -40,55 +40,55 @@ struct ColorCodeTypeTests {
     @Test func testHexColorComponents() throws {
         
         try expectComponents(ColorCodeType.hexColorComponents(code: "#336699"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: 1))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: 1)))
         try expectComponents(ColorCodeType.hexWithAlphaColorComponents(code: "#33669980"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: Double(0x80) / 255))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: Double(0x80) / 255)))
         try expectComponents(ColorCodeType.shortHexColorComponents(code: "#369"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: 1))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: 1)))
         try expectComponents(ColorCodeType.shortHexWithAlphaColorComponents(code: "#369c"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: 0.8))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: 0.8)))
     }
     
     
     @Test func testCSSRGBColorComponents() throws {
         
         try expectComponents(ColorCodeType.cssRGBColorComponents(code: "rgb(51, 102, 153)"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: 1))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: 1)))
         try expectComponents(ColorCodeType.cssRGBColorComponents(code: "rgb(20% 40% 60%)"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: 1))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: 1)))
         try expectComponents(ColorCodeType.cssRGBaColorComponents(code: "rgba(51, 102, 153, 0.5)"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: 0.5))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: 0.5)))
         try expectComponents(ColorCodeType.cssRGBaColorComponents(code: "rgb(20% 40% 60% / 50%)"),
-                             equals: .rgb(0.2, 0.4, 0.6, alpha: 0.5))
+                             equals: .rgb(RGB(red: 0.2, green: 0.4, blue: 0.6, alpha: 0.5)))
     }
     
     
     @Test func testCSSHSLColorComponents() throws {
         
         try expectComponents(ColorCodeType.cssHSLColorComponents(code: "hsl(180, 50%, 25%)"),
-                             equals: .hsl(0.5, 0.5, 0.25, alpha: 1))
+                             equals: .hsl(HSL(hue: 0.5, saturation: 0.5, lightness: 0.25, alpha: 1)))
         try expectComponents(ColorCodeType.cssHSLColorComponents(code: "hsl(180 50 25)"),
-                             equals: .hsl(0.5, 0.5, 0.25, alpha: 1))
+                             equals: .hsl(HSL(hue: 0.5, saturation: 0.5, lightness: 0.25, alpha: 1)))
         try expectComponents(ColorCodeType.cssHSLaColorComponents(code: "hsla(180, 50%, 25%, 0.5)"),
-                             equals: .hsl(0.5, 0.5, 0.25, alpha: 0.5))
+                             equals: .hsl(HSL(hue: 0.5, saturation: 0.5, lightness: 0.25, alpha: 0.5)))
         try expectComponents(ColorCodeType.cssHSLaColorComponents(code: "hsl(180 50% 25% / 50%)"),
-                             equals: .hsl(0.5, 0.5, 0.25, alpha: 0.5))
+                             equals: .hsl(HSL(hue: 0.5, saturation: 0.5, lightness: 0.25, alpha: 0.5)))
     }
     
     
     @Test func testCSSHWBColorComponents() throws {
         
         try expectComponents(ColorCodeType.cssHWBColorComponents(code: "hwb(180 20% 30%)"),
-                             equals: .hwb(0.5, 0.2, 0.3, alpha: 1))
+                             equals: .hwb(HWB(hue: 0.5, whiteness: 0.2, blackness: 0.3, alpha: 1)))
         try expectComponents(ColorCodeType.cssHWBWithAlphaColorComponents(code: "hwb(180 20% 30% / 50%)"),
-                             equals: .hwb(0.5, 0.2, 0.3, alpha: 0.5))
+                             equals: .hwb(HWB(hue: 0.5, whiteness: 0.2, blackness: 0.3, alpha: 0.5)))
     }
     
     
     @Test func testCSSKeywordColorComponents() throws {
         
         try expectComponents(ColorCodeType.cssKeywordColorComponents(code: "MidnightBlue"),
-                             equals: .rgb(Double(0x19) / 255, Double(0x19) / 255, Double(0x70) / 255, alpha: 1))
+                             equals: .rgb(RGB(red: Double(0x19) / 255, green: Double(0x19) / 255, blue: Double(0x70) / 255, alpha: 1)))
     }
     
     
@@ -136,15 +136,48 @@ private func expectComponents(_ components: ColorComponents?, equals expectedCom
     let components = try #require(components)
     
     switch (components, expectedComponents) {
-    case let (.rgb(red, green, blue, alpha), .rgb(expectedRed, expectedGreen, expectedBlue, expectedAlpha)),
-         let (.hsl(red, green, blue, alpha), .hsl(expectedRed, expectedGreen, expectedBlue, expectedAlpha)),
-         let (.hwb(red, green, blue, alpha), .hwb(expectedRed, expectedGreen, expectedBlue, expectedAlpha)):
-        #expect(red.isApproximatelyEqual(to: expectedRed, absoluteTolerance: 0.000_001))
-        #expect(green.isApproximatelyEqual(to: expectedGreen, absoluteTolerance: 0.000_001))
-        #expect(blue.isApproximatelyEqual(to: expectedBlue, absoluteTolerance: 0.000_001))
-        #expect(alpha.isApproximatelyEqual(to: expectedAlpha, absoluteTolerance: 0.000_001))
-        
+    case let (.rgb(rgb), .rgb(expectedRGB)):
+        #expect(rgb.isApproximatelyEqual(to: expectedRGB))
+    case let (.hsl(hsl), .hsl(expectedHSL)):
+        #expect(hsl.isApproximatelyEqual(to: expectedHSL))
+    case let (.hwb(hwb), .hwb(expectedHWB)):
+        #expect(hwb.isApproximatelyEqual(to: expectedHWB))
     default:
         Issue.record("Expected \(expectedComponents), got \(components)")
+    }
+}
+
+private extension RGB {
+    
+    func isApproximatelyEqual(to other: Self, absoluteTolerance: Double = 0.000_001) -> Bool {
+        
+        self.red.isApproximatelyEqual(to: other.red, absoluteTolerance: absoluteTolerance) &&
+        self.green.isApproximatelyEqual(to: other.green, absoluteTolerance: absoluteTolerance) &&
+        self.blue.isApproximatelyEqual(to: other.blue, absoluteTolerance: absoluteTolerance) &&
+        self.alpha.isApproximatelyEqual(to: other.alpha, absoluteTolerance: absoluteTolerance)
+    }
+}
+
+
+private extension HSL {
+    
+    func isApproximatelyEqual(to other: Self, absoluteTolerance: Double = 0.000_001) -> Bool {
+        
+        self.hue.isApproximatelyEqual(to: other.hue, absoluteTolerance: absoluteTolerance) &&
+        self.saturation.isApproximatelyEqual(to: other.saturation, absoluteTolerance: absoluteTolerance) &&
+        self.lightness.isApproximatelyEqual(to: other.lightness, absoluteTolerance: absoluteTolerance) &&
+        self.alpha.isApproximatelyEqual(to: other.alpha, absoluteTolerance: absoluteTolerance)
+    }
+}
+
+
+private extension HWB {
+    
+    func isApproximatelyEqual(to other: Self, absoluteTolerance: Double = 0.000_001) -> Bool {
+        
+        self.hue.isApproximatelyEqual(to: other.hue, absoluteTolerance: absoluteTolerance) &&
+        self.whiteness.isApproximatelyEqual(to: other.whiteness, absoluteTolerance: absoluteTolerance) &&
+        self.blackness.isApproximatelyEqual(to: other.blackness, absoluteTolerance: absoluteTolerance) &&
+        self.alpha.isApproximatelyEqual(to: other.alpha, absoluteTolerance: absoluteTolerance)
     }
 }
