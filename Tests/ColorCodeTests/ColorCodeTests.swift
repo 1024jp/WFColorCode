@@ -41,6 +41,13 @@ struct ColorCodeTests {
     }
     
     
+    @Test func testTypeGroups() {
+        
+        #expect(ColorCodeType.hexTypes == [.hex, .hexWithAlpha, .shortHex])
+        #expect(ColorCodeType.cssTypes == [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword])
+    }
+    
+    
     @Test func testColorCreation() {
         
         let whiteColor = NSColor.white.usingColorSpace(.genericRGB)!

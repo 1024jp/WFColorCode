@@ -54,6 +54,9 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     
     /// CSS style color code with keyword. For example: `White`
     case cssKeyword
+    
+    public static let hexTypes: [Self] = [.hex, .hexWithAlpha, .shortHex]
+    public static let cssTypes: [Self] = [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword]
 }
 
 

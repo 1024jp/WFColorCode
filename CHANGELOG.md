@@ -4,6 +4,11 @@ CHANGELOG
 3.1.0
 -----------
 
+### new
+
+- Add `hexTypes` and `cssTypes` static properties to `ColorCodeType`.
+
+
 ### mod
 
 - Update to Swift 6.3.
