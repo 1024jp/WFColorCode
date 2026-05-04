@@ -32,6 +32,7 @@
 //
 
 #if canImport(AppKit)
+import Foundation
 public import AppKit.NSColor
 
 /// This extension on NSColor allows creating NSColor instance from a CSS color code string, or a color code string from an NSColor instance.
@@ -113,11 +114,11 @@ public extension NSColor {
         
         switch type {
         case .hex:
-            return unsafe String(format: "#%02x%02x%02x", r, g, b)
+            return "#\(r.twoDigitHexString)\(g.twoDigitHexString)\(b.twoDigitHexString)"
                 
         case .hexWithAlpha:
             let alpha = Int((255 * alpha).rounded())
-            return unsafe String(format: "#%02x%02x%02x%02x", r, g, b, alpha)
+            return "#\(r.twoDigitHexString)\(g.twoDigitHexString)\(b.twoDigitHexString)\(alpha.twoDigitHexString)"
             
         case .shortHex:
             guard
@@ -126,7 +127,11 @@ public extension NSColor {
                 b.isMultiple(of: 17)
             else { return nil }
             
-            return unsafe String(format: "#%1x%1x%1x", r / 17, g / 17, b / 17)
+            let red = String(r / 17, radix: 16)
+            let green = String(g / 17, radix: 16)
+            let blue = String(b / 17, radix: 16)
+            
+            return "#\(red)\(green)\(blue)"
             
         case .shortHexWithAlpha:
             let alpha = Int((255 * alpha).rounded())
@@ -138,13 +143,18 @@ public extension NSColor {
                 alpha.isMultiple(of: 17)
             else { return nil }
             
-            return unsafe String(format: "#%1x%1x%1x%1x", r / 17, g / 17, b / 17, alpha / 17)
+            let red = String(r / 17, radix: 16)
+            let green = String(g / 17, radix: 16)
+            let blue = String(b / 17, radix: 16)
+            let alphaDigit = String(alpha / 17, radix: 16)
+            
+            return "#\(red)\(green)\(blue)\(alphaDigit)"
             
         case .cssRGB:
-            return unsafe String(format: "rgb(%d,%d,%d)", r, g, b)
+            return "rgb(\(r),\(g),\(b))"
             
         case .cssRGBa:
-            return unsafe String(format: "rgba(%d,%d,%d,%g)", r, g, b, alpha)
+            return "rgba(\(r),\(g),\(b),\(alpha.cssAlphaString))"
             
         case .cssHSL, .cssHSLa:
             let hue = self.hueComponent
@@ -156,9 +166,9 @@ public extension NSColor {
             let l = Int((100 * lightness).rounded())
             
             if type == .cssHSLa {
-                return unsafe String(format: "hsla(%d,%d%%,%d%%,%g)", h, s, l, alpha)
+                return "hsla(\(h),\(s)%,\(l)%,\(alpha.cssAlphaString))"
             }
-            return unsafe String(format: "hsl(%d,%d%%,%d%%)", h, s, l)
+            return "hsl(\(h),\(s)%,\(l)%)"
             
         case .cssHWB, .cssHWBWithAlpha:
             let components = hwbComponents(red: self.redComponent.finite,
@@ -170,9 +180,9 @@ public extension NSColor {
             let b = Int((100 * components.blackness).rounded())
             
             if type == .cssHWBWithAlpha {
-                return unsafe String(format: "hwb(%d %d%% %d%% / %g)", h, w, b, alpha)
+                return "hwb(\(h) \(w)% \(b)% / \(alpha.cssAlphaString))"
             }
-            return unsafe String(format: "hwb(%d %d%% %d%%)", h, w, b)
+            return "hwb(\(h) \(w)% \(b)%)"
             
         case .cssKeyword:
             let hex = (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff)
@@ -209,6 +219,31 @@ private extension FloatingPoint {
     var finite: Self {
         
         self.isFinite ? self : 0
+    }
+}
+
+
+// MARK: Formatters
+
+private extension CGFloat {
+    
+    /// The value formatted as a CSS alpha component.
+    var cssAlphaString: String {
+        
+        Double(self).formatted(.number
+            .precision(.fractionLength(0...2))
+            .locale(Locale(identifier: "en_US_POSIX")))
+    }
+}
+
+
+private extension Int {
+    
+    /// The the value formatted as a two-digit lowercase hexadecimal string.
+    var twoDigitHexString: String {
+        
+        let string = String(self, radix: 16)
+        return (string.count == 1) ? "0" + string : string
     }
 }
 #endif

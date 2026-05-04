@@ -121,6 +121,16 @@ struct NSColorTests {
     }
     
     
+    @Test func testCSSAlphaColorCodeRounding() throws {
+        
+        let color = try #require(NSColor(colorCode: "#33669955"))
+        
+        #expect(color.colorCode(type: .cssRGBa) == "rgba(51,102,153,0.33)")
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(210,50%,40%,0.33)")
+        #expect(color.colorCode(type: .cssHWBWithAlpha) == "hwb(210 20% 40% / 0.33)")
+    }
+    
+    
     @Test func testHSLaColorCode() throws {
         
         let colorCode = "hsla(203,10%,20%,0.3)"
