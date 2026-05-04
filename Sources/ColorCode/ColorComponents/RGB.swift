@@ -32,7 +32,7 @@
 //  THE SOFTWARE.
 //
 
-struct RGB {
+struct RGB: ColorComponents {
     
     var red: Double
     var green: Double

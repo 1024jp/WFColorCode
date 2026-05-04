@@ -53,9 +53,12 @@ public extension Color {
     ///   - type: Upon return, contains the detected color code type.
     init?(colorCode: String, type: inout ColorCodeType?) {
         
-        guard let components = ColorComponents(colorCode: colorCode, type: &type) else {
+        guard let (detectedType, components) = ColorCodeType.colorComponents(colorCode: colorCode) else {
+            type = nil
             return nil
         }
+        
+        type = detectedType
         
         self.init(components: components)
     }
@@ -68,9 +71,11 @@ public extension Color {
     /// - Parameter colorCode: The CSS color code string. The given code as hex or CSS keyword is case insensitive.
     init?(colorCode: String) {
         
-        var type: ColorCodeType?
+        guard let (_, components) = ColorCodeType.colorComponents(colorCode: colorCode) else {
+            return nil
+        }
         
-        self.init(colorCode: colorCode, type: &type)
+        self.init(components: components)
     }
     
     
@@ -96,17 +101,20 @@ public extension Color {
 
 extension Color {
     
-    init(components: ColorComponents) {
+    init?(components: any ColorComponents) {
         
         switch components {
-        case let .rgb(rgb):
+        case let rgb as RGB:
             self.init(rgb: rgb)
-        case let .hsl(hsl):
+        case let hsl as HSL:
             self.init(hue: hsl.hue, saturation: hsl.saturation, lightness: hsl.lightness, opacity: hsl.alpha)
-        case let .hwb(hwb):
+        case let hwb as HWB:
             self.init(rgb: hwb.rgb)
-        case let .hsb(hsb):
+        case let hsb as HSB:
             self.init(hue: hsb.hue, saturation: hsb.saturation, brightness: hsb.brightness, opacity: hsb.alpha)
+        default:
+            assertionFailure()
+            return nil
         }
     }
     

@@ -1,11 +1,10 @@
 //
-//  HSB.swift
-//  ColorCode
+//  ColorComponents.swift
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
 //
-//  Created by 1024jp on 2026-05-05.
+//  Created by 1024jp on 2014-09-02.
 //
 //  ---------------------------------------------------------------------------
 //
@@ -32,12 +31,16 @@
 //  THE SOFTWARE.
 //
 
-struct HSB: ColorComponents {
+import Numerics
+@testable import ColorCode
+
+infix operator ~== : ComparisonPrecedence
+
+extension ColorComponents {
     
-    var hue: Double
-    var saturation: Double
-    var brightness: Double
-    var alpha: Double = 1
-    
-    var components: [Double] { [self.hue, self.saturation, self.brightness, self.alpha] }
+    static func ~== (lhs: Self, rhs: Self) -> Bool {
+        
+        zip(lhs.components, rhs.components)
+            .allSatisfy { $0.0.isApproximatelyEqual(to: $0.1, absoluteTolerance: 0.000_001) }
+    }
 }

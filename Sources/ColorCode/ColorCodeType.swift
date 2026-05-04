@@ -76,35 +76,49 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
 
 extension ColorCodeType {
     
+    /// Initialize with the given color code. Or returns `nil` if color code is invalid.
+    ///
+    /// - Parameters:
+    ///   - colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    static func colorComponents(colorCode: String) -> (ColorCodeType, any ColorComponents)? {
+        
+        let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        return ColorCodeType.allCases.lazy
+            .compactMap { type in type.colorComponents(code: code).map { (type, $0) } }
+            .first
+    }
+    
+    
     /// Returns the color components parsed as this color code type.
     ///
     /// - Parameter code: The color code string to parse.
     /// - Returns: The parsed color components.
-    func colorComponents(code: String) -> ColorComponents? {
+    func colorComponents(code: String) -> (any ColorComponents)? {
         
         switch self {
         case .hex:
-            RGB(hex: code).map { .rgb($0) }
+            RGB(hex: code)
         case .hexWithAlpha:
-            RGB(hexWithAlpha: code).map { .rgb($0) }
+            RGB(hexWithAlpha: code)
         case .shortHex:
-            RGB(shortHex: code).map { .rgb($0) }
+            RGB(shortHex: code)
         case .shortHexWithAlpha:
-            RGB(shortHexWithAlpha: code).map { .rgb($0) }
+            RGB(shortHexWithAlpha: code)
         case .cssRGB:
-            RGB(css: code).map { .rgb($0) }
+            RGB(css: code)
         case .cssRGBa:
-            RGB(cssWithAlpha: code).map { .rgb($0) }
+            RGB(cssWithAlpha: code)
         case .cssHSL:
-            HSL(css: code).map { .hsl($0) }
+            HSL(css: code)
         case .cssHSLa:
-            HSL(cssWithAlpha: code).map { .hsl($0) }
+            HSL(cssWithAlpha: code)
         case .cssHWB:
-            HWB(css: code).map { .hwb($0) }
+            HWB(css: code)
         case .cssHWBWithAlpha:
-            HWB(cssWithAlpha: code).map { .hwb($0) }
+            HWB(cssWithAlpha: code)
         case .cssKeyword:
-            RGB(cssKeyword: code).map { .rgb($0) }
+            RGB(cssKeyword: code)
         }
     }
 }

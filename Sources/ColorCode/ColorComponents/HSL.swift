@@ -31,7 +31,7 @@
 //  THE SOFTWARE.
 //
 
-struct HSL {
+struct HSL: ColorComponents {
     
     var hue: Double
     var saturation: Double

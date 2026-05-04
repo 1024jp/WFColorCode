@@ -31,7 +31,7 @@
 //  THE SOFTWARE.
 //
 
-struct HWB {
+struct HWB: ColorComponents {
     
     var hue: Double
     var whiteness: Double

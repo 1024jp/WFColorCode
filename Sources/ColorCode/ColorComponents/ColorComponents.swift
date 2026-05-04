@@ -32,41 +32,8 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
-
-enum ColorComponents {
+protocol ColorComponents: Sendable, Equatable {
     
-    case rgb(RGB)
-    case hsl(HSL)
-    case hwb(HWB)
-    case hsb(HSB)
-}
-
-
-extension ColorComponents {
-    
-    /// Initialize with the given color code. Or returns `nil` if color code is invalid.
-    ///
-    /// - Parameters:
-    ///   - colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
-    ///   - type: Upon return, contains the detected color code type.
-    init?(colorCode: String, type: inout ColorCodeType?) {
-        
-        // initialize with `nil` anyway
-        type = nil
-        
-        let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        guard let (detectedType, components) = ColorCodeType.allCases.lazy
-            .compactMap({ type -> (ColorCodeType, ColorComponents)? in
-                if let components = type.colorComponents(code: code) {
-                    (type, components)
-                } else {
-                    nil
-                }
-            }).first else { return nil }
-        
-        type = detectedType
-        self = components
-    }
+    var alpha: Double { get }
+    var components: [Double] { get }
 }
