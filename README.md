@@ -1,15 +1,11 @@
+# ColorCode
 
-ColorCode
-=============================
-
-__ColorCode__ is a set of NSColor extensions that allows creating NSColor/SwiftUI.Color instance from a CSS color code string, or color code string from an NSColor/SwiftUI.Color instance. It also adds the ability to handle HSL color space.
+__ColorCode__ is a set of color extensions that allows creating NSColor/SwiftUI.Color instances from CSS color code strings, or color code strings from an NSColor instance. It also adds the ability to handle HSL color space.
 
 * __Requirements__: macOS 15 or later
 
 
-
-Usage
------------------------------
+## Usage
 
 WFColorCode supports the following color code styles.
 
@@ -36,8 +32,10 @@ import ColorCode
 
 // create NSColor instance from HSLa color code
 var type: ColorCodeType?
-let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type)
-let hex: String = whiteColor.colorCode(type: .hex)  // => "#ffffff"
+if let whiteColor = NSColor(colorCode: "hsla(0,0%,100%,0.5)", type: &type),
+   let hex = whiteColor.colorCode(type: .hex) {
+    print(hex)  // => "#ffffff"
+}
 
 // create NSColor instance from HSLa values
 let color = NSColor(deviceHue:0.1, saturation:0.2, lightness:0.3, alpha:1.0)
@@ -54,9 +52,7 @@ color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &
 ```
 
 
-
-License
------------------------------
+## License
 
 © 2014-2026 1024jp.
 
