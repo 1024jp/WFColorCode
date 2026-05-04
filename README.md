@@ -4,7 +4,7 @@ ColorCode
 
 __ColorCode__ is a set of NSColor extensions that allows creating NSColor/SwiftUI.Color instance from a CSS color code string, or color code string from an NSColor/SwiftUI.Color instance. It also adds the ability to handle HSL color space.
 
-* __Requirements__: macOS 14 or later
+* __Requirements__: macOS 15 or later
 
 
 
@@ -58,6 +58,6 @@ color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &
 License
 -----------------------------
 
-© 2014-2024 1024jp.
+© 2014-2026 1024jp.
 
 The source code is distributed under the terms of the __MIT License__. See the bundled [LICENSE](LICENSE) for details.

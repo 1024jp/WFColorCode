@@ -7,6 +7,7 @@ CHANGELOG
 ### mod
 
 - Update to Swift 6.3.
+- Bump up supported macOS version to 15.
 
 
 3.0.1
