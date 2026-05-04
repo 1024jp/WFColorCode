@@ -85,7 +85,7 @@ public extension NSColor {
     @available(*, deprecated, renamed: "hslComponents")
     func getHue(hue: UnsafeMutablePointer<CGFloat>?, saturation: UnsafeMutablePointer<CGFloat>?, lightness: UnsafeMutablePointer<CGFloat>?, alpha: UnsafeMutablePointer<CGFloat>?) {
         
-        let hsl = self.hsb.hsl
+        let hsl = self.rgb.hsl
         
         unsafe hue?.pointee = hsl.hue
         unsafe saturation?.pointee = hsl.saturation
@@ -110,7 +110,7 @@ public extension NSColor {
             return nil
         }
         
-        let hsl = color.hsb.hsl
+        let hsl = color.rgb.hsl
         
         return (CGFloat(hsl.hue), CGFloat(hsl.saturation), CGFloat(hsl.lightness), CGFloat(hsl.alpha))
     }
@@ -122,7 +122,7 @@ public extension NSColor {
     /// `NSColorSpace.deviceRGB` color space. Sending it to other objects raises an exception.
     var hslSaturationComponent: CGFloat {
         
-        self.hsb.hsl.saturation
+        self.rgb.hsl.saturation
     }
     
     
@@ -132,14 +132,7 @@ public extension NSColor {
     /// `NSColorSpace.deviceRGB` color space. Sending it to other objects raises an exception.
     var lightnessComponent: CGFloat {
         
-        self.hsb.hsl.lightness
-    }
-    
-    
-    /// The receiver's HSB component and opacity values.
-    private var hsb: HSB {
-        
-        HSB(hue: self.hueComponent, saturation: self.saturationComponent, brightness: self.brightnessComponent, alpha: self.alphaComponent)
+        self.rgb.hsl.lightness
     }
 }
 #endif

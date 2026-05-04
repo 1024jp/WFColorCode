@@ -211,6 +211,18 @@ struct NSColorTests {
     }
     
     
+    @Test func testHSLComponentsWithNearlyAchromaticColor() throws {
+
+        let color = NSColor(calibratedRed: 0.5, green: 0.500001, blue: 0.5, alpha: 0.25)
+        let components = try #require(color.hslComponents)
+
+        #expect(components.saturation == 0)
+        #expect(color.hslSaturationComponent == 0)
+        #expect(components.lightness.isApproximatelyEqual(to: 0.5000005))
+        #expect(components.alpha.isApproximatelyEqual(to: 0.25))
+    }
+
+
     @Test(arguments: [NSColorSpace.genericRGB, NSColorSpace.deviceRGB])
     func testColorSpace(_ colorSpace: NSColorSpace) {
         
