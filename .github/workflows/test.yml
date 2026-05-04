@@ -2,17 +2,22 @@ name: Test
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   macOS:
     name: Test on macOS
-    runs-on: macos-14
+    runs-on: macos-26
     env:
-      DEVELOPER_DIR: /Applications/Xcode_16.0.app
+      DEVELOPER_DIR: /Applications/Xcode_26.4.app
     steps:
     - name: Show environments
       run: |
+        xcodebuild -version
         swift --version
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v5
     - name: Unit Test
       run: |
         swift test
