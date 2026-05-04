@@ -81,14 +81,14 @@ struct ColorCodeTests {
     }
     
     
-    @Test func testInfiniteComponents() throws {
+    @Test func testBlackHSLComponents() throws {
         
         let code = "hsl(0,0%,0%)"
         let black = try #require(NSColor(colorCode: code))
         
-        #expect(black.redComponent.isFinite)
-        #expect(black.greenComponent.isNaN)
-        #expect(black.blueComponent.isNaN)
+        #expect(black.redComponent == 0)
+        #expect(black.greenComponent == 0)
+        #expect(black.blueComponent == 0)
         #expect(black.colorCode(type: .cssHSL) == code)
     }
     
