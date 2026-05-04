@@ -49,11 +49,9 @@ let color = NSColor(deviceHue:0.1, saturation:0.2, lightness:0.3, alpha:1.0)
 let ivoryColor = NSColor(colorCode: "ivory")
 
 // get HSL values from NSColor instance
-var hue: CGFloat = 0
-var saturation: CGFloat = 0
-var lightness: CGFloat = 0
-var alpha: CGFloat = 0
-color.getHue(hue: &hue, saturation: &saturation, lightness: &lightness, alpha: &alpha)
+if let components = color.hslComponents {
+    print(components.hue, components.saturation, components.lightness, components.alpha)
+}
 ```
 
 
