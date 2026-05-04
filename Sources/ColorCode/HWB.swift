@@ -38,17 +38,17 @@
 ///   - whiteness: The whiteness value in HWB color space between `0.0` and `1.0`.
 ///   - blackness: The blackness value in HWB color space between `0.0` and `1.0`.
 /// - Returns: The RGB components.
-func rgbComponents<Value: BinaryFloatingPoint>(hue: Value, whiteness: Value, blackness: Value) -> (red: Value, green: Value, blue: Value) {
+func rgbComponents(hue: Double, whiteness: Double, blackness: Double) -> (red: Double, green: Double, blue: Double) {
     
     if whiteness + blackness >= 1 {
         let gray = whiteness / (whiteness + blackness)
         return (gray, gray, gray)
     }
     
-    func channel(_ value: Value) -> Value {
+    func channel(_ value: Double) -> Double {
         
         let k = (value + hue * 12).truncatingRemainder(dividingBy: 12)
-        let a: Value = 0.5
+        let a: Double = 0.5
         
         return 0.5 - a * max(-1, min(k - 3, 9 - k, 1))
     }
@@ -68,12 +68,12 @@ func rgbComponents<Value: BinaryFloatingPoint>(hue: Value, whiteness: Value, bla
 ///   - green: The green value in RGB color space between `0.0` and `1.0`.
 ///   - blue: The blue value in RGB color space between `0.0` and `1.0`.
 /// - Returns: The HWB components.
-func hwbComponents<Value: BinaryFloatingPoint>(red: Value, green: Value, blue: Value) -> (hue: Value, whiteness: Value, blackness: Value) {
+func hwbComponents(red: Double, green: Double, blue: Double) -> (hue: Double, whiteness: Double, blackness: Double) {
     
     let maxValue = max(red, green, blue)
     let minValue = min(red, green, blue)
     let diff = maxValue - minValue
-    var hue: Value = 0
+    var hue: Double = 0
     
     if diff > 0 {
         hue = switch maxValue {
