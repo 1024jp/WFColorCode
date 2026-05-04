@@ -104,7 +104,7 @@ public extension NSColor {
         let r = Int((255 * self.redComponent.finite).rounded())
         let g = Int((255 * self.greenComponent.finite).rounded())
         let b = Int((255 * self.blueComponent.finite).rounded())
-        let alpha = self.alphaComponent
+        let alpha = self.alphaComponent.finite
         
         switch type {
         case .hex:

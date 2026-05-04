@@ -190,6 +190,18 @@ struct ColorCodeTests {
     }
     
     
+    @Test func testNaNAlphaColorCode() {
+        
+        let color = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: Double.nan)
+        
+        #expect(color.colorCode(type: .hexWithAlpha) == "#00000000")
+        #expect(color.colorCode(type: .shortHexWithAlpha) == "#0000")
+        #expect(color.colorCode(type: .cssRGBa) == "rgba(0,0,0,0)")
+        #expect(color.colorCode(type: .cssHSLa) == "hsla(0,0%,0%,0)")
+        #expect(color.colorCode(type: .cssHWBWithAlpha) == "hwb(0 0% 100% / 0)")
+    }
+    
+    
     @Test func testHSLaColorCode() throws {
         
         let colorCode = "hsla(203,10%,20%,0.3)"
