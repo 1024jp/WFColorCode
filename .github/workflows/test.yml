@@ -21,7 +21,7 @@ jobs:
             command: |
               xcodebuild test \
                 -scheme ColorCode \
-                -destination 'platform=iOS Simulator,OS=26.4,name=iPhone 17' \
+                -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
                 -skipPackagePluginValidation
     steps:
     - name: Show environments
