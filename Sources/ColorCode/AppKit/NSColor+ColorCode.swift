@@ -108,7 +108,13 @@ public extension NSColor {
             return unsafe String(format: "#%02x%02x%02x%02x", r, g, b, alpha)
             
         case .shortHex:
-            return unsafe String(format: "#%1x%1x%1x", r / 16, g / 16, b / 16)
+            guard
+                r.isMultiple(of: 17),
+                g.isMultiple(of: 17),
+                b.isMultiple(of: 17)
+            else { return nil }
+            
+            return unsafe String(format: "#%1x%1x%1x", r / 17, g / 17, b / 17)
             
         case .cssRGB:
             return unsafe String(format: "rgb(%d,%d,%d)", r, g, b)

@@ -149,6 +149,9 @@ struct ColorCodeTests {
         #expect(color.colorCode(type: .hex) == "#0066aa")
         #expect(color.colorCode(type: .hexWithAlpha) == "#0066aaff")
         #expect(color.colorCode(type: .shortHex) == "#06a")
+        
+        let lossyColor = try #require(NSColor(colorCode: "#123456"))
+        #expect(lossyColor.colorCode(type: .shortHex) == nil)
     }
     
     

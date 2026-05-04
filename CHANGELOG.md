@@ -14,6 +14,7 @@ CHANGELOG
 
 - Create black colors from HSL color codes without NaN components.
 - Make `ColorCodeType` raw values follow the case order.
+- Return `nil` instead of lossy short hex color codes.
 - Recognize CSS color keyword aliases that use the "grey" spelling.
 
 
