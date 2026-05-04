@@ -136,6 +136,7 @@ public extension NSColor {
     }
     
     
+    /// The receiver's HSB component and opacity values.
     private var hsb: HSB {
         
         HSB(hue: self.hueComponent, saturation: self.saturationComponent, brightness: self.brightnessComponent, alpha: self.alphaComponent)

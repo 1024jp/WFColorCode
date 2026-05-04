@@ -35,6 +35,10 @@ import Foundation
 
 extension RGB {
     
+    /// Returns the color code formatted in the given type.
+    ///
+    /// - Parameter type: The type of color code to format.
+    /// - Returns: The formatted color code, or `nil` if this RGB value cannot be represented in the given type.
     func colorCode(type: ColorCodeType) -> String? {
         
         switch type {
@@ -64,6 +68,10 @@ extension RGB {
     }
     
     
+    /// Returns a hexadecimal color code.
+    ///
+    /// - Parameter withAlpha: Whether to include the alpha component.
+    /// - Returns: The formatted hexadecimal color code.
     func hex(withAlpha: Bool = false) -> String {
         
         let r = Int((255 * self.red).rounded())
@@ -71,7 +79,7 @@ extension RGB {
         let b = Int((255 * self.blue).rounded())
         let alpha = Int((255 * self.alpha).rounded())
         
-        /// The the value formatted as a two-digit lowercase hexadecimal string.
+        // The value formatted as a two-digit lowercase hexadecimal string.
         func twoDigitHex(_ value: Int) -> String {
             
             let string = String(value, radix: 16)
@@ -84,6 +92,10 @@ extension RGB {
     }
     
     
+    /// Returns a shorthand hexadecimal color code.
+    ///
+    /// - Parameter withAlpha: Whether to include the alpha component.
+    /// - Returns: The formatted shorthand hexadecimal color code, or `nil` if the color cannot be represented in shorthand form.
     func shortHex(withAlpha: Bool = false) -> String? {
         
         let r = Int((255 * self.red).rounded())
@@ -114,6 +126,10 @@ extension RGB {
     }
     
     
+    /// Returns a CSS RGB color code.
+    ///
+    /// - Parameter withAlpha: Whether to include the alpha component.
+    /// - Returns: The formatted CSS RGB color code.
     func cssFormat(withAlpha: Bool = false) -> String {
         
         let r = Int((255 * self.red).rounded())
@@ -129,6 +145,10 @@ extension RGB {
 
 extension HSL {
     
+    /// Returns a CSS HSL color code.
+    ///
+    /// - Parameter withAlpha: Whether to include the alpha component.
+    /// - Returns: The formatted CSS HSL color code.
     func cssFormat(withAlpha: Bool = false) -> String {
         
         let h = (self.saturation > 0) ? Int((360 * self.hue).rounded()) : 0
@@ -144,6 +164,10 @@ extension HSL {
 
 extension HWB {
     
+    /// Returns a CSS HWB color code.
+    ///
+    /// - Parameter withAlpha: Whether to include the alpha component.
+    /// - Returns: The formatted CSS HWB color code.
     func cssFormat(withAlpha: Bool = false) -> String {
         
         let h = Int((360 * self.hue).rounded())

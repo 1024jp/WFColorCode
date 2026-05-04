@@ -1,6 +1,5 @@
 //
 //  ColorComponents.swift
-//  ColorCode
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
@@ -34,6 +33,9 @@
 
 protocol ColorComponents: Sendable, Equatable {
     
+    /// The alpha component.
     var alpha: Double { get }
+
+    /// The component values in the color space.
     var components: [Double] { get }
 }

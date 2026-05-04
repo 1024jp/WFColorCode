@@ -38,10 +38,11 @@ struct HWB: ColorComponents {
     var blackness: Double
     var alpha: Double = 1
     
+    /// The HWB component values and alpha component.
     var components: [Double] { [self.hue, self.whiteness, self.blackness, self.alpha] }
     
     
-    /// The correspondent RGB components.
+    /// The corresponding RGB components.
     var rgb: RGB {
         
         if self.whiteness + self.blackness >= 1 {
@@ -69,7 +70,7 @@ struct HWB: ColorComponents {
 
 extension RGB {
     
-    /// The correspondent HWB components.
+    /// The corresponding HWB components.
     var hwb: HWB {
         
         let maxValue = max(self.red, self.green, self.blue)

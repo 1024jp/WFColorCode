@@ -38,13 +38,14 @@ struct HSL: ColorComponents {
     var lightness: Double
     var alpha: Double = 1
     
+    /// The HSL component values and alpha component.
     var components: [Double] { [self.hue, self.saturation, self.lightness, self.alpha] }
 }
 
 
 extension RGB {
     
-    /// The correspondent HSL components.
+    /// The corresponding HSL components.
     var hsl: HSL {
         
         let maxValue = max(self.red, self.green, self.blue)
@@ -61,7 +62,7 @@ extension RGB {
 
 extension HSB {
     
-    /// The correspondent HSL components.
+    /// The corresponding HSL components.
     var hsl: HSL {
         
         let lightness = self.brightness * (1 - self.saturation / 2)
@@ -79,7 +80,7 @@ extension HSB {
 
 extension HSL {
     
-    /// The correspondent HSB components.
+    /// The corresponding HSB components.
     var hsb: HSB {
         
         let brightness = self.lightness + self.saturation * min(self.lightness, 1 - self.lightness)

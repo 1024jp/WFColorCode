@@ -101,6 +101,9 @@ public extension Color {
 
 extension Color {
     
+    /// Initializes with the given color components.
+    ///
+    /// - Parameter components: The color components to convert to a `Color`.
     init?(components: any ColorComponents) {
         
         switch components {
@@ -119,6 +122,9 @@ extension Color {
     }
     
     
+    /// Initializes with the given RGB components.
+    ///
+    /// - Parameter rgb: The RGB components to convert to a `Color`.
     init(rgb: RGB) {
         
         self.init(.sRGB, red: rgb.red, green: rgb.green, blue: rgb.blue, opacity: rgb.alpha)

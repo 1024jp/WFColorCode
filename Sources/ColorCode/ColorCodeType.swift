@@ -76,10 +76,10 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
 
 extension ColorCodeType {
     
-    /// Initialize with the given color code. Or returns `nil` if color code is invalid.
+    /// Returns the first color code type and components matching the given color code.
     ///
-    /// - Parameters:
-    ///   - colorCode: The CSS3 style color code string. The given code as hex or CSS keyword is case insensitive.
+    /// - Parameter colorCode: The CSS color code string. The given code as hex or CSS keyword is case insensitive.
+    /// - Returns: The detected color code type and parsed color components.
     static func colorComponents(colorCode: String) -> (ColorCodeType, any ColorComponents)? {
         
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -143,7 +143,6 @@ extension RGB {
     /// Initializes by parsing from an 8-digit hex color code.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
     init?(hexWithAlpha code: String) {
         
         guard
@@ -299,7 +298,6 @@ extension HSL {
     /// Initializes by parsing from a CSS HSL color code without alpha.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
     init?(css code: String) {
         
         if let match = code.wholeMatch(of: /hsl\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)% *\)/),
@@ -331,7 +329,6 @@ extension HSL {
     /// Initializes by parsing from a CSS HSL color code with alpha.
     ///
     /// - Parameter code: The color code string to parse.
-    /// - Returns: The parsed color components.
     init?(cssWithAlpha code: String) {
         
         if let match = code.wholeMatch(of: /hsla\( *([0-9]{1,3}) *, *([0-9.]+)% *, *([0-9.]+)%(?: *, *([0-9.]+))? *\)/),
@@ -367,7 +364,7 @@ extension HSL {
 
 extension HWB {
     
-    /// Initializes by parsing from a CSS HWB color code with alpha.
+    /// Initializes by parsing from a CSS HWB color code without alpha.
     ///
     /// - Parameter code: The color code string to parse.
     init?(css code: String) {

@@ -1,6 +1,5 @@
 //
 //  RGB.swift
-//  ColorCode
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
@@ -39,15 +38,18 @@ struct RGB: ColorComponents {
     var blue: Double
     var alpha: Double = 1
     
+    /// The RGB component values and alpha component.
     var components: [Double] { [self.red, self.green, self.blue, self.alpha] }
     
     
+    /// The RGB components with non-finite component values replaced with `0`.
     var finite: Self {
         
         Self(red: self.red.finite, green: self.green.finite, blue: self.blue.finite, alpha: self.alpha.finite)
     }
     
     
+    /// The hue component corresponding to the RGB components.
     var hue: Double {
         
         let maxValue = max(self.red, self.green, self.blue)
@@ -73,6 +75,7 @@ struct RGB: ColorComponents {
     }
     
     
+    /// The 6-digit hexadecimal color value.
     var hexValue: Int {
         
         let r = Int((255 * self.red).rounded())
@@ -90,7 +93,7 @@ extension RGB {
     ///
     /// Example usage:
     /// ```
-    /// let redComponents = ColorComponents(hex: 0xFF0000)
+    /// let redComponents = RGB(hex: 0xFF0000)
     /// ```
     ///
     /// - Parameters:
@@ -119,6 +122,7 @@ extension RGB {
 
 private extension FloatingPoint {
     
+    /// The value if it is finite, otherwise `0`.
     var finite: Self {
         
         self.isFinite ? self : 0

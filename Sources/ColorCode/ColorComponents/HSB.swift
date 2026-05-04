@@ -1,6 +1,5 @@
 //
 //  HSB.swift
-//  ColorCode
 //
 //  ColorCode
 //  https://github.com/1024jp/WFColorCode
@@ -39,5 +38,6 @@ struct HSB: ColorComponents {
     var brightness: Double
     var alpha: Double = 1
     
+    /// The HSB component values and alpha component.
     var components: [Double] { [self.hue, self.saturation, self.brightness, self.alpha] }
 }

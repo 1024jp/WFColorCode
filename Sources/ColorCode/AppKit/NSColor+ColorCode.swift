@@ -119,6 +119,9 @@ public extension NSColor {
 
 extension NSColor {
     
+    /// Initializes with the given color components.
+    ///
+    /// - Parameter components: The color components to convert to an `NSColor`.
     convenience init?(components: any ColorComponents) {
         
         switch components {
@@ -137,12 +140,16 @@ extension NSColor {
     }
     
     
+    /// Initializes with the given RGB components.
+    ///
+    /// - Parameter rgb: The RGB components to convert to an `NSColor`.
     convenience init(rgb: RGB) {
         
         self.init(calibratedRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: rgb.alpha)
     }
     
     
+    /// The receiver's RGB components.
     var rgb: RGB {
         
         RGB(red: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: self.alphaComponent)
