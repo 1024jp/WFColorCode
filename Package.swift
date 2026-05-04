@@ -31,5 +31,6 @@ for target in package.targets {
         .strictMemorySafety(),
         
         .enableUpcomingFeature("ExistentialAny"),
+        .enableUpcomingFeature("InternalImportsByDefault"),
     ]
 }

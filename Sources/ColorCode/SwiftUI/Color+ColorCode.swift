@@ -6,7 +6,7 @@
 /*
  The MIT License (MIT)
  
- © 2014-2022 1024jp
+ © 2014-2026 1024jp
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
  THE SOFTWARE.
  */
 
-import SwiftUI
+public import SwiftUI
 
 /// This extension on Color allows creating Color instance from a CSS color code string.
 public extension Color {
