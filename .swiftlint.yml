@@ -37,9 +37,10 @@ trailing_whitespace:
 vertical_whitespace:
   max_empty_lines: 3
 
+file_length: 500
 line_length: 200
 function_body_length: 75
-cyclomatic_complexity: 20
+cyclomatic_complexity: 15
 large_tuple:
   warning: 4
 
