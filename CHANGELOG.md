@@ -7,6 +7,7 @@ CHANGELOG
 ### new
 
 - Add `hexTypes` and `cssTypes` static properties to `ColorCodeType`.
+- Add `hslComponents` to `NSColor` to read HSL values without pointer arguments.
 
 
 ### mod

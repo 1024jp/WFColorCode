@@ -39,6 +39,8 @@ vertical_whitespace:
 line_length: 200
 function_body_length: 75
 cyclomatic_complexity: 20
+large_tuple:
+  warning: 4
 
 identifier_name:
   min_length:

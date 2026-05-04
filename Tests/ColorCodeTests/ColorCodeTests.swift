@@ -162,7 +162,7 @@ struct ColorCodeTests {
     }
     
     
-    @Test func testHSL() {
+    @Test func testHSL() throws {
         
         let color = NSColor(deviceHue: 0.1, saturation: 0.2, lightness: 0.3, alpha: 0.4)
         
@@ -176,6 +176,13 @@ struct ColorCodeTests {
         #expect(saturation.isApproximatelyEqual(to: 0.2))
         #expect(lightness.isApproximatelyEqual(to: 0.3))
         #expect(alpha.isApproximatelyEqual(to: 0.4))
+        
+        let components = try #require(color.hslComponents)
+        
+        #expect(components.hue.isApproximatelyEqual(to: 0.1))
+        #expect(components.saturation.isApproximatelyEqual(to: 0.2))
+        #expect(components.lightness.isApproximatelyEqual(to: 0.3))
+        #expect(components.alpha.isApproximatelyEqual(to: 0.4))
     }
     
     

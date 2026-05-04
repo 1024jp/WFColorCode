@@ -88,6 +88,25 @@ public extension NSColor {
     }
     
     
+    /// The HSL component and opacity values of the receiver.
+    ///
+    /// This property returns `nil` if the receiver is not in an RGB color space and cannot be converted to the `NSColorSpace.genericRGB` color space.
+    var hslComponents: (hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat)? {
+        
+        let color: NSColor? = if self.colorSpace == .genericRGB || self.colorSpace == .deviceRGB {
+            self
+        } else {
+            self.usingColorSpace(.genericRGB)
+        }
+        
+        guard let color else {
+            return nil
+        }
+        
+        return (color.hueComponent, color.hslSaturationComponent, color.lightnessComponent, color.alphaComponent)
+    }
+    
+    
     /// The saturation component of the HSL color equivalent to the receiver.
     ///
     /// Access this property only for colors in the `NSColorSpace.genericRGB` or
