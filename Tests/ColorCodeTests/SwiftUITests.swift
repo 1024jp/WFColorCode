@@ -31,6 +31,7 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(SwiftUI)
 import Testing
 import ColorCode
 import SwiftUI
@@ -48,3 +49,4 @@ struct SwiftUITests {
         #expect(Color(colorCode: "foobar") == nil)
     }
 }
+#endif

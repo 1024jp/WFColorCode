@@ -5,6 +5,7 @@ let package = Package(
     name: "ColorCode",
     platforms: [
         .macOS(.v15),
+        .iOS(.v18),
     ],
     products: [
         .library(name: "ColorCode", targets: ["ColorCode"]),

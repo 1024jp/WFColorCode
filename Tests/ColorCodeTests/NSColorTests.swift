@@ -31,6 +31,7 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(AppKit)
 import Testing
 import ColorCode
 import Numerics
@@ -392,3 +393,4 @@ struct NSColorTests {
         }
     }
 }
+#endif

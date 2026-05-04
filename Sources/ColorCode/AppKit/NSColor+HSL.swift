@@ -31,6 +31,7 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(AppKit)
 public import AppKit.NSColor
 
 /// This extension on NSColor adds the ability to handle HSL color space.
@@ -142,3 +143,4 @@ public extension NSColor {
         return (maxValue + minValue) / 2
     }
 }
+#endif
