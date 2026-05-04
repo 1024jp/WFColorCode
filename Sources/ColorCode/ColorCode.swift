@@ -55,8 +55,15 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     /// CSS style color code with keyword. For example: `White`
     case cssKeyword
     
+    /// CSS style color code in HWB. For example: `hwb(0 0% 100%)`
+    case cssHWB
+    
+    /// CSS style color code in HWB with alpha channel. For example: `hwb(0 0% 100% / 1)`
+    case cssHWBWithAlpha
+    
+    
     public static let hexTypes: [Self] = [.hex, .hexWithAlpha, .shortHex]
-    public static let cssTypes: [Self] = [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword]
+    public static let cssTypes: [Self] = [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha]
 }
 
 
@@ -67,6 +74,7 @@ enum ColorComponents {
     
     case rgb(Double, Double, Double, alpha: Double = 1)
     case hsl(Double, Double, Double, alpha: Double = 1)
+    case hwb(Double, Double, Double, alpha: Double = 1)
     case hsb(Double, Double, Double, alpha: Double = 1)
 }
 
@@ -208,6 +216,32 @@ private extension ColorCodeType {
             else { return nil }
             return .hsl(h / 360, s / 100, l / 100, alpha: a)
             
+        case .cssHWB:
+            guard
+                let match = code.wholeMatch(of: /hwb\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\)/),
+                let h = Double(match.1),
+                let w = percentageComponent(match.2),
+                let b = percentageComponent(match.3),
+                (0.0...360.0).contains(h),
+                (0.0...100.0).contains(w),
+                (0.0...100.0).contains(b)
+            else { return nil }
+            return .hwb(h / 360, w / 100, b / 100)
+            
+        case .cssHWBWithAlpha:
+            guard
+                let match = code.wholeMatch(of: /hwb\( *([0-9.]+) +([0-9.]+%?) +([0-9.]+%?) *\/ *([0-9.]+%?) *\)/),
+                let h = Double(match.1),
+                let w = percentageComponent(match.2),
+                let b = percentageComponent(match.3),
+                let a = alphaComponent(match.4),
+                (0.0...360.0).contains(h),
+                (0.0...100.0).contains(w),
+                (0.0...100.0).contains(b),
+                (0.0...1.0).contains(a)
+            else { return nil }
+            return .hwb(h / 360, w / 100, b / 100, alpha: a)
+            
         case .cssKeyword:
             guard
                 code.wholeMatch(of: /[a-zA-Z]+/) != nil,
@@ -216,4 +250,37 @@ private extension ColorCodeType {
             return ColorComponents(hex: color.value)
         }
     }
+}
+
+
+/// Returns the numeric value of the given percentage component.
+///
+/// - Parameter value: The component string with or without the percent sign.
+/// - Returns: The numeric percentage value.
+private func percentageComponent(_ value: some StringProtocol) -> Double? {
+    
+    let value = String(value)
+    let number = value.hasSuffix("%") ? String(value.dropLast()) : value
+    
+    return Double(number)
+}
+
+
+/// Returns the alpha value of the given CSS alpha component.
+///
+/// - Parameter value: The alpha component string as a number or percentage.
+/// - Returns: The alpha value between `0.0` and `1.0`.
+private func alphaComponent(_ value: some StringProtocol) -> Double? {
+    
+    let value = String(value)
+    
+    if value.hasSuffix("%") {
+        guard let alpha = Double(value.dropLast()) else {
+            return nil
+        }
+        
+        return alpha / 100
+    }
+    
+    return Double(value)
 }

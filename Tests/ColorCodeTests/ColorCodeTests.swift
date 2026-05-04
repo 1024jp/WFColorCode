@@ -37,14 +37,14 @@ struct ColorCodeTests {
     
     @Test func testCaseIteration() {
         
-        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword])
+        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha])
     }
     
     
     @Test func testTypeGroups() {
         
         #expect(ColorCodeType.hexTypes == [.hex, .hexWithAlpha, .shortHex])
-        #expect(ColorCodeType.cssTypes == [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword])
+        #expect(ColorCodeType.cssTypes == [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha])
     }
     
     
@@ -74,6 +74,12 @@ struct ColorCodeTests {
         #expect(NSColor(colorCode: "hsla(0,0%,100%,1)", type: &type) == whiteColor)
         #expect(type == .cssHSLa)
         
+        #expect(NSColor(colorCode: "hwb(0 100% 0%)", type: &type) == whiteColor)
+        #expect(type == .cssHWB)
+        
+        #expect(NSColor(colorCode: "hwb(0 100% 0% / 1)", type: &type) == whiteColor)
+        #expect(type == .cssHWBWithAlpha)
+        
         #expect(NSColor(colorCode: "white", type: &type) == whiteColor)
         #expect(type == .cssKeyword)
         
@@ -97,6 +103,10 @@ struct ColorCodeTests {
         "hsl(0,101%,0%)",
         "hsl(0,0%,101%)",
         "hsla(0,0%,100%,1.1)",
+        "hwb(0 101% 0%)",
+        "hwb(0 0% 101%)",
+        "hwb(0 0% 100% / 101%)",
+        "hwb(0,0%,100%)",
     ])
     func testOutOfRangeCSSColorComponents(_ colorCode: String) {
         
@@ -163,6 +173,41 @@ struct ColorCodeTests {
         
         #expect(type == .cssHSLa)
         #expect(color.colorCode(type: .cssHSLa) == colorCode)
+    }
+    
+    
+    @Test func testHWBColorCode() throws {
+        
+        let colorCode = "hwb(150 20% 10%)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssHWB)
+        #expect(color.colorCode(type: .hex) == "#33e68c")
+        #expect(color.colorCode(type: .cssHWB) == colorCode)
+    }
+    
+    
+    @Test func testHWBColorCodeWithAlpha() throws {
+        
+        let colorCode = "hwb(150 20% 10% / .5)"
+        var type: ColorCodeType?
+        let color = try #require(NSColor(colorCode: colorCode, type: &type))
+        
+        #expect(type == .cssHWBWithAlpha)
+        #expect(color.alphaComponent == 0.5)
+        #expect(color.colorCode(type: .cssHWBWithAlpha) == "hwb(150 20% 10% / 0.5)")
+    }
+    
+    
+    @Test func testAchromaticHWBColorCode() throws {
+        
+        let color = try #require(NSColor(colorCode: "hwb(45 40% 80%)"))
+        
+        #expect(color.redComponent.isApproximatelyEqual(to: 1 / 3))
+        #expect(color.greenComponent.isApproximatelyEqual(to: 1 / 3))
+        #expect(color.blueComponent.isApproximatelyEqual(to: 1 / 3))
+        #expect(color.colorCode(type: .cssHWB) == "hwb(0 33% 67%)")
     }
     
     

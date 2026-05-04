@@ -7,6 +7,7 @@
 
 - Add `hexTypes` and `cssTypes` static properties to `ColorCodeType`.
 - Add `hslComponents` to `NSColor` for reading HSL values without pointer arguments.
+- Support CSS `hwb()` color codes.
 
 
 ### Changed

@@ -136,6 +136,20 @@ public extension NSColor {
             }
             return unsafe String(format: "hsl(%d,%d%%,%d%%)", h, s, l)
             
+        case .cssHWB, .cssHWBWithAlpha:
+            let components = hwbComponents(red: self.redComponent.finite,
+                                           green: self.greenComponent.finite,
+                                           blue: self.blueComponent.finite)
+            
+            let h = Int((360 * components.hue).rounded())
+            let w = Int((100 * components.whiteness).rounded())
+            let b = Int((100 * components.blackness).rounded())
+            
+            if type == .cssHWBWithAlpha {
+                return unsafe String(format: "hwb(%d %d%% %d%% / %g)", h, w, b, alpha)
+            }
+            return unsafe String(format: "hwb(%d %d%% %d%%)", h, w, b)
+            
         case .cssKeyword:
             let hex = (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff)
             return KeywordColor(value: hex)?.keyword
@@ -155,6 +169,10 @@ extension NSColor {
             
         case let .hsl(h, s, l, alpha: alpha):
             self.init(calibratedHue: h, saturation: s, lightness: l, alpha: alpha)
+            
+        case let .hwb(h, w, b, alpha: alpha):
+            let rgb = rgbComponents(hue: h, whiteness: w, blackness: b)
+            self.init(calibratedRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: alpha)
             
         case let .hsb(h, s, b, alpha: alpha):
             self.init(calibratedHue: h, saturation: s, brightness: b, alpha: alpha)

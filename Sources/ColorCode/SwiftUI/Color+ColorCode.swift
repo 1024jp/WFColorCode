@@ -96,6 +96,10 @@ extension Color {
         case let .hsl(h, s, l, alpha: alpha):
             self.init(hue: h, saturation: s, lightness: l, opacity: alpha)
             
+        case let .hwb(h, w, b, alpha: alpha):
+            let rgb = rgbComponents(hue: h, whiteness: w, blackness: b)
+            self.init(.sRGB, red: rgb.red, green: rgb.green, blue: rgb.blue, opacity: alpha)
+            
         case let .hsb(h, s, b, alpha: alpha):
             self.init(hue: h, saturation: s, brightness: b, opacity: alpha)
         }
