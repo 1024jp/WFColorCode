@@ -59,18 +59,18 @@ public enum ColorCodeType: Int, CaseIterable, Sendable {
     /// CSS style color code in HSL with alpha channel. For example: `hsla(0,0%,100%,1)`
     case cssHSLa
     
-    /// CSS style color code with keyword. For example: `White`
-    case cssKeyword
-    
     /// CSS style color code in HWB. For example: `hwb(0 0% 100%)`
     case cssHWB
     
     /// CSS style color code in HWB with alpha channel. For example: `hwb(0 0% 100% / 1)`
     case cssHWBWithAlpha
     
+    /// CSS style color code with keyword. For example: `White`
+    case cssKeyword
+    
     
     public static let hexTypes: [Self] = [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha]
-    public static let cssTypes: [Self] = [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha]
+    public static let cssTypes: [Self] = [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssHWB, .cssHWBWithAlpha, .cssKeyword]
 }
 
 

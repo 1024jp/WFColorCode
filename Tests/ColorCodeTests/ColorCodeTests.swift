@@ -38,13 +38,13 @@ struct ColorCodeTests {
     
     @Test func testCaseIteration() {
         
-        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha])
+        #expect(ColorCodeType.allCases == [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha, .cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssHWB, .cssHWBWithAlpha, .cssKeyword])
     }
     
     
     @Test func testTypeGroups() {
         
         #expect(ColorCodeType.hexTypes == [.hex, .hexWithAlpha, .shortHex, .shortHexWithAlpha])
-        #expect(ColorCodeType.cssTypes == [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword, .cssHWB, .cssHWBWithAlpha])
+        #expect(ColorCodeType.cssTypes == [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssHWB, .cssHWBWithAlpha, .cssKeyword])
     }
 }

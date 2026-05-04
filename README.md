@@ -20,9 +20,9 @@ enum ColorCodeType: Int {
     case cssRGBa            // rgba(255,255,255,1)
     case cssHSL             // hsl(0,0%,100%)
     case cssHSLa            // hsla(0,0%,100%,1)
-    case cssKeyword         // White
     case cssHWB             // hwb(0 0% 100%)
     case cssHWBWithAlpha    // hwb(0 0% 100% / 1)
+    case cssKeyword         // White
 };
 ```
 

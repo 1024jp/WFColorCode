@@ -1,5 +1,13 @@
 # Change Log
 
+4.0.1 (unreleased)
+--------------------------
+
+### Breaking Changes
+
+- Update the `ColorCodeType` case order.
+
+
 4.0.0 (2026-05-04)
 --------------------------
 
